@@ -41,13 +41,14 @@ class UserDao {
     async createUser(login, hahedPassword) {
         return await this.collection.insertOne({ login: login, password: hahedPassword, books: [], token: await this.generateNewToken() });
     }
-
-    rand() {
-        return Math.random().toString(36).replace("0.", "")
-    };
     
     token() {
-        return this.rand() + this.rand() + this.rand() + "-" + this.rand() + this.rand() + this.rand()
+        const token = "";
+        const possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%&*";
+        for (let i = 0; i < 50; i++) {
+            token += possible.charAt(Math.floor(Math.random() * possible.length));
+        }
+        return token;
     };
 
     /**

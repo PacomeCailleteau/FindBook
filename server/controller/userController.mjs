@@ -9,13 +9,6 @@ export const userController = {
         }
     },
 
-    async findById(id) {
-        try {
-            return await userDao.getUserById(id);
-        } catch(e) {
-            return Promise.reject(e);
-        }
-    },
 
     async createUser(login, hahedPassword) {
         try {
