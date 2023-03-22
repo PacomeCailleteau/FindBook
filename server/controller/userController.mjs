@@ -8,9 +8,26 @@ export const userController = {
             return Promise.reject(e);
         }
     },
+
     async findById(id) {
-        // try {
+        try {
             return await userDao.getUserById(id);
+        } catch(e) {
+            return Promise.reject(e);
+        }
+    },
+
+    async createUser(login, hahedPassword) {
+        try {
+            return await userDao.createUser(login, hahedPassword);
+        } catch(e) {
+            return Promise.reject(e);
+        }
+    },
+
+    async getUserByToken(token) {
+        // try {
+            return await userDao.getUserByToken(token);
         // } catch(e) {
         //     return Promise.reject(e);
         // }

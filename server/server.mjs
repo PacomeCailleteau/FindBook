@@ -9,10 +9,11 @@ import { userController } from "./controller/userController.mjs";
 
 // --- patterns --- //
 const joiUser = Joi.object({
-    id: Joi.string().required().describe("l'id de l'utilisateur, unique dans le db"),
-    login: Joi.string().required().describe("le login de l'utilisateur, unique dans le db"),
-    password: Joi.string().required().describe("le hash du mot de passe de l'utilisateur"),
-    livres: Joi.array().items(Joi.string()).describe("la liste des ISBN des livres de l'utilisateur")
+    id: Joi.object().required().description("l'id de l'utilisateur, unique dans le db"),
+    login: Joi.string().required().description("le login de l'utilisateur, unique dans le db"),
+    password: Joi.string().required().description("le hash du mot de passe de l'utilisateur"),
+    books: Joi.array().items(Joi.string()).description("la liste des ISBN des livres de l'utilisateur"),
+    token: Joi.string().required().description("le token de l'utilisateur, unique dans le db")
 }).description("un utilisateur avec toutes ses information");
 
 const joiUsers = Joi.array().items(joiUser).description("la liste de tous les utilisateurs");
@@ -49,8 +50,42 @@ const routes = [
         method: "GET",
         path: "/users/{id}",
         handler: async (request, h) => {
-            // try {
+            try {
                 const user = await userController.findById(request.params.id)
+
+                if (user === null) {
+                    return h.response({
+                        message: "not found"
+                    }).code(404);
+                }
+                return h.response(user).code(200);
+            } catch(e) {
+                return h.response(e).code(400)
+            }
+        },
+        options: {
+            description: "retrouve un utilisateur par son id",
+            notes: "Retourne un utilisateur par son id",
+            tags: ["users"],
+            validate: {
+                params: Joi.object({
+                    id: Joi.string().required().description("l'id d'un utilisateur")
+                })
+            },
+            response: {
+                status: {
+                    200: joiUser,
+                    404: joiErreur404
+                }
+            }
+        }
+    },
+    {
+        method: "GET",
+        path: "/myUser/{token}",
+        handler: async (request, h) => {
+            // try {
+                const user = await userController.getUserByToken(request.params.token)
 
                 if (user === null) {
                     return h.response({
@@ -63,20 +98,37 @@ const routes = [
             // }
         },
         options: {
-            description: "retrouve un utilisateur par son id",
-            notes: "Retourne un utilisateur par son id",
+            description: "Get user by token",
+            notes: "Get the user associated with the token",
             tags: ["users"],
             // validate: {
             //     params: Joi.object({
-            //         id: Joi.string().required().description("l'id d'un utilisateur")
+            //         id: Joi.object().required().description("A user's token")
             //     })
             // },
-            // response: {
-            //     status: {
-            //         200: joiUser,
-            //         404: joiErreur404
-            //     }
-            // }
+            response: {
+                status: {
+                    200: joiUser,
+                    404: joiErreur404
+                }
+            }
+        }
+    },
+    {
+        method: "GET",
+        path: "/users/create/{login}/{password}",
+        handler: async (request, h) => {
+            try {
+                // FAIRE LES MESSAGES D'ERREURS
+                return h.response(await userController.createUser(request.params.login, request.params.password)).code(200)
+            } catch(e) {
+                return h.response(e).code(400)
+            }
+        },
+        options: {
+            description: "Tous les utilisateurs",
+            notes: "Retourne la liste de Tous les utilisateurs",
+            tags: ["users"]
         }
     },
     {

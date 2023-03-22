@@ -1,4 +1,5 @@
 import { MongoClient, ObjectId } from "mongodb";
+import { userModel } from "../model/userModel.mjs"
 
 
 class UserDao {
@@ -10,13 +11,69 @@ class UserDao {
     }
 
 
+    /**
+     * Get all users
+     * @returns Array of users
+     */
     async getAllUsers() {
-        return await this.collection.find({}).toArray()
+        const users = await this.collection.find({}).toArray()
+        return users.map(user => new userModel(user))
     }
 
     
+    /**
+     * Get user by id
+     * @param {string} id 
+     * @returns User
+     */
     async getUserById(id) {
-        return await this.collection.findOne({ _id: new ObjectId(id) });
+        const user = await this.collection.findOne({ _id: new ObjectId(id) });
+        return user === null ? null : new userModel(user);
+    }
+
+
+    /**
+     * Add a new user
+     * @param {string} login 
+     * @param {string} hahedPassword 
+     * @returns 
+     */
+    async createUser(login, hahedPassword) {
+        return await this.collection.insertOne({ login: login, password: hahedPassword, books: [], token: await this.generateNewToken() });
+    }
+
+    rand() {
+        return Math.random().toString(36).replace("0.", "")
+    };
+    
+    token() {
+        return this.rand() + this.rand() + this.rand() + "-" + this.rand() + this.rand() + this.rand()
+    };
+
+    /**
+     * Generate a new unique token
+     * @returns unique token
+     */
+    async generateNewToken() {
+        let token = this.token();
+        let alreadyExist = await this.collection.findOne({ token: token });
+
+        while (alreadyExist) {
+            console.log("generateNewToken");
+            token = this.token();
+            alreadyExist = await this.collection.findOne({ token: token });
+        }
+        return token;
+    }
+
+    /**
+     * Get user associated to the token
+     * @param {string} token token of the user
+     * @returns User or null
+     */
+    async getUserByToken(token) {
+        const user = await this.collection.findOne({ token: token });
+        return user === null ? null : new userModel(user);
     }
 }
 
