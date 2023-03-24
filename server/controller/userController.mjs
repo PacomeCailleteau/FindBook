@@ -19,6 +19,15 @@ export const userController = {
     },
 
 
+    async deleteUser(token) {
+        try {
+            return await userDao.deleteUser(token);
+        } catch(e) {
+            return Promise.reject(e);
+        }
+    },
+
+
     async getUserByLogin(login) {
         try {
             return await userDao.getUserByLogin(login);
@@ -28,9 +37,27 @@ export const userController = {
     },
 
 
-    async addBookToUser(token, isbn) {
+    async getUserByToken(token) {
+        try {
+            return await userDao.getUserByToken(token);
+        } catch(e) {
+            return Promise.reject(e);
+        }
+    },
+
+
+    async addBookFromUser(token, isbn) {
         // try {
-            return await userDao.addBookToUser(token, isbn)
+            return await userDao.addBookFromUser(token, isbn)
+        // } catch(e) {
+        //     return Promise.reject(e)
+        // }
+    },
+
+
+    async removeBookFromUser(token, isbn) {
+        // try {
+            return await userDao.removeBookFromUser(token, isbn)
         // } catch(e) {
         //     return Promise.reject(e)
         // }
