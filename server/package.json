@@ -16,7 +16,6 @@
     "@hapi/vision": "^7.0.1",
     "@prisma/client": "^4.11.0",
     "hapi-swagger": "^16.0.1",
-    "mongodb": "5.1",
     "nodemon": "^2.0.21"
   },
   "devDependencies": {

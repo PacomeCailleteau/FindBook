@@ -84,12 +84,12 @@ const routes = [
         method: "GET",
         path: "/users/create/{login}/{password}",
         handler: async (request, h) => {
-            try {
+            // try {
                 // FAIRE LES MESSAGES D'ERREURS
                 return h.response(await userController.createUser(request.params.login, request.params.password)).code(200)
-            } catch(e) {
-                return h.response(e).code(400)
-            }
+            // } catch(e) {
+            //     return h.response(e).code(400)
+            // }
         },
         options: {
             description: "Create a new user",

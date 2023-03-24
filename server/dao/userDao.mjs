@@ -1,4 +1,3 @@
-import { MongoClient, ObjectId } from "mongodb";
 import { userModel } from "../model/userModel.mjs"
 
 import { PrismaClient } from "@prisma/client";
@@ -6,7 +5,7 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 
-export const UserDao = {
+export const userDao = {
 
     /**
      * Get all users
@@ -40,12 +39,40 @@ export const UserDao = {
      * @returns 
      */
     async createUser(login, hahedPassword) {
-        return await prisma.user.create({
+        prisma.user.create({
             data: {
                 login: login,
                 password: hahedPassword,
-                books: []
+                books: {}
+            }
+        })
+            .then(user => {
+                console.log("User created: ", user);
+            })
+            .catch(e => {
+                console.error(e);
+            })
+        return this.getUserByLogin(login);
+    },
+
+    /**
+     * Add a new book to user
+     * @param {string} login
+     * @param {string} bookId
+     */
+    async addBookToUser(login, bookId) {
+        await prisma.user.update({
+            where: {
+                login: login
+            },
+            data: {
+                books: {
+                    connect: {
+                        id: bookId
+                    }
+                }
             }
         });
-    }
+
+    },
 }
