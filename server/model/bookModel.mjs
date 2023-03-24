@@ -1,16 +1,21 @@
 export class bookModel {
-    id
+    isbn
     title
     cover
-    isbn13
-    user_id
-    user
     constructor(book) {
-        this.id = book.id;
-        this.title = book.title;
-        this.cover = book.cover;
-        this.isbn13 = book.isbn13;
-        this.user_id = book.user_id;
-        this.user = book.user;
+        this.isbn = book.isbn
+        this.title = book.title
+        this.cover = book.cover
+    }
+}
+
+export class bookInformationModel {
+    isbn
+    title
+    cover
+    constructor(book) {
+        this.isbn = book.isbn
+        this.title = book.title
+        this.cover = book.cover
     }
 }

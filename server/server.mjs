@@ -5,6 +5,7 @@ import Hapi from "@hapi/hapi";
 import Joi from "joi";
 
 import { userController } from "./controller/userController.mjs";
+import { bookController } from "./controller/bookController.mjs";
 
 
 // --- patterns --- //
@@ -14,6 +15,12 @@ const joiUser = Joi.object({
     books: Joi.array().items(Joi.object()).description("la liste des ISBN des livres de l'utilisateur")
 }).description("un utilisateur avec toutes ses information");
 
+
+const joiBook = Joi.object({
+    isbn: Joi.number().required().description("l'ISBN du livre, unique dans le db"),
+    title: Joi.string().required().description("le titre du livre"),
+    cover: Joi.string().required().description("l'url de la couverture du livre")
+}).description("un livre avec toutes ses information");
 
 const joiErreur404 = Joi.object({
     message: Joi.string().required()
@@ -85,7 +92,7 @@ const routes = [
         path: "/users/create/{login}/{password}",
         handler: async (request, h) => {
             try {
-                // FAIRE LES MESSAGES D'ERREURS
+                // TODO: FAIRE LES MESSAGES D'ERREURS
                 return h.response(await userController.createUser(request.params.login, request.params.password)).code(200)
             } catch(e) {
                 return h.response(e).code(400)
@@ -184,6 +191,32 @@ const routes = [
             response: {
                 status: {
                     200: joiUser
+                }
+            }
+        }
+    },
+    {
+        method: "GET",
+        path: "/books/{isbn}",
+        handler: async (request, h) => {
+            try {
+                return h.response(await bookController.getBookInformation(request.params.isbn)).code(200)
+            } catch(e) {
+                return h.response(e).code(400)
+            }
+        },
+        options: {
+            description: "Get information about a book",
+            notes: "Get information about a book from an isbn",
+            tags: ["books"],
+            validate: {
+                params: Joi.object({
+                    isbn: Joi.string().required().description("A book's isbn")
+                })
+            },
+            response: {
+                status: {
+                    200: joiBook
                 }
             }
         }
