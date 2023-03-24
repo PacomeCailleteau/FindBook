@@ -10,58 +10,93 @@
         android:id="@+id/btnParametre"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:scaleType="fitCenter"
+        android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_launcher_foreground" />
+        app:srcCompat="@drawable/parametre" />
+
+    <View
+        android:id="@+id/separator_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:layout_marginBottom="3dp"
+        android:background="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/btnFavoris"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <View
+        android:id="@+id/separator_top"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:layout_marginTop="2dp"
+        android:background="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnLogo" />
 
     <ImageButton
         android:id="@+id/btnLogo"
         android:layout_width="160dp"
         android:layout_height="50dp"
+        android:scaleType="fitCenter"
+        android:background="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_launcher_foreground" />
+        app:srcCompat="@drawable/logo_findbook" />
 
     <ImageButton
-        android:id="@+id/btnAccueil"
-        android:layout_width="140dp"
+        android:id="@+id/btnHome"
+        android:layout_width="135dp"
         android:layout_height="50dp"
+        android:background="@color/white"
+        android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ic_launcher_foreground" />
-
-    <ImageButton
-        android:id="@+id/btnFavoris"
-        android:layout_width="140dp"
-        android:layout_height="50dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_launcher_foreground" />
+        app:srcCompat="@drawable/home" />
 
     <ImageButton
         android:id="@+id/btnMonCompte"
-        android:layout_width="140dp"
+        android:layout_width="135dp"
         android:layout_height="50dp"
+        android:background="@color/white"
+        android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnFavoris"
-        app:layout_constraintStart_toEndOf="@+id/btnAccueil"
-        app:srcCompat="@drawable/ic_launcher_foreground" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/mon_compte" />
+
+    <ImageButton
+        android:id="@+id/btnFavoris"
+        android:layout_width="135dp"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnMonCompte"
+        app:layout_constraintStart_toEndOf="@+id/imageButton7"
+        app:srcCompat="@drawable/favoris" />
 
     <SearchView
         android:id="@+id/SearchBar"
         android:layout_width="300dp"
         android:layout_height="75dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="40dp"
         android:alwaysDrawnWithCache="true"
+        android:iconifiedByDefault="false"
+        android:queryHint="Rechercher un livre"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textExplication" />
+        app:layout_constraintTop_toBottomOf="@+id/textExplication" >
+
+    </SearchView>
 
     <TextView
         android:id="@+id/textBienvenue"
         android:layout_width="253dp"
         android:layout_height="39dp"
-        android:layout_marginTop="75dp"
+        android:layout_marginTop="80dp"
         android:text="Bienvenue sur Findbook !"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -70,9 +105,11 @@
 
     <TextView
         android:id="@+id/textExplication"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
+        android:layout_width="379dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="8dp"
         android:text="Pour accéder au catalogue, veuillez effectuer une recherche"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -80,22 +117,26 @@
 
     <TextView
         android:id="@+id/textSeConnecter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
+        android:layout_width="370dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="8dp"
         android:text="Si vous n'avez pas de compte, vous pouvez vous connecter juste ici :"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/SearchBar" />
 
     <ImageButton
-        android:id="@+id/imageButton4"
-        android:layout_width="100dp"
-        android:layout_height="75dp"
-        android:layout_marginTop="25dp"
+        android:id="@+id/btnConnexion"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="40dp"
+        android:background="@color/white"
+        android:scaleType="fitCenter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textSeConnecter"
-        app:srcCompat="@drawable/ic_launcher_foreground" />
+        app:srcCompat="@drawable/log_in" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
