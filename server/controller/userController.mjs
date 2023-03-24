@@ -2,27 +2,37 @@ import { userDao } from "../dao/userDao.mjs";
 
 export const userController = {
     async findAll() {
-        // try {
+        try {
             return await userDao.getAllUsers();
-        // } catch(e) {
-        //     return Promise.reject(e);
-        // }
+        } catch(e) {
+            return Promise.reject(e);
+        }
     },
 
 
     async createUser(login, hahedPassword) {
-        // try {
+        try {
             return await userDao.createUser(login, hahedPassword);
-        // } catch(e) {
-        //     return Promise.reject(e);
-        // }
+        } catch(e) {
+            return Promise.reject(e);
+        }
     },
 
+
     async getUserByLogin(login) {
-        // try {
+        try {
             return await userDao.getUserByLogin(login);
+        } catch(e) {
+            return Promise.reject(e);
+        }
+    },
+
+
+    async addBookToUser(token, isbn) {
+        // try {
+            return await userDao.addBookToUser(token, isbn)
         // } catch(e) {
-        //     return Promise.reject(e);
+        //     return Promise.reject(e)
         // }
     }
 }

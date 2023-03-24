@@ -4,7 +4,7 @@ export class userModel {
     login
     books
     constructor(user) {
-        this.id = user._id;
+        this.id = user.id;
         this.login = user.login;
         this.books = user.books;
     }
