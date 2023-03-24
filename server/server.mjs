@@ -112,11 +112,11 @@ const routes = [
         method: "GET",
         path: "/users/delete/{token}",
         handler: async (request, h) => {
-            // try {
+            try {
                 return h.response(await userController.deleteUser(request.params.login, request.params.password)).code(200)
-            // } catch(e) {
-            //     return h.response(e).code(400)
-            // }
+            } catch(e) {
+                return h.response(e).code(400)
+            }
         },
         options: {
             description: "Delete a new user",
@@ -220,7 +220,7 @@ export const start = async () => {
         Inert,
         Vision,
         {
-        plugin: HapiSwagger,
+            plugin: HapiSwagger,
             options: swaggerOptions
         }
     ]);
