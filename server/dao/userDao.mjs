@@ -78,12 +78,31 @@ export const userDao = {
 
 
     /**
+     * Remove a user
+     * @param {string} token 
+     */
+    async deleteUser(token) {
+        const user = this.getUserByToken(token)
+
+        await prisma.user.delete({
+            where: {
+                token: token
+            },
+            include: {
+                books: true
+            }
+        });
+        return user;
+    },
+
+
+    /**
      * Add a new book to user
      * @param {string} token
      * @param {string} ibsn
      * @returns User
      */
-    async addBookToUser(token, ibsn) {
+    async addBookFromUser(token, ibsn) {
         // Check if user exist
         const user = await this.getUserByToken(token);
         if (user === null) {
@@ -95,12 +114,25 @@ export const userDao = {
             return user;
         }
 
+        // Check if book exist in db
+        let book = await prisma.book.findUnique({
+            where: {
+                isbn: ibsn
+            }
+        });
 
-        const book = {
-            isbn: ibsn,
-            title: "title",
-            cover: "cover"
-        } // TODO: get book from API
+        // If book doesn't exist, create it
+        if (book === null) {
+            book = await prisma.book.create({
+                data: {
+                    isbn: ibsn,
+                    title: "Unknown",
+                    cover: "https://via.placeholder.com/150",
+                    users: {}
+                }
+            });
+        }
+
 
         // Add book to user
         await prisma.user.update({
@@ -109,7 +141,47 @@ export const userDao = {
             },
             data: {
                 books: {
-                    create: book
+                    connect: {
+                        isbn: ibsn
+                    }
+                }
+            }
+        });
+
+
+        // Return user
+        return this.getUserByToken(token);
+    },
+
+
+    /**
+     * Remove a book from user
+     * @param {string} token 
+     * @param {string} ibsn 
+     * @returns User
+     */
+    async removeBookFromUser(token, ibsn) {
+        // Check if user exist
+        const user = await this.getUserByToken(token);
+        if (user === null) {
+            return null;
+        }
+
+        // Check if book already exist in user's books
+        if (!user.books.find(book => book.isbn === ibsn)) {
+            return user;
+        }
+
+        // Remove book from user
+        await prisma.user.update({
+            where: {
+                token: token
+            },
+            data: {
+                books: {
+                    delete: {
+                        isbn: ibsn
+                    }
                 }
             }
         });

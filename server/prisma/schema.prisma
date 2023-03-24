@@ -22,6 +22,5 @@ model Books {
     isbn     String    @id // l'ISBN choisi est l'isbn 13
     title String
     cover String
-    user_id Int?
-    user User? @relation(fields: [user_id], references: [id])
+    users User[]
 }
