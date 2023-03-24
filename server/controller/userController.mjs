@@ -1,4 +1,4 @@
-import { userDao } from '../dao/userDao.mjs';
+import { userDao } from "../dao/userDao.mjs";
 
 export const userController = {
     async findAll() {
@@ -11,11 +11,11 @@ export const userController = {
 
 
     async createUser(login, hahedPassword) {
-        try {
+        // try {
             return await userDao.createUser(login, hahedPassword);
-        } catch(e) {
-            return Promise.reject(e);
-        }
+        // } catch(e) {
+        //     return Promise.reject(e);
+        // }
     },
 
     async getUserByLogin(login) {
