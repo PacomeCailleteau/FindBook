@@ -18,7 +18,7 @@ model User {
     books    Book[]
 }
 
-model Book {
+model Books {
     isbn     String    @id // l'ISBN choisi est l'isbn 13
     title String
     cover String

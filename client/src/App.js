@@ -2,15 +2,18 @@
 //import './App.css';
 import AppHeader from "./header";
 import AppFooter from "./footer";
-import AppContent from "./content";
+import Main from "./Main";
+import {HashRouter} from "react-router-dom";
 
 
 function App() {
   return (
     <div className="App">
-        <AppHeader/>
-        <AppContent/>
-        <AppFooter/>
+        <HashRouter>
+            <AppHeader/>
+            <Main/>
+            <AppFooter/>
+        </HashRouter>
     </div>
   );
 }
