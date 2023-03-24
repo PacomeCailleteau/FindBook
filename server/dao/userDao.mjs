@@ -26,8 +26,8 @@ class UserDao {
      * @param {string} id 
      * @returns User
      */
-    async getUserById(id) {
-        const user = await this.collection.findOne({ _id: new ObjectId(id) });
+    async getUserByLogin(login) {
+        const user = await this.collection.findOne({ login: login });
         return user === null ? null : new userModel(user);
     }
 
@@ -39,42 +39,10 @@ class UserDao {
      * @returns 
      */
     async createUser(login, hahedPassword) {
-        return await this.collection.insertOne({ login: login, password: hahedPassword, books: [], token: await this.generateNewToken() });
-    }
-    
-    token() {
-        const token = "";
-        const possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%&*";
-        for (let i = 0; i < 50; i++) {
-            token += possible.charAt(Math.floor(Math.random() * possible.length));
+        if (true) {
+            Promise.reject("User already exists");
         }
-        return token;
-    };
-
-    /**
-     * Generate a new unique token
-     * @returns unique token
-     */
-    async generateNewToken() {
-        let token = this.token();
-        let alreadyExist = await this.collection.findOne({ token: token });
-
-        while (alreadyExist) {
-            console.log("generateNewToken");
-            token = this.token();
-            alreadyExist = await this.collection.findOne({ token: token });
-        }
-        return token;
-    }
-
-    /**
-     * Get user associated to the token
-     * @param {string} token token of the user
-     * @returns User or null
-     */
-    async getUserByToken(token) {
-        const user = await this.collection.findOne({ token: token });
-        return user === null ? null : new userModel(user);
+        return await this.collection.insertOne({ login: login, password: hahedPassword, books: []});
     }
 }
 

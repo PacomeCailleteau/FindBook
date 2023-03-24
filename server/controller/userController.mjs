@@ -2,11 +2,11 @@ import { userDao } from '../dao/userDao.mjs';
 
 export const userController = {
     async findAll() {
-        try {
+        // try {
             return await userDao.getAllUsers();
-        } catch(e) {
-            return Promise.reject(e);
-        }
+        // } catch(e) {
+        //     return Promise.reject(e);
+        // }
     },
 
 
@@ -18,9 +18,9 @@ export const userController = {
         }
     },
 
-    async getUserByToken(token) {
+    async getUserByLogin(login) {
         // try {
-            return await userDao.getUserByToken(token);
+            return await userDao.getUserByLogin(login);
         // } catch(e) {
         //     return Promise.reject(e);
         // }

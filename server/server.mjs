@@ -34,24 +34,24 @@ const routes = [
         method: "GET",
         path: "/users",
         handler: async (request, h) => {
-            try {
+            // try {
                 return h.response(await userController.findAll()).code(200)
-            } catch(e) {
-                return h.response(e).code(400)
-            }
+            // } catch(e) {
+            //     return h.response(e).code(400)
+            // }
         },
         options: {
-            description: "Tous les utilisateurs",
-            notes: "Retourne la liste de Tous les utilisateurs",
+            description: "Get all users",
+            notes: "Get all users",
             tags: ["users"]
         }
     },
     {
         method: "GET",
-        path: "/users/{token}",
+        path: "/users/{login}",
         handler: async (request, h) => {
             try {
-                const user = await userController.getUserByToken(request.params.token)
+                const user = await userController.getUserByLogin(request.params.login)
 
                 if (user === null) {
                     return h.response({
@@ -64,12 +64,12 @@ const routes = [
             }
         },
         options: {
-            description: "Get user by token",
-            notes: "Get the user associated with the token",
+            description: "Get user by login",
+            notes: "Get the user associated with the login",
             tags: ["users"],
             validate: {
                 params: Joi.object({
-                    token: Joi.string().required().description("A user's token")
+                    login: Joi.string().required().description("A user's login")
                 })
             },
             response: {
