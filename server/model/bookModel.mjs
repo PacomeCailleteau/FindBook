@@ -2,20 +2,23 @@ export class bookModel {
     isbn
     title
     cover
+    authors
+    publishedDate
+    description
     constructor(book) {
-        this.isbn = book.isbn
-        this.title = book.title
-        this.cover = book.cover
-    }
-}
+        
+        book.industryIdentifiers.forEach(element => {
+            if (element.type === "ISBN_13") {
+                this.isbn = element.identifier
+            }
+        });
 
-export class bookInformationModel {
-    isbn
-    title
-    cover
-    constructor(book) {
-        this.isbn = book.isbn
         this.title = book.title
-        this.cover = book.cover
+        if (book.imageLinks) {
+            this.cover = book.imageLinks.thumbnail
+        }
+        this.authors = book.authors
+        this.publishedDate = book.publishedDate
+        this.description = book.description
     }
 }

@@ -7,5 +7,14 @@ export const bookController = {
         } catch(e) {
             Promise.reject(e)
         }
+    },
+
+
+    async searchBookInformation(search) {
+        try {
+            return await bookDao.searchBookInformation(search)
+        } catch(e) {
+            Promise.reject(e)
+        }
     }
 }

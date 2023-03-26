@@ -47,19 +47,19 @@ export const userController = {
 
 
     async addBookFromUser(token, isbn) {
-        // try {
+        try {
             return await userDao.addBookFromUser(token, isbn)
-        // } catch(e) {
-        //     return Promise.reject(e)
-        // }
+        } catch(e) {
+            return Promise.reject(e)
+        }
     },
 
 
     async removeBookFromUser(token, isbn) {
-        // try {
+        try {
             return await userDao.removeBookFromUser(token, isbn)
-        // } catch(e) {
-        //     return Promise.reject(e)
-        // }
+        } catch(e) {
+            return Promise.reject(e)
+        }
     }
 }

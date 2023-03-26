@@ -3,7 +3,7 @@ import { userModel } from "../model/userModel.mjs"
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
-
+import { bookDao } from "./bookDao.mjs"
 
 export const userDao = {
 
@@ -115,7 +115,7 @@ export const userDao = {
         }
 
         // Check if book exist in db
-        let book = await prisma.book.findUnique({
+        let book = await prisma.books.findUnique({
             where: {
                 isbn: ibsn
             }
@@ -123,14 +123,19 @@ export const userDao = {
 
         // If book doesn't exist, create it
         if (book === null) {
-            book = await prisma.book.create({
+            book = await bookDao.getBookInformation(ibsn);
+            if (!book.cover) {
+                book.cover = "";
+            }
+
+            // add book to db 
+            await prisma.books.create({
                 data: {
-                    isbn: ibsn,
-                    title: "Unknown",
-                    cover: "https://via.placeholder.com/150",
-                    users: {}
+                    isbn: book.isbn,
+                    title: book.title,
+                    cover: book.cover
                 }
-            });
+            })
         }
 
 
@@ -146,7 +151,7 @@ export const userDao = {
                     }
                 }
             }
-        });
+        })
 
 
         // Return user

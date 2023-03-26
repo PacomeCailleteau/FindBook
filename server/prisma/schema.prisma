@@ -15,7 +15,7 @@ model User {
     login    String   @unique
     password String
     token    String   @unique
-    books    Book[]
+    books    Books[]
 }
 
 model Books {
