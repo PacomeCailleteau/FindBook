@@ -19,6 +19,15 @@ export const userController = {
     },
 
 
+    async loginUser(login, hahedPassword) {
+        try {
+            return await userDao.loginUser(login, hahedPassword);
+        } catch(e) {
+            return Promise.reject(e);
+        }
+    },
+
+
     async deleteUser(token) {
         try {
             return await userDao.deleteUser(token);

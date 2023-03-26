@@ -10,27 +10,32 @@ import { bookController } from "./controller/bookController.mjs";
 
 // --- patterns --- //
 const joiUser = Joi.object({
-    id: Joi.number().required().description("l'id de l'utilisateur, unique dans le db"),
-    login: Joi.string().required().description("le login de l'utilisateur, unique dans le db"),
-    books: Joi.array().items(Joi.object()).description("la liste des ISBN des livres de l'utilisateur")
-}).description("un utilisateur avec toutes ses information");
+    id: Joi.number().required().description("User's id"),
+    login: Joi.string().required().description("User's login"),
+    books: Joi.array().items(Joi.object()).description("Isbn of the books the user has read"),
+}).description("A user with all his information");
 
 
 const joiBook = Joi.object({
-    isbn: Joi.number().required().description("l'ISBN du livre, unique dans le db"),
-    title: Joi.string().required().description("le titre du livre"),
-    cover: Joi.string().required().description("l'url de la couverture du livre")
-}).description("un livre avec toutes ses information");
+    isbn: Joi.number().required().description("Book's isbn, unique identifier"),
+    title: Joi.string().required().description("Book's title"),
+    cover: Joi.string().description("Book's cover"),
+    authors: Joi.array().items(Joi.string()).description("Book's authors"),
+    publishedDate: Joi.string().description("Book's published date"),
+    description: Joi.string().description("Book's description"),
+}).description("A book with all his information");
 
-const joiErreur404 = Joi.object({
+const joiBooks = Joi.array().items(joiBook).description("An array of books");
+
+const joiErreur = Joi.object({
     message: Joi.string().required()
-}).description("erreur 404");
+}).description("An error message");
+
 // --- Swagger --- //
 const swaggerOptions = {
     info: {
-        title: "L'API de Findbook",
-        version: "0.1.0",
-        description: "L'API de Findbook"
+        title: "Findbook API",
+        version: "1.0.0"
     }
 };
 
@@ -82,7 +87,7 @@ const routes = [
             response: {
                 status: {
                     200: joiUser,
-                    404: joiErreur404
+                    404: joiErreur
                 }
             }
         }
@@ -92,8 +97,15 @@ const routes = [
         path: "/users/create/{login}/{password}",
         handler: async (request, h) => {
             try {
-                // TODO: FAIRE LES MESSAGES D'ERREURS
-                return h.response(await userController.createUser(request.params.login, request.params.password)).code(200)
+                const user = await userController.createUser(request.params.login, request.params.password)
+
+                if (user === null) {
+                    return h.response({
+                        message: "user already exists"
+                    }).code(409);
+                }
+                return h.response(user).code(200);
+
             } catch(e) {
                 return h.response(e).code(400)
             }
@@ -111,6 +123,47 @@ const routes = [
             response: {
                 status: {
                     200: joiUser
+                }
+            }
+        }
+    },
+    {
+        method: "GET",
+        path: "/users/login/{login}/{password}",
+        handler: async (request, h) => {
+            try {
+                const [token, user] = await userController.loginUser(request.params.login, request.params.password)
+
+                if (user === null) {
+                    return h.response({
+                        message: "user not found"
+                    }).code(404);
+                }
+
+                return h.response({
+                    token: token,
+                    user: user
+                }).code(200);
+            } catch(e) {
+                return h.response(e).code(400)
+            }
+        },
+        options: {
+            description: "Login a user",
+            notes: "Login a user from a login and a password, return token and user",
+            tags: ["users"],
+            validate: {
+                params: Joi.object({
+                    login: Joi.string().required().description("A user's login"),
+                    password: Joi.string().required().description("A user's password")
+                })
+            },
+            response: {
+                status: {
+                    200: Joi.object({
+                        token: Joi.string().required().description("A user's token"),
+                        user: joiUser
+                    })
                 }
             }
         }
@@ -152,17 +205,17 @@ const routes = [
             }
         },
         options: {
-            description: "Delete a new user",
-            notes: "Delete a user from a token",
-            tags: ["users"],
+            description: "Search a books by title",
+            notes: "Search a books by title",
+            tags: ["books"],
             validate: {
                 params: Joi.object({
-                    token: Joi.string().required().description("A user's token")
+                    searchTerm: Joi.string().required().description("search term")
                 })
             },
             response: {
                 status: {
-                    200: joiUser
+                    200: joiBooks
                 }
             }
         }
@@ -172,23 +225,29 @@ const routes = [
         path: "/books/isbn/{isbn}",
         handler: async (request, h) => {
             try {
-                return h.response(await bookController.getBookInformation(request.params.isbn)).code(200)
+                const book = await bookController.getBookInformation(request.params.isbn)
+                if (book === null) {
+                    return h.response({
+                        message: "book not found"
+                    }).code(404);
+                }
+                return h.response(book).code(200);
             } catch(e) {
                 return h.response(e).code(400)
             }
         },
         options: {
-            description: "Delete a new user",
-            notes: "Delete a user from a token",
-            tags: ["users"],
+            description: "Get a book by isbn",
+            notes: "Get a book by isbn",
+            tags: ["books"],
             validate: {
                 params: Joi.object({
-                    token: Joi.string().required().description("A user's token")
+                    isbn: Joi.string().required().description("a book's isbn")
                 })
             },
             response: {
                 status: {
-                    200: joiUser
+                    200: joiBook
                 }
             }
         }

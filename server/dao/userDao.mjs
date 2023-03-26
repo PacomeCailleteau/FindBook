@@ -64,6 +64,12 @@ export const userDao = {
      * @returns User
      */
     async createUser(login, hahedPassword) {
+        // Check if user already exist
+        const user = await this.getUserByLogin(login);
+        if (user !== null) {
+            return null;
+        }
+
         const token = await this.generateNewToken()
         await prisma.user.create({
             data: {
@@ -74,6 +80,22 @@ export const userDao = {
             }
         });
         return this.getUserByToken(token);
+    },
+
+
+    async loginUser(login, hahedPassword) {
+        let user = await prisma.user.findFirst({
+            where: {
+                login: login,
+                password: hahedPassword
+            },
+            include: {
+                books: true
+            }
+        });
+
+        const usermodel = user === null ? null : new userModel(user)
+        return [user.token, usermodel];
     },
 
 
