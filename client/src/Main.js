@@ -7,9 +7,9 @@ import {
     HashRouter
 } from "react-router-dom";
 
-import appFooter from "./footer";
-import appHeader from "./header"
-import appContent from "./content"
+import AppFooter from "./AppFooter";
+import AppHeader from "./AppHeader"
+import AppContent from "./AppContent"
 
 
 class Main extends Component {
@@ -21,9 +21,9 @@ class Main extends Component {
             <div>
                 <div className="content">
                     <Routes>
-                        <Route exact path="/" Component={appContent} />
-                        <Route path="/search" Component={appHeader} />
-                        <Route path="/S4" Component={appContent} />
+                        <Route exact path="/" Component={AppContent} />
+                        <Route path="/search" Component={AppHeader} />
+                        <Route path="/S4" Component={AppContent} />
                     </Routes>
                 </div>
             </div>

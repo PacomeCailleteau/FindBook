@@ -1,9 +1,6 @@
 
 import React from "react";
 
-/*TODO("ajouter l'image par défaut")*/
-const defautImage = "img"
-
 class Books extends React.Component {
     constructor(props) {
         super(props);
@@ -12,7 +9,7 @@ class Books extends React.Component {
     render() {
         return(
             <article className={"book"}>
-                <img src={this.props.img} alt={this.props.defautImage}/>
+                <img src={this.props.img} alt="image du livre"/>
                 <div>{this.props.titre}</div>
             </article>
         )
