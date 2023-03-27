@@ -10,9 +10,10 @@ import {
 import AppFooter from "./AppFooter";
 import AppHeader from "./AppHeader"
 import AppContent from "./AppContent"
+import Connexion from "./Connexion"
 
 
-class Main extends Component {
+class Main extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -24,7 +25,7 @@ class Main extends Component {
                     <Routes>
                         <Route exact path="/" Component={AppContent} />
                         <Route path="/search" Component={AppHeader} />
-                        <Route path="/S4" Component={AppContent} />
+                        <Route path="/connexion" Component={Connexion} />
                     </Routes>
                 </div>
             </div>
