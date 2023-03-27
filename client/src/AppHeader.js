@@ -1,16 +1,15 @@
-import {NavLink} from "react-router-dom";
-import React, {useState} from "react";
+import {HashRouter, NavLink} from "react-router-dom";
+import React from "react";
+import './AppHeader.css';
 
 function AppHeader() {
-
     return (
         <header className="header">
             <nav className="header-navbar">
-                {/*TODO("rajouter les images")*/}
                 {/*logo
                 to="/" signifie qu'on renvoie sur la page par défaut*/}
                 <NavLink to="/">
-                    <img src="images/Logo.png" alt={"LOGO"}/>
+                    <img src="https://cdn.discordapp.com/attachments/1081164623044157530/1088854052768579644/Logo_Findbook.png" alt={"LOGO"}/>
                 </NavLink>
 
                 {/*accueil*/}
@@ -25,7 +24,7 @@ function AppHeader() {
                 {/*Favoris*/}
                 <div className="favoris">
                     <NavLink to="/favoris">
-                        <img src="images/cadis.png" className="cart" alt=""/>
+                        <img src="https://cdn.discordapp.com/attachments/1081164623044157530/1088854177238745209/star_2.png" className="cart" alt=""/>
                         <h2>Favoris</h2>
                     </NavLink>
                 </div>
@@ -33,7 +32,7 @@ function AppHeader() {
                 {/*Connexion | Mon compte*/}
                 <div className="connexion">
                     <NavLink to="/connexion">
-                        <img src="images/pers.png" className="pers" alt=""/>
+                        <img src="https://cdn.discordapp.com/attachments/1081164623044157530/1088854177024843776/PP.png" className="pers" alt=""/>
                         <h2>Connexion</h2>
                     </NavLink>
                 </div>

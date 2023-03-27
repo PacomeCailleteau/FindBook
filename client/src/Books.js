@@ -11,9 +11,10 @@ class Books extends React.Component {
         return(
             <article className={"book"}>
                 <img src={this.props.img} alt="image du livre"/>
-                <div>{this.props.titre}</div>
+                <h3>{this.props.titre}</h3>
                 <div>{"isbn13: " + this.props.isbn}</div>
             </article>
+
         )
     }
 }
