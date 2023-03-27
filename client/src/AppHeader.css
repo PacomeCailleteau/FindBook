@@ -29,6 +29,7 @@ header{
     position: -webkit-sticky;
     background: rgb(255,255,255);
     background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(237,224,212,1) 100%);
+    box-shadow: 0px 10px 20px var(--line-color-light);
 }
 
 h2{
