@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 import AppContent from "./AppContent"
 import BookDetail from "./BookDetail"
+import Connexion from "./Connexion"
 
 
 class Main extends React.Component {
@@ -20,7 +21,7 @@ class Main extends React.Component {
                     <Routes>
                         <Route exact path="/" Component={AppContent} />
                         <Route path="/book" Component={BookDetail} />
-                        <Route path="/S4" Component={AppContent} />
+                        <Route path="/connexion" Component={Connexion} />
                     </Routes>
                 </div>
             </div>

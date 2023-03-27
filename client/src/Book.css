@@ -25,8 +25,6 @@ h3{
     align-items: baseline;
     width: 80%;
     margin: auto;
-
-    border-bottom: 0.01em solid var(--border-color);
 }
 
 .book {
@@ -36,9 +34,9 @@ h3{
     align-items: center;
     justify-content: center;
     width: 20%;
-    border-bottom: 0.01em solid #dddbdb;
     text-align: center;
     object-fit: contain;
+    text-decoration: none;
 }
 
 .book > img{
@@ -54,39 +52,6 @@ h3{
     text-align: center;
 }
 
-.images{
-    position: relative;
-}
-.images:hover {
-    box-shadow: 0px 3px 9px rgba(45, 3, 59, 0.4);
-    -webkit-box-shadow: 0px 3px 9px rgba(45, 3, 59, 0.4);
-    -moz-box-shadow: 0px 3px 9px rgba(45, 3, 59, 0.4);
-}
-
-.images > a > img {
-    background-size: cover; 
-    background-position: center center; 
-    background-repeat: no-repeat;
-    border-radius: 2% 2% 0 0;
-    transition: all 1s ease;
-    -moz-transition: all 1s ease;
-    -ms-transition: all 1s ease;
-    -webkit-transition: all 1s ease;
-    -o-transition: all 1s ease;
-}
-    
-.images > a > img{
-    width: 100%;
-    height: 100%;
-    aspect-ratio: 12/19;
-    object-fit:cover;
-    display: block;
-}
-
-.images > a > .hoverable:hover {
-transform: scale(0.9);
-border-radius: 2%;
-}
 
 
 
