@@ -11,6 +11,7 @@ import AppFooter from "./AppFooter";
 import AppHeader from "./AppHeader"
 import AppContent from "./AppContent"
 import Connexion from "./Connexion"
+import Inscription from "./Inscription"
 
 
 class Main extends React.Component {
@@ -26,6 +27,7 @@ class Main extends React.Component {
                         <Route exact path="/" Component={AppContent} />
                         <Route path="/search" Component={AppHeader} />
                         <Route path="/connexion" Component={Connexion} />
+                        <Route path="/inscription" Component={Inscription} />
                     </Routes>
                 </div>
             </div>
