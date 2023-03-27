@@ -25,6 +25,8 @@ h3{
     align-items: baseline;
     width: 80%;
     margin: auto;
+    margin-top: 5%;
+    margin-bottom: 10%;
 }
 
 .book {
@@ -37,12 +39,18 @@ h3{
     text-align: center;
     object-fit: contain;
     text-decoration: none;
+    transition: 0.3s;
 }
 
 .book > img{
     margin: 15%;
     object-fit: cover;
     height: 200px;
+}
+
+.book:hover{
+    transform: scale(1.05);
+    transition: 0.3s;
 }
 
 .book > div{

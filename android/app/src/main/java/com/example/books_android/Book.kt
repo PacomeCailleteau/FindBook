@@ -4,7 +4,7 @@ data class Book (
     var title: String,
     var image: String,
     var isbn: String,
-    var auteur: String,
+    var auteurs: Array<String>,
     var date: String,
     var categorie: String,
     var description: String

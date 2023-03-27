@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ConnexionActivity">
+
+    <TextView
+        android:id="@+id/titreConnexion"
+        android:layout_width="253dp"
+        android:layout_height="39dp"
+        android:layout_marginTop="80dp"
+        android:text="Connexion"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnLogo" />
+
+    <TextView
+        android:id="@+id/texteMail"
+        android:layout_width="253dp"
+        android:layout_height="39dp"
+        android:layout_marginTop="40dp"
+        android:text="Votre adresse mail :"
+        android:textAlignment="textStart"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titreConnexion" />
+
+    <TextView
+        android:id="@+id/textMdp"
+        android:layout_width="253dp"
+        android:layout_height="39dp"
+        android:text="Votre mot de passe :"
+        android:textAlignment="textStart"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/editTextEmail"
+        tools:layout_editor_absoluteY="313dp" />
+
+    <ImageButton
+        android:id="@+id/btnParametre"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        android:scaleType="fitCenter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/parametre" />
+
+    <View
+        android:id="@+id/separator_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:layout_marginBottom="3dp"
+        android:background="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/btnFavoris"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <View
+        android:id="@+id/separator_top"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:layout_marginTop="2dp"
+        android:background="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnLogo" />
+
+    <ImageButton
+        android:id="@+id/btnLogo"
+        android:layout_width="160dp"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        android:scaleType="fitCenter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo_findbook" />
+
+    <ImageButton
+        android:id="@+id/btnHome"
+        android:layout_width="135dp"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        android:padding="8dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/home" />
+
+    <ImageButton
+        android:id="@+id/btnMonCompte"
+        android:layout_width="135dp"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        android:padding="6dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/mon_compte" />
+
+    <ImageButton
+        android:id="@+id/btnFavoris"
+        android:layout_width="135dp"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        android:padding="4dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnMonCompte"
+        app:layout_constraintStart_toEndOf="@+id/btnHome"
+        app:srcCompat="@drawable/favoris" />
+
+    <Button
+        android:id="@+id/btnSeConnecter"
+        android:layout_width="254dp"
+        android:layout_height="57dp"
+        android:backgroundTint="#7F5539"
+        android:text="Se connecter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="417dp" />
+
+    <TextView
+        android:id="@+id/textCreerCompte"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="Je n'ai pas de compte ? Je m'en"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/textCreerCompteLink"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSeConnecter" />
+
+    <TextView
+        android:id="@+id/textCreerCompteLink"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:linksClickable="false"
+        android:text=" crée un."
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textCreerCompte"
+        app:layout_constraintTop_toTopOf="@+id/textCreerCompte" />
+
+    <EditText
+        android:id="@+id/editTextEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        app:layout_constraintStart_toStartOf="@+id/texteMail"
+        app:layout_constraintTop_toBottomOf="@+id/texteMail" />
+
+    <EditText
+        android:id="@+id/editTextPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPassword"
+        app:layout_constraintStart_toStartOf="@+id/textMdp"
+        app:layout_constraintTop_toBottomOf="@+id/textMdp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
