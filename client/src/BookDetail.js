@@ -2,6 +2,7 @@
 import React, {useEffect, useState} from "react";
 import {useLocation} from "react-router-dom";
 import bookDAO from "./bookDAO"
+import "./BookDetail.css"
 
 
 function BookDetail (){
@@ -37,19 +38,64 @@ function BookDetail (){
 
     if (pasOk){
         return(
-            <div className={"chargement"}>CHARGEMENT...</div>
+            <div>
+                <div className={"chargement"}>
+                    <h3>
+                        Chargement du livre...
+                    </h3>
+                    <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+                </div>
+            </div>
         )
     }
 
     return(
-        <div className="book">
-            <img src={getImage(book.volumeInfo)} alt="image du livre"/>
-            <h3>{book.volumeInfo.title}</h3>
-            <div>{"isbn13: " + isbn}</div>
-            <div>{book.volumeInfo.publishedDate}</div>
-            <div>{book.volumeInfo.authors}</div>
-            <div>{book.volumeInfo.categories}</div>
-            <div>{book.volumeInfo.description}</div>
+        <div className="Produit">
+            <div className="horizontal">
+                <div className="image-box">
+                    <img src={getImage(book.volumeInfo)} alt="image du livre"/>
+                </div>
+                <div className="text-box">
+                    <div>
+                        <h2>Nom:</h2>
+                        <h3>{book.volumeInfo.title}</h3>
+                    </div>
+                    <div>
+                        <h2>ISBN:</h2>
+                        <h3>{"isbn13: " + isbn}</h3>
+                    </div>
+                    <div>
+                        <h2>Date de publication:</h2>
+                        <h3>{book.volumeInfo.publishedDate}</h3>
+                    </div>
+                    <div>
+                        <h2>Auteur(s):</h2>
+                        <h3>{book.volumeInfo.authors}</h3>
+                    </div>
+                    <div>
+                        <h2>Catégorie(s):</h2>
+                        <h3>{book.volumeInfo.categories}</h3>
+                    </div>
+                    <div className="button-div">
+                        <form action='#' methode='post'>
+                            <button type='submit' name='item-1-button' id='item-1-button'><h2>Ajouter aux Favoris</h2>
+                            <img src="https://cdn.discordapp.com/attachments/1081164623044157530/1088866478176079972/star_2_selected.png" alt='Favoris selected icon'></img>
+                            </button>
+                        </form>
+                        <form action='#' methode='post'>
+                            <button type='submit' name='item-1-button' id='item-1-button'><h2>Acheter sur Amazon</h2>
+                            <img src="https://cdn.discordapp.com/attachments/1081164623044157530/1089934411555934298/amazon.png" alt='Favoris selected icon'></img>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div className="text-box">
+                <div>
+                    <h2>Description:</h2>
+                    <h3>{book.volumeInfo.description}</h3>
+                </div>
+            </div>
         </div>
     )
 }
