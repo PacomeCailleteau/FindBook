@@ -1,0 +1,46 @@
+:root{
+    --noir: #000;
+    --noir-light: rgba(0, 0, 0, 0.671);
+    --couleur-fond: #FFFFFF;
+    --couleur-fond-light: #ffffffe8;
+    --line-color: #B08968;
+    --line-color-light: #DDB8926c;
+    --border-color: #E6CCB2;
+    --contrast-color: #dd5555;
+    --button-color: #7F5539;
+    --button-color-light: #9C6644;
+    --violet-foncee: #2D033B;
+}
+
+.search{
+    display: flex;
+    justify-content: center;
+    margin-top: 5%;
+    transition: 0.3s;
+}
+.search:hover{
+    scale: 1.05;
+    transition: 0.5s;
+}
+
+.search input[type=text]{
+    width:300px;
+    height:30px;
+    border-radius:25px;
+    border: 1px solid var(--line-color);
+    outline: none;
+}
+
+.search img{
+    height: 40px;
+    margin: 10px 10px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: 0.3s;
+    opacity: 80%;
+}
+
+.search img:hover{
+    scale: 1.1;
+    opacity: 100%;
+}

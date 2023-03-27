@@ -1,3 +1,65 @@
+:root{
+    --noir: #000;
+    --noir-light: rgba(0, 0, 0, 0.671);
+    --couleur-fond: #FFFFFF;
+    --couleur-fond-light: #ffffffe8;
+    --line-color: #B08968;
+    --line-color-light: #DDB8926c;
+    --border-color: #E6CCB2;
+    --contrast-color: #dd5555;
+    --button-color: #7F5539;
+    --button-color-light: #9C6644;
+    --violet-foncee: #2D033B;
+}
+
+h3{
+    color: var(--button-color-light);
+    text-align: center;
+}
+
+.bookCard{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    align-items: baseline;
+    width: 80%;
+    margin: auto;
+    margin-top: 5%;
+    margin-bottom: 10%;
+}
+
+.book {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    width: 20%;
+    text-align: center;
+    object-fit: contain;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.book > img{
+    margin: 15%;
+    object-fit: cover;
+    height: 200px;
+}
+
+.book:hover{
+    transform: scale(1.05);
+    transition: 0.3s;
+}
+
+.book > div{
+    color: var(--noir);
+    clear: left;
+    width: 100%;
+    text-align: center;
+}
+
 
 
 

@@ -1,5 +1,25 @@
+:root{
+    --noir: #000;
+    --noir-light: rgba(0, 0, 0, 0.671);
+    --couleur-fond: #FFFFFF;
+    --couleur-fond-light: #ffffffe8;
+    --line-color: #B08968;
+    --line-color-light: #DDB8926c;
+    --border-color: #E6CCB2;
+    --contrast-color: #dd5555;
+    --button-color: #7F5539;
+    --button-color-light: #9C6644;
+    --violet-foncee: #2D033B;
+}
 
-
+body{
+    background: var(--couleur-fond);
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    color: var(--noir);
+    margin: 0;
+    padding: 0;
+}
 
 header{
     padding: 1%;
@@ -7,10 +27,13 @@ header{
     z-index: 2;
     position: sticky;
     position: -webkit-sticky;
-    background: rgb(0,0,0);
-    background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(45, 3, 59, 1) 100%);
-    /*border: solid blue;
-    border-radius: 5px;*/
+    background: rgb(255,255,255);
+    background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(237,224,212,1) 100%);
+    box-shadow: 0px 10px 20px var(--line-color-light);
+}
+
+h2{
+    color: var(--button-color);
 }
 
 .header-navbar{
@@ -23,26 +46,28 @@ header{
     text-align: center;
     width: 90%;
     min-width: 1100px;
-    /*border: solid black;
-    border-radius: 5px;*/
 }
 
-
-.header-navbar > a, .header-navbar > div > a {
+.header-navbar > a, .header-navbar > div > a, .favoris:hover, .connexion:hover  {
     text-decoration: none;
     transition: 0.3s;
-    /*border: solid black;
-    border-radius: 5px;*/
 }
 
-.header-navbar > a:hover {
+.header-navbar > a:hover, .favoris:hover, .connexion:hover {
     transform: scale(1.1);
+    transform: 0.3s;
 }
 
 .header-navbar > a > img{
-    height: 80px;
-    /*border: solid black;
-    border-radius: 5px;*/
+    height: 150px;
+}
+
+.favoris > a > img{
+    height: 50px;
+}
+
+.connexion > a > img{
+    height: 50px;
 }
 
 .header-navbar > div > a{
@@ -50,55 +75,11 @@ header{
     flex-shrink: 1;
 }
 
-.pers, .cart{
-    height: 40px;
-    top: 45px;
-    cursor: pointer;
-    padding-top: 10%;
-}
-.header-navbar > .link{
-    opacity: 90%;
-    transition: 0.3s;
-}
-.header-navbar > .link:hover{
-    opacity: 100%;
-    transform: scale(1.1);
-    transition: 0.3s;
-}
 .header-navbar > div:focus{
     opacity: 100%;
     transform: scale(1.1);
 }
 
-.search{
-    transition: 0.3s;
-}
-.search:hover{
-    scale: 1.05;
-    transition: 0.5s;
-}
-
-.search input[type=text]{
-    width:300px;
-    height:25px;
-    border-radius:25px;
-    border: none;
-    outline: none;
-}
-
-.search img{
-    height: 40px;
-    margin: 10px 10px;
-    font-size: 12px;
-    cursor: pointer;
-    transition: 0.3s;
-    opacity: 80%;
-}
-
-.search img:hover{
-    scale: 1.1;
-    opacity: 100%;
-}
 
 
 
