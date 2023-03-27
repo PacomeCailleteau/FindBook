@@ -1,18 +1,14 @@
-import React, { Component } from "react";
 
+import React  from "react";
 import {
     Routes,
     Route,
-    NavLink,
-    HashRouter
 } from "react-router-dom";
-
-import AppFooter from "./AppFooter";
-import AppHeader from "./AppHeader"
 import AppContent from "./AppContent"
+import BookDetail from "./BookDetail"
 
 
-class Main extends Component {
+class Main extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -23,7 +19,7 @@ class Main extends Component {
                 <div className="content">
                     <Routes>
                         <Route exact path="/" Component={AppContent} />
-                        <Route path="/search" Component={AppHeader} />
+                        <Route path="/book" Component={BookDetail} />
                         <Route path="/S4" Component={AppContent} />
                     </Routes>
                 </div>
