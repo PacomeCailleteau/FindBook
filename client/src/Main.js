@@ -1,15 +1,11 @@
-import React, { Component } from "react";
 
+import React  from "react";
 import {
     Routes,
     Route,
-    NavLink,
-    HashRouter
 } from "react-router-dom";
-
-import AppFooter from "./AppFooter";
-import AppHeader from "./AppHeader"
 import AppContent from "./AppContent"
+import BookDetail from "./BookDetail"
 import Connexion from "./Connexion"
 import Inscription from "./Inscription"
 
@@ -25,7 +21,7 @@ class Main extends React.Component {
                 <div className="content">
                     <Routes>
                         <Route exact path="/" Component={AppContent} />
-                        <Route path="/search" Component={AppHeader} />
+                        <Route path="/book" Component={BookDetail} />
                         <Route path="/connexion" Component={Connexion} />
                         <Route path="/inscription" Component={Inscription} />
                     </Routes>
