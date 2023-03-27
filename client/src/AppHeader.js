@@ -3,7 +3,7 @@ import React from "react";
 
 function AppHeader() {
     return (
-        <header className="App-header">
+        <header className="header">
             <nav className="header-navbar">
                 {/*TODO("rajouter les images")*/}
                 {/*logo

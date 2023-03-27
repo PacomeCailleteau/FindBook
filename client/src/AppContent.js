@@ -40,7 +40,7 @@ class AppContent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            query: "hunter x hunter",
+            query: "le seigneur des anneaux",
             books: [],
         }
     }
@@ -60,60 +60,55 @@ class AppContent extends React.Component {
         //sinon on appelle l'api google pour récupéré les livres correspondant à la recherche
         else{
             console.log(bookDAO)
-            
             bookDAO.findMany(this.state.query)
                 .then(data => {
-                    this.setState({books: data.items})
+                    const res = data.items
+                    this.setState({books: res})
                 })
         }
     }
 
     //TODO(gerer le fait que isbn 13 puisse être en minuscule ou que le tableau puisse être de différente taille)
+    /**
+     * renvoie l'isbn13 du livre
+     * @param array
+     * @returns {undefined|number|Identifier|Identifier|Identifier|string}
+     */
     goodIsbn(array) {
-        if (array[1].type=="ISBN_13")
-            return array[1].identifier
-        else if (array[0].type=="ISBN_13")
-            return array[0].identifier
-        else 
+        if (array == undefined)
             return undefined
+        for (let i in array) {
+            if (array[i].type == "ISBN_13")
+                return array[0].identifier
+        }
+        return undefined
     }
 
-    //obj correspond à book.volumeInfo
+    /**
+     * renvoie l'image associé au livre ou une image indisponible
+     * obj correspond à book.volumeInfo
+     * @param obj
+     * @returns {*|string}
+     */
     getImage(obj) {
-        //book.volumeInfo.imageLinks.thumbnail
         if ("imageLinks" in obj){
             if ("thumbnail" in obj.imageLinks){
                 return obj.imageLinks.thumbnail
             }
         }
-        //TODO("faire en sorte de définir une image par défaut quand l'image n'est pas disponible")
-        return "image indisponible"
-    }
-
-    getInfos(book){
-        const isbn = this.goodIsbn(book.volumeInfo.industryIdentifiers)
-        if (isbn == undefined){
-            return [false, "isbn", "titre", "image"]
-        }
-        const titre = book.volumeInfo.title
-        const image = this.getImage(book.volumeInfo)
-        return [true, isbn, titre, image]
+        //image non disponible
+        return "https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Image_non_disponible_portrait.svg/1479px-Image_non_disponible_portrait.svg.png"
     }
 
     render() {
-        const books = this.state.books.map(book => {
-            //resArray un tableau de la forme [bool, isbn, titre, img]
-            //bool est à faux si l'isbn n'a pas pu être récupéré
-            const resArray = this.getInfos(book);
-            console.log(resArray)
-            if (resArray[0]){
-                <Books
-                isbn={resArray[1]}
-                titre={resArray[2]}
-                img={resArray[3]}
-                />
-            }
-        })
+        const books = this.state.books.map(book =>
+            <Books
+            isbn={this.goodIsbn(book.volumeInfo.industryIdentifiers)}
+            titre={book.volumeInfo.title}
+            img={this.getImage(book.volumeInfo)}
+            />
+        )
+
         return (
             <div className={"bookCard"}>
                 {books}
