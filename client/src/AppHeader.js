@@ -1,7 +1,8 @@
-import {HashRouter, NavLink} from "react-router-dom";
-import React from "react";
+import {NavLink} from "react-router-dom";
+import React, {useState} from "react";
 
 function AppHeader() {
+
     return (
         <header className="header">
             <nav className="header-navbar">
@@ -19,7 +20,7 @@ function AppHeader() {
 
                 {/*barre de recherche*/}
                 <input type="text" placeholder=" Rechercher  ..." name="search"/>
-                {/*TODO("add onClick function")*/}
+                {/*TODO("remove this input (déplacer dans AppContent class Search : plus simple pour communiquer les informations et faire la recherche associé à ce qu'on a mis dans la barre)")*/}
 
                 {/*Favoris*/}
                 <div className="favoris">

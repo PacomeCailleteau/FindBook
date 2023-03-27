@@ -2,6 +2,7 @@
 import React from "react";
 //import bookDAO from "./bookDAO"
 import Books from "./Books"
+import Search from "./Search";
 
 const baseURL = 'https://www.googleapis.com/books/v1/volumes'
 
@@ -43,6 +44,7 @@ class AppContent extends React.Component {
             query: "le seigneur des anneaux",
             books: [],
         }
+        this.doUpdate = this.doUpdate.bind(this)
     }
 
     componentDidMount() {
@@ -110,8 +112,11 @@ class AppContent extends React.Component {
         )
 
         return (
-            <div className={"bookCard"}>
-                {books}
+            <div>
+                <Search update={this.doUpdate}/>
+                <div className={"bookCard"}>
+                    {books}
+                </div>
             </div>
         )
     }
