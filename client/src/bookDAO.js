@@ -28,7 +28,8 @@ const bookDAO = {
         const data = await res.json()
         return data
     },
-
-
-
 }
+
+export default bookDAO
+
+
