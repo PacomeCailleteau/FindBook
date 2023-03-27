@@ -47,17 +47,18 @@ h2{
     min-width: 1100px;
 }
 
-.header-navbar > a, .header-navbar > div > a {
+.header-navbar > a, .header-navbar > div > a, .favoris:hover, .connexion:hover  {
     text-decoration: none;
     transition: 0.3s;
 }
 
-.header-navbar > a:hover {
+.header-navbar > a:hover, .favoris:hover, .connexion:hover {
     transform: scale(1.1);
+    transform: 0.3s;
 }
 
 .header-navbar > a > img{
-    height: 80px;
+    height: 150px;
 }
 
 .favoris > a > img{
@@ -78,35 +79,6 @@ h2{
     transform: scale(1.1);
 }
 
-.search{
-    transition: 0.3s;
-}
-.search:hover{
-    scale: 1.05;
-    transition: 0.5s;
-}
-
-.search input[type=text]{
-    width:300px;
-    height:25px;
-    border-radius:25px;
-    border: none;
-    outline: none;
-}
-
-.search img{
-    height: 40px;
-    margin: 10px 10px;
-    font-size: 12px;
-    cursor: pointer;
-    transition: 0.3s;
-    opacity: 80%;
-}
-
-.search img:hover{
-    scale: 1.1;
-    opacity: 100%;
-}
 
 
 

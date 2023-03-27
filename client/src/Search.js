@@ -1,6 +1,6 @@
 
 import React from "react";
-
+import "./Search.css"
 
 class Search extends React.Component{
     constructor(props) {
@@ -14,7 +14,7 @@ class Search extends React.Component{
     render() {
         //event.target.elements.title.value
         return (
-            <div className="searchBar">
+            <div className="search">
                 <input
                     type="text"
                     placeholder=" Rechercher  ..."
