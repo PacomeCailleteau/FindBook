@@ -1,0 +1,109 @@
+:root{
+    --noir: #000;
+    --noir-light: rgba(0, 0, 0, 0.671);
+    --couleur-fond: #FFFFFF;
+    --couleur-fond-light: #ffffffe8;
+    --line-color: #B08968;
+    --line-color-light: #DDB8926c;
+    --border-color: #E6CCB2;
+    --contrast-color: #dd5555;
+    --button-color: #7F5539;
+    --button-color-light: #9C6644;
+    --violet-foncee: #2D033B;
+}
+
+.form_container{
+    margin-top: 5%;
+    margin-bottom: 5%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.PageConnexion{
+    align-items: center;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    width: 25%;
+    min-width: 400px;
+    max-width: 600px;
+    padding: 1%;
+    border-radius: 5%;
+    background: rgb(127,85,57);
+    background: linear-gradient(180deg, rgba(127,85,57,1) 0%, rgba(156,102,68,1) 100%);
+}
+
+.PageConnexion > div > p > input, .PageConnexion > p > input{
+    width: 300px;
+}
+
+.PageConnexion > div > button{
+    width: 330px;
+    margin-bottom: 5%;
+}
+
+form{
+    color: var(--noir);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    font-size: large;
+}
+form h1{
+    color: var(--noir);
+    text-align:center;
+}
+
+form .inputs {
+  display: flex;
+  flex-direction: column;
+}
+
+form .inputs input[type='password'], input[type='Email'], form input{
+  padding: 15px;
+  border:none;
+  border-radius: 5px;
+  background-color: VAR(--couleur-fond);
+  outline:none;
+}
+
+form p.inscription{
+    width: 300px;
+    font-size: 14px;
+    margin-bottom: 20px;
+    color: var(--couleur-fond);
+}
+
+.PageConnexion button{
+  width: 330px;
+  padding: 15px 25px;
+  border-radius: 5px;
+  border:none;
+  font-size: 20px;
+  color: var(--couleur-fond);
+  background-color: var(--button-color);
+  outline:none;
+  cursor:pointer;
+}
+
+.send{
+    background: rgb(89,60,41);
+    background: linear-gradient(180deg, rgba(89,60,41,1) 0%, rgba(116,78,52,1) 100%); 
+    transition: 0.5s;
+}
+.send:hover{
+    scale: 1.05;
+    transition: 0.5s;
+}
+
+
+
+
+
+
+
+
+
