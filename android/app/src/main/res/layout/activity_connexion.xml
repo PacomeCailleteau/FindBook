@@ -43,12 +43,12 @@
 
     <ImageButton
         android:id="@+id/btnParametre"
-        android:layout_width="50dp"
+        android:layout_width="135dp"
         android:layout_height="50dp"
         android:background="@color/white"
         android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/parametre" />
 
     <View
@@ -78,6 +78,7 @@
         android:layout_height="50dp"
         android:background="@color/white"
         android:scaleType="fitCenter"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/logo_findbook" />
@@ -94,17 +95,6 @@
         app:srcCompat="@drawable/home" />
 
     <ImageButton
-        android:id="@+id/btnMonCompte"
-        android:layout_width="135dp"
-        android:layout_height="50dp"
-        android:background="@color/white"
-        android:padding="6dp"
-        android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/mon_compte" />
-
-    <ImageButton
         android:id="@+id/btnFavoris"
         android:layout_width="135dp"
         android:layout_height="50dp"
@@ -112,7 +102,7 @@
         android:padding="4dp"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnMonCompte"
+        app:layout_constraintEnd_toStartOf="@+id/btnParametre"
         app:layout_constraintStart_toEndOf="@+id/btnHome"
         app:srcCompat="@drawable/favoris" />
 

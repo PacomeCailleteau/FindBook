@@ -32,6 +32,11 @@ export const bookDao = {
     async searchBookInformation(search) {
         const response = agent != null ? await fetch(apiUrlSearch + search + moreBooks, {agent: agent}): await fetch(apiUrlSearch + search + moreBooks)
         const data = await response.json()
+
+        if (data.totalItems === 0) {
+            return []
+        }
+
         return data.items.map((item) => new bookModel(item.volumeInfo))
     }
 }

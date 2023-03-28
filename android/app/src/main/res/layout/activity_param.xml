@@ -4,10 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layoutDirection="inherit"
     tools:context=".ParamActivity">
 
+    <Button
+        android:id="@+id/btnSupprimerCompte"
+        android:layout_width="254dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="#7F5539"
+        android:text="Supprimer le compte"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+
     <TextView
-        android:id="@+id/titreConnexion2"
+        android:id="@+id/titreParam"
         android:layout_width="253dp"
         android:layout_height="39dp"
         android:layout_marginTop="80dp"
@@ -20,12 +32,12 @@
 
     <ImageButton
         android:id="@+id/btnParametre"
-        android:layout_width="50dp"
+        android:layout_width="135dp"
         android:layout_height="50dp"
-        android:scaleType="fitCenter"
         android:background="@color/white"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/parametre" />
 
     <View
@@ -53,8 +65,9 @@
         android:id="@+id/btnLogo"
         android:layout_width="160dp"
         android:layout_height="50dp"
-        android:scaleType="fitCenter"
         android:background="@color/white"
+        android:scaleType="fitCenter"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/logo_findbook" />
@@ -70,16 +83,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/home" />
 
-    <ImageButton
-        android:id="@+id/btnMonCompte"
-        android:layout_width="135dp"
-        android:layout_height="50dp"
-        android:background="@color/white"
-        android:padding="6dp"
-        android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/mon_compte" />
 
     <ImageButton
         android:id="@+id/btnFavoris"
@@ -89,29 +92,33 @@
         android:padding="4dp"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnMonCompte"
+        app:layout_constraintEnd_toStartOf="@+id/btnParametre"
         app:layout_constraintStart_toEndOf="@+id/btnHome"
         app:srcCompat="@drawable/favoris" />
 
     <RadioGroup
+        android:id="@+id/radioGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:layoutDirection="inherit"
         android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="@+id/titreConnexion2"
-        app:layout_constraintTop_toBottomOf="@+id/titreConnexion2">
+        app:layout_constraintEnd_toEndOf="@+id/titreParam"
+        app:layout_constraintStart_toStartOf="@+id/titreParam"
+        app:layout_constraintTop_toBottomOf="@+id/titreParam">
 
         <RadioButton
             android:id="@+id/radioFrancais"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:checked="true"
+            android:paddingRight="60dp"
             android:text="Français" />
 
         <RadioButton
             android:id="@+id/radioAnglais"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingRight="60dp"
             android:text="English" />
     </RadioGroup>
 

@@ -192,7 +192,7 @@ const routes = [
             }
         },
         options: {
-            description: "Delete a new user",
+            description: "Delete a user",
             notes: "Delete a user from a token",
             tags: ["api", "users"],
             validate: {
