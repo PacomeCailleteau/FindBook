@@ -1,6 +1,6 @@
 
 import React, {useEffect, useState} from "react";
-import {useLocation} from "react-router-dom";
+import {NavLink, useLocation} from "react-router-dom";
 import bookDAO from "./bookDAO"
 import "./BookDetail.css"
 
@@ -9,7 +9,7 @@ function BookDetail (){
     let location=useLocation()
     const [pasOk, setPasOk] = useState(true)
     const [book, setBook] = useState()
-    const isbn = location.state.isbn
+    const [isbn] = useState(location.state.isbn)
 
     /**
      * renvoie l'image associé au livre ou une image indisponible
@@ -77,16 +77,16 @@ function BookDetail (){
                         <h3>{book.volumeInfo.categories}</h3>
                     </div>
                     <div className="button-div">
-                        <form action='#' methode='post'>
+                        <NavLink to={"/favoris"}>
                             <button type='submit' name='item-1-button' id='item-1-button'><h2>Ajouter aux Favoris</h2>
                             <img src="https://cdn.discordapp.com/attachments/1081164623044157530/1088866478176079972/star_2_selected.png" alt='Favoris selected icon'></img>
                             </button>
-                        </form>
-                        <form action='#' methode='post'>
+                        </NavLink>
+                        <NavLink to={"/amazon"} state={{isbn: isbn}}>
                             <button type='submit' name='item-1-button' id='item-1-button'><h2>Acheter sur Amazon</h2>
                             <img src="https://cdn.discordapp.com/attachments/1081164623044157530/1089934411555934298/amazon.png" alt='Favoris selected icon'></img>
                             </button>
-                        </form>
+                        </NavLink>
                     </div>
                 </div>
             </div>

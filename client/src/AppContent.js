@@ -50,7 +50,7 @@ class AppContent extends React.Component {
             return undefined
         for (let i in array) {
             if (array[i].type == "ISBN_13")
-                return array[0].identifier
+                return array[i].identifier
         }
         return undefined
     }
