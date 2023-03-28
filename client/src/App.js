@@ -5,6 +5,7 @@ import AppFooter from "./AppFooter";
 import Main from "./Main";
 import {HashRouter} from "react-router-dom";
 import {useState} from "react";
+import {CookiesProvider} from "react-cookie";
 
 
 function App() {
@@ -12,9 +13,11 @@ function App() {
   return (
     <div className="App">
         <HashRouter>
-            <AppHeader/>
-            <Main/>
-            <AppFooter/>
+            <CookiesProvider>
+                <AppHeader/>
+                <Main/>
+                <AppFooter/>
+            </CookiesProvider>
         </HashRouter>
     </div>
   );

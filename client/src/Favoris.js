@@ -1,24 +1,17 @@
 
 import React from "react";
-import {useParams} from "react-router-dom";
+import {useCookies} from "react-cookie";
 
-class Favoris extends React.Component {
-    constructor(props) {
-        super(props);
-        const id = useParams()
-        this.state = {
-            query: "",
-            books: [],
-        }
-    }
+function Favoris (props){
 
-    render() {
-        return(
-            <div>
-                SALUT
-            </div>
-        )
-    }
+    const [cookies, setCookie, removeCookie] = useCookies(['token']);
+
+    return(
+        <div className={"mes-favoris"}>
+            SALUT-->
+            {cookies.token}
+        </div>
+    )
 }
 
 export default Favoris;

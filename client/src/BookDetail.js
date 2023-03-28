@@ -5,7 +5,7 @@ import bookDAO from "./bookDAO"
 import "./BookDetail.css"
 
 
-function BookDetail (){
+function BookDetail (props){
     let location=useLocation()
     const [pasOk, setPasOk] = useState(true)
     const [book, setBook] = useState()
@@ -82,7 +82,8 @@ function BookDetail (){
                             <img src="https://cdn.discordapp.com/attachments/1081164623044157530/1088866478176079972/star_2_selected.png" alt='Favoris selected icon'></img>
                             </button>
                         </NavLink>
-                        <NavLink to={"/amazon"} state={{isbn: isbn}}>
+                        {/*ouvre un nouvel onglet avec la recherche amazon associée*/}
+                        <NavLink to={"https://www.amazon.fr/s?k="+isbn} target={"_blank"}>
                             <button type='submit' name='item-1-button' id='item-1-button'><h2>Acheter sur Amazon</h2>
                             <img src="https://cdn.discordapp.com/attachments/1081164623044157530/1089934411555934298/amazon.png" alt='Favoris selected icon'></img>
                             </button>

@@ -2,8 +2,9 @@
 const baseURL = 'https://www.googleapis.com/books/v1/volumes'
 const moreBooks = "&maxResults=40"
 
-const bookDAO = {
+//TODO("remplacer les appelles direct à l'api google par un appel au serveur")
 
+const bookDAO = {
     /**
      * Récupère tous les livres que nous renvoie la recherche
      * @param search
