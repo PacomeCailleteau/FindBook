@@ -11,7 +11,17 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val btnParam = findViewById<ImageButton>(R.id.btnParametre)
         val btnConnexion = findViewById<ImageButton>(R.id.btnConnexion)
+        val btnFavoris = findViewById<ImageButton>(R.id.btnFavoris)
 
+        btnParam.setOnClickListener {
+            val param = Intent(this@MainActivity,ParamActivity::class.java)
+            startActivity(param)
+        }
+
+        btnFavoris.setOnClickListener {
+            val favoris = Intent(this@MainActivity, FavorisActivity::class.java)
+            startActivity(favoris)
+        }
 
         btnConnexion.setOnClickListener {
             val connexion = Intent(this@MainActivity, ConnexionActivity::class.java)
