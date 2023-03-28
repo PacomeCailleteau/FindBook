@@ -1,47 +1,14 @@
 
 import React from "react";
-//import bookDAO from "./bookDAO"
+import bookDAO from "./bookDAO"
 import Books from "./Books"
 import Search from "./Search";
-
-const baseURL = 'https://www.googleapis.com/books/v1/volumes'
-
-const bookDAO = {
-
-    /**
-     * Récupère tous les livres que nous renvoie la recherche
-     * @param search
-     * @returns {Promise<any>}
-     */
-    findMany : async (search) =>
-    {
-        const suffix = `?q=${search}`
-        const res = await fetch(baseURL + suffix)
-        const data = await res.json()
-        return data
-    },
-
-    /**
-     * Récupère l'unique livre correspondant à l'isbn en param
-     * @param isbn
-     * @returns {Promise<any>}
-     */
-    findByISBN : async (isbn) =>
-    {
-        const suffix = `?q=isbn:${isbn}`
-        const res = await fetch(baseURL + suffix)
-        const data = await res.json()
-        return data
-    },
-}
-
-//TODO("remettre le DAO dans son propre fichier")
 
 class AppContent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            query: "le seigneur des anneaux",
+            query: "",
             books: [],
         }
         this.doUpdate = this.doUpdate.bind(this)
@@ -61,16 +28,18 @@ class AppContent extends React.Component {
             console.log("recherche invalide car pas de termes de recherche")
         //sinon on appelle l'api google pour récupéré les livres correspondant à la recherche
         else{
-            console.log(bookDAO)
             bookDAO.findMany(this.state.query)
                 .then(data => {
                     const res = data.items
-                    this.setState({books: res})
+                    if (res == undefined){
+                        this.setState({books: []})
+                    }else {
+                        this.setState({books: res})
+                    }
                 })
         }
     }
 
-    //TODO(gerer le fait que isbn 13 puisse être en minuscule ou que le tableau puisse être de différente taille)
     /**
      * renvoie l'isbn13 du livre
      * @param array
@@ -103,8 +72,8 @@ class AppContent extends React.Component {
     }
 
     render() {
-        const books = this.state.books.map(book =>
-            <Books
+        const books = this.state.books.map((book, i) =>
+            <Books key={i}
             isbn={this.goodIsbn(book.volumeInfo.industryIdentifiers)}
             titre={book.volumeInfo.title}
             img={this.getImage(book.volumeInfo)}
@@ -113,6 +82,10 @@ class AppContent extends React.Component {
 
         return (
             <div>
+                <div className={"bienvenue"}>
+                    <h2>Bienvenue sur Findbook</h2>
+                    <p>Pour accéder au catalogue, veuillez effectuer une recherche</p>
+                </div>
                 <Search update={this.doUpdate}/>
                 <div className={"bookCard"}>
                     {books}

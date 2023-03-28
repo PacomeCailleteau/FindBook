@@ -17,7 +17,7 @@ const joiUser = Joi.object({
 
 
 const joiBook = Joi.object({
-    isbn: Joi.number().required().description("Book's isbn, unique identifier"),
+    isbn: Joi.number().description("Book's isbn, unique identifier"),
     title: Joi.string().required().description("Book's title"),
     cover: Joi.string().description("Book's cover"),
     authors: Joi.array().items(Joi.string()).description("Book's authors"),
@@ -45,17 +45,17 @@ const routes = [
     {
         method: "GET",
         path: "/users",
+        options: {
+            description: "Get all users",
+            notes: "Get all users",
+            tags: ["api", "users"]
+        },
         handler: async (request, h) => {
             try {
                 return h.response(await userController.findAll()).code(200)
             } catch(e) {
                 return h.response(e).code(400)
             }
-        },
-        options: {
-            description: "Get all users",
-            notes: "Get all users",
-            tags: ["users"]
         }
     },
     {
@@ -78,7 +78,7 @@ const routes = [
         options: {
             description: "Get user by token",
             notes: "Get the user associated with the token",
-            tags: ["users"],
+            tags: ["api", "users"],
             validate: {
                 params: Joi.object({
                     token: Joi.string().required().description("A user's token")
@@ -93,7 +93,7 @@ const routes = [
         }
     },
     {
-        method: "GET",
+        method: "POST",
         path: "/users/create/{login}/{password}",
         handler: async (request, h) => {
             try {
@@ -113,7 +113,7 @@ const routes = [
         options: {
             description: "Create a new user",
             notes: "Create a new user from a login and a password",
-            tags: ["users"],
+            tags: ["api", "users"],
             validate: {
                 params: Joi.object({
                     login: Joi.string().required().description("A user's login"),
@@ -151,7 +151,7 @@ const routes = [
         options: {
             description: "Login a user",
             notes: "Login a user from a login and a password, return token and user",
-            tags: ["users"],
+            tags: ["api", "users"],
             validate: {
                 params: Joi.object({
                     login: Joi.string().required().description("A user's login"),
@@ -169,7 +169,7 @@ const routes = [
         }
     },
     {
-        method: "GET",
+        method: "DELETE",
         path: "/users/delete/{token}",
         handler: async (request, h) => {
             try {
@@ -181,7 +181,7 @@ const routes = [
         options: {
             description: "Delete a new user",
             notes: "Delete a user from a token",
-            tags: ["users"],
+            tags: ["api", "users"],
             validate: {
                 params: Joi.object({
                     token: Joi.string().required().description("A user's token")
@@ -207,7 +207,7 @@ const routes = [
         options: {
             description: "Search a books by title",
             notes: "Search a books by title",
-            tags: ["books"],
+            tags: ["api", "books"],
             validate: {
                 params: Joi.object({
                     searchTerm: Joi.string().required().description("search term")
@@ -239,7 +239,7 @@ const routes = [
         options: {
             description: "Get a book by isbn",
             notes: "Get a book by isbn",
-            tags: ["books"],
+            tags: ["api", "books"],
             validate: {
                 params: Joi.object({
                     isbn: Joi.string().required().description("a book's isbn")
@@ -253,7 +253,7 @@ const routes = [
         }
     },
     {
-        method: "GET",
+        method: "POST",
         path: "/users/addBook/{token}/{isbn}",
         handler: async (request, h) => {
             try {
@@ -265,7 +265,7 @@ const routes = [
         options: {
             description: "Add a book to a user",
             notes: "Add a book to a user from a token and an isbn",
-            tags: ["users", "books"],
+            tags: ["api", "users", "books"],
             validate: {
                 params: Joi.object({
                     token: Joi.string().required().description("A user's token"),
@@ -280,7 +280,7 @@ const routes = [
         }
     },
     {
-        method: "GET",
+        method: "DELETE",
         path: "/users/removeBook/{token}/{isbn}",
         handler: async (request, h) => {
             try {
@@ -292,7 +292,7 @@ const routes = [
         options: {
             description: "remove a book to a user",
             notes: "remove a book to a user from a token and an isbn",
-            tags: ["users", "books"],
+            tags: ["api", "users", "books"],
             validate: {
                 params: Joi.object({
                     token: Joi.string().required().description("A user's token"),
@@ -302,32 +302,6 @@ const routes = [
             response: {
                 status: {
                     200: joiUser
-                }
-            }
-        }
-    },
-    {
-        method: "GET",
-        path: "/books/{isbn}",
-        handler: async (request, h) => {
-            try {
-                return h.response(await bookController.getBookInformation(request.params.isbn)).code(200)
-            } catch(e) {
-                return h.response(e).code(400)
-            }
-        },
-        options: {
-            description: "Get information about a book",
-            notes: "Get information about a book from an isbn",
-            tags: ["books"],
-            validate: {
-                params: Joi.object({
-                    isbn: Joi.string().required().description("A book's isbn")
-                })
-            },
-            response: {
-                status: {
-                    200: joiBook
                 }
             }
         }
