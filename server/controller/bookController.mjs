@@ -11,10 +11,10 @@ export const bookController = {
 
 
     async searchBookInformation(search) {
-        try {
+        // try {
             return await bookDao.searchBookInformation(search)
-        } catch(e) {
-            Promise.reject(e)
-        }
+        // } catch(e) {
+        //     Promise.reject(e)
+        // }
     }
 }
