@@ -5,16 +5,16 @@ export const bookController = {
         try {
             return await bookDao.getBookInformation(isbn)
         } catch(e) {
-            Promise.reject(e)
+            return Promise.reject(e)
         }
     },
 
 
     async searchBookInformation(search) {
-        // try {
+        try {
             return await bookDao.searchBookInformation(search)
-        // } catch(e) {
-        //     Promise.reject(e)
-        // }
+        } catch(e) {
+            return Promise.reject(e)
+        }
     }
 }
