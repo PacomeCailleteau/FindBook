@@ -79,7 +79,9 @@ export const userDao = {
                 token: token
             }
         });
-        return this.getUserByToken(token);
+
+        const newUser = await this.getUserByToken(token)
+        return [token, newUser];
     },
 
 
