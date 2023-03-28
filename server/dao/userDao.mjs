@@ -86,16 +86,27 @@ export const userDao = {
     async loginUser(login, hahedPassword) {
         let user = await prisma.user.findFirst({
             where: {
-                login: login,
-                password: hahedPassword
+                login: login
             },
             include: {
                 books: true
             }
         });
+        // return [token, user, message]
 
-        const usermodel = user === null ? null : new userModel(user)
-        return [user.token, usermodel];
+        // Si l'utilisateur existe et que son mot de passe est incorrect
+        if (user !== null && user.password !== hahedPassword) {
+            return [null, null, "Mot de passe incorrect"];
+        }
+
+        // Si l'utilisateur n'existe pas
+        if (user === null) {
+            return [null, null, "Utilisateur inconnu"];
+        }
+
+        // Si l'utilisateur existe et que son mot de passe est correct
+        return [user.token, new userModel(user), null];
+  
     },
 
 
