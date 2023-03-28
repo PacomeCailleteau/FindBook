@@ -15,6 +15,7 @@ const joiUser = Joi.object({
     books: Joi.array().items(Joi.object()).description("Isbn of the books the user has read"),
 }).description("A user with all his information");
 
+const joiUsers = Joi.array().items(joiUser).description("An array of users");
 
 const joiBook = Joi.object({
     isbn: Joi.number().description("Book's isbn, unique identifier"),
@@ -45,18 +46,23 @@ const routes = [
     {
         method: "GET",
         path: "/users",
-        options: {
-            description: "Get all users",
-            notes: "Get all users",
-            tags: ["api", "users"]
-        },
         handler: async (request, h) => {
             try {
                 return h.response(await userController.findAll()).code(200)
             } catch(e) {
                 return h.response(e).code(400)
             }
-        }
+        },
+        options: {
+            description: "Get all users",
+            notes: "Get all users",
+            tags: ["api", "users"],
+            response: {
+                status: {
+                    200: joiUsers
+                }
+            }
+        },
     },
     {
         method: "GET",
@@ -97,14 +103,17 @@ const routes = [
         path: "/users/create/{login}/{password}",
         handler: async (request, h) => {
             try {
-                const user = await userController.createUser(request.params.login, request.params.password)
+                const [token, user] = await userController.createUser(request.params.login, request.params.password)
 
                 if (user === null) {
                     return h.response({
                         message: "user already exists"
                     }).code(409);
                 }
-                return h.response(user).code(200);
+                return h.response({
+                    token: token,
+                    user: user
+                }).code(200);
 
             } catch(e) {
                 return h.response(e).code(400)
@@ -122,7 +131,10 @@ const routes = [
             },
             response: {
                 status: {
-                    200: joiUser
+                    200: Joi.object({
+                        token: Joi.string().required().description("A user's token"),
+                        user: joiUser
+                    })
                 }
             }
         }
@@ -180,7 +192,7 @@ const routes = [
             }
         },
         options: {
-            description: "Delete a new user",
+            description: "Delete a user",
             notes: "Delete a user from a token",
             tags: ["api", "users"],
             validate: {
@@ -329,7 +341,7 @@ const routes = [
 // cors accept all
 // --- Hapi config --- //
 const server = Hapi.server({
-    port: 3000,
+    port: 3001,
     host: "localhost",
     routes: {
         cors: {

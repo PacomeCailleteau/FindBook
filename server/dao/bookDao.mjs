@@ -5,6 +5,7 @@ import { bookModel } from "../model/bookModel.mjs";
 
 const apiUrlSearch = "https://www.googleapis.com/books/v1/volumes?q="
 const apiUrlIsbn = apiUrlSearch + "isbn:"
+const moreBooks = "&maxResults=40"
 
 const proxy = process.env.https_proxy
 
@@ -29,8 +30,13 @@ export const bookDao = {
 
 
     async searchBookInformation(search) {
-        const response = agent != null ? await fetch(apiUrlSearch + search, {agent: agent}): await fetch(apiUrlSearch + search)
+        const response = agent != null ? await fetch(apiUrlSearch + search + moreBooks, {agent: agent}): await fetch(apiUrlSearch + search + moreBooks)
         const data = await response.json()
+
+        if (data.totalItems === 0) {
+            return []
+        }
+
         return data.items.map((item) => new bookModel(item.volumeInfo))
     }
 }

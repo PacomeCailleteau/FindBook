@@ -1,8 +1,8 @@
 
-const baseURL = 'https://www.googleapis.com/books/v1/volumes'
+//const baseURL = 'https://www.googleapis.com/books/v1/volumes'
+const baseURL = 'http://localhost:3001'
 
 const bookDAO = {
-
     /**
      * Récupère tous les livres que nous renvoie la recherche
      * @param search
@@ -10,9 +10,11 @@ const bookDAO = {
      */
     findMany : async (search) =>
     {
-        const suffix = `?q=${search}`
+        const suffix = `/books/search/${search}`
+        console.log(suffix)
         const res = await fetch(baseURL + suffix)
         const data = await res.json()
+        console.log(data)
         return data
     },
 
@@ -23,7 +25,7 @@ const bookDAO = {
      */
     findByISBN : async (isbn) =>
     {
-        const suffix = `?q=isbn:${isbn}`
+        const suffix = `/books/isbn/${isbn}`
         const res = await fetch(baseURL + suffix)
         const data = await res.json()
         return data

@@ -28,7 +28,7 @@
     width: 300px;
 }
 
-.text-box > div > form > button{
+.text-box > div > a > button{
     margin-left: 7%;
     margin-right: 7%;
     display: flex;
@@ -43,12 +43,12 @@
     transition: 0.5s;
 }
 
-.text-box > div > form > button > h2{
+.text-box > div > a > button > h2{
     color: var(--border-color);
     margin: 0%;
 }
 
-.text-box > div > form > button > img{
+.text-box > div > a > button > img{
     height: 30px;
     width: 30px;
 }
@@ -118,6 +118,7 @@
 .lds-roller {
     display: inline-block;
     position: relative;
+    margin: auto;
     width: 80px;
     height: 80px;
   }
@@ -132,7 +133,7 @@
     width: 7px;
     height: 7px;
     border-radius: 50%;
-    background: #E6CCB2;
+    background: #7F5539;
     margin: -4px 0 0 -4px;
   }
   .lds-roller div:nth-child(1) {
