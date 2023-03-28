@@ -211,11 +211,11 @@ const routes = [
         method: "GET",
         path: "/books/search/{searchTerm}",
         handler: async (request, h) => {
-            // try {
+            try {
                 return h.response(await bookController.searchBookInformation(request.params.searchTerm)).code(200)
-            // } catch(e) {
-            //     return h.response(e).code(400)
-            // }
+            } catch(e) {
+                return h.response(e).code(400)
+            }
         },
         options: {
             description: "Search a books by title",
