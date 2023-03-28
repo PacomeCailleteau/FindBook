@@ -132,11 +132,11 @@ const routes = [
         path: "/users/login/{login}/{password}",
         handler: async (request, h) => {
             try {
-                const [token, user] = await userController.loginUser(request.params.login, request.params.password)
+                const [token, user, message] = await userController.loginUser(request.params.login, request.params.password)
 
                 if (user === null) {
                     return h.response({
-                        message: "user not found"
+                        message: message
                     }).code(404);
                 }
 
@@ -162,7 +162,8 @@ const routes = [
                 status: {
                     200: Joi.object({
                         token: Joi.string().required().description("A user's token"),
-                        user: joiUser
+                        user: joiUser,
+                        message: Joi.string().description("A information message")
                     })
                 }
             }
