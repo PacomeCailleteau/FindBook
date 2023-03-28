@@ -12,14 +12,13 @@ class Search extends React.Component{
     }
 
     render() {
-        //event.target.elements.title.value
         return (
             <div className="search">
                 <input
                     type="text"
                     placeholder=" Rechercher  ..."
                     name="search"
-                    onKeyUp={() => this.update("cc")}
+                    onKeyDown={(e) => this.update(e.target.value)}
                     id={"search"}
                 />
             </div>
