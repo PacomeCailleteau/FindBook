@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">books-android</string>
+    <string name="param_tre">Paramètre</string>
 </resources>

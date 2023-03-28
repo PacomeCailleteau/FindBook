@@ -17,9 +17,9 @@ class MainActivity : AppCompatActivity() {
             val connexion = Intent(this@MainActivity, ConnexionActivity::class.java)
             startActivity(connexion)
         }
+
+
+        val apiDao = ApiDao(this)
+        apiDao.connectWithLoginPassword("test", "test")
     }
-
-
-
-
 }
