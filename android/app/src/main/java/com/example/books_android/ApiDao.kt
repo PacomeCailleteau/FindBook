@@ -27,7 +27,10 @@ class ApiDao(private val context: Activity) {
             { response ->
                 println(response)
             },
-            { println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Error") })
+            { error ->
+                println("Error")
+                println(error)
+            })
 
         // Add the request to the RequestQueue.
         queue.add(stringRequest)
