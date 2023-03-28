@@ -8,7 +8,7 @@ class AppContent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            query: "le seigneur des anneaux",
+            query: "",
             books: [],
         }
         this.doUpdate = this.doUpdate.bind(this)
@@ -31,7 +31,11 @@ class AppContent extends React.Component {
             bookDAO.findMany(this.state.query)
                 .then(data => {
                     const res = data.items
-                    this.setState({books: res})
+                    if (res == undefined){
+                        this.setState({books: []})
+                    }else {
+                        this.setState({books: res})
+                    }
                 })
         }
     }
@@ -68,8 +72,8 @@ class AppContent extends React.Component {
     }
 
     render() {
-        const books = this.state.books.map(book =>
-            <Books
+        const books = this.state.books.map((book, i) =>
+            <Books key={i}
             isbn={this.goodIsbn(book.volumeInfo.industryIdentifiers)}
             titre={book.volumeInfo.title}
             img={this.getImage(book.volumeInfo)}
@@ -78,6 +82,10 @@ class AppContent extends React.Component {
 
         return (
             <div>
+                <div className={"bienvenue"}>
+                    <h2>Bienvenue sur Findbook</h2>
+                    <p>Pour accéder au catalogue, veuillez effectuer une recherche</p>
+                </div>
                 <Search update={this.doUpdate}/>
                 <div className={"bookCard"}>
                     {books}
