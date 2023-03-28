@@ -2,13 +2,15 @@ package com.example.books_android
 
 import android.app.Activity
 import com.android.volley.Request
-import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.books_android.models.UserModel
+import com.example.books_android.models.TokenUserModel
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
 
 class ApiDao(private val context: Activity) {
-    private val apiUrl = "http://localhost:3000"
+    private val apiUrl = "http://10.0.2.2:3001"
 
     /**
      * Connect with login and password
@@ -17,7 +19,7 @@ class ApiDao(private val context: Activity) {
      * @return Pair<String, UserModel> (token, user)
      */
     fun connectWithLoginPassword(login: String, password: String): Pair<String, UserModel> {
-        val url = "$apiUrl/login/$login/$password"
+        val url = "$apiUrl/users/login/$login/$password"
 
         val queue = Volley.newRequestQueue(context)
 
@@ -25,7 +27,7 @@ class ApiDao(private val context: Activity) {
         val stringRequest = StringRequest(
             Request.Method.GET, url,
             { response ->
-                println(response)
+                val tokenUserModel = Json.decodeFromString<TokenUserModel>(response)
             },
             { error ->
                 println("Error")
