@@ -19,7 +19,7 @@
         app:layout_constraintTop_toBottomOf="@+id/btnLogo" />
 
     <TextView
-        android:id="@+id/texteMail"
+        android:id="@+id/textePrenom"
         android:layout_width="253dp"
         android:layout_height="39dp"
         android:layout_marginTop="40dp"
@@ -31,14 +31,15 @@
         app:layout_constraintTop_toBottomOf="@+id/titreConnexion" />
 
     <TextView
-        android:id="@+id/textMdp"
+        android:id="@+id/texteNom"
         android:layout_width="253dp"
         android:layout_height="39dp"
+        android:layout_marginTop="20dp"
         android:text="Votre mot de passe :"
         android:textAlignment="textStart"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="@+id/editTextEmail"
-        tools:layout_editor_absoluteY="313dp" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextEmail" />
 
     <ImageButton
         android:id="@+id/btnParametre"
@@ -116,27 +117,28 @@
         app:srcCompat="@drawable/favoris" />
 
     <Button
-        android:id="@+id/btnSeConnecter"
+        android:id="@+id/btnCreerCompte"
         android:layout_width="254dp"
         android:layout_height="57dp"
+        android:layout_marginTop="20dp"
         android:backgroundTint="#7F5539"
         android:text="Se connecter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="417dp" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextPassword" />
 
     <TextView
         android:id="@+id/textCreerCompte"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:text="Je n'ai pas de compte ? Je m'en"
+        android:text="Je n'ai pas de compte ? Je m'en "
         android:textSize="16sp"
         app:layout_constraintEnd_toStartOf="@+id/textCreerCompteLink"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnSeConnecter" />
+        app:layout_constraintTop_toBottomOf="@+id/btnCreerCompte" />
 
     <TextView
         android:id="@+id/textCreerCompteLink"
@@ -144,7 +146,7 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:linksClickable="false"
-        android:text=" crée un."
+        android:text="crée un."
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -157,8 +159,8 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textEmailAddress"
-        app:layout_constraintStart_toStartOf="@+id/texteMail"
-        app:layout_constraintTop_toBottomOf="@+id/texteMail" />
+        app:layout_constraintStart_toStartOf="@+id/textePrenom"
+        app:layout_constraintTop_toBottomOf="@+id/textePrenom" />
 
     <EditText
         android:id="@+id/editTextPassword"
@@ -166,7 +168,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPassword"
-        app:layout_constraintStart_toStartOf="@+id/textMdp"
-        app:layout_constraintTop_toBottomOf="@+id/textMdp" />
+        app:layout_constraintStart_toStartOf="@+id/texteNom"
+        app:layout_constraintTop_toBottomOf="@+id/texteNom" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
