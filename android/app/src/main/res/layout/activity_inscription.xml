@@ -6,79 +6,247 @@
     android:layout_height="match_parent"
     tools:context=".InscriptionActivity">
 
-    <ImageButton
-        android:id="@+id/btnParametre"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:scaleType="fitCenter"
-        android:background="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/parametre" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="-96dp">
 
-    <View
-        android:id="@+id/separator_bottom"
-        android:layout_width="wrap_content"
-        android:layout_height="1dp"
-        android:layout_marginBottom="3dp"
-        android:background="@color/black"
-        app:layout_constraintBottom_toTopOf="@+id/btnFavoris"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <View
-        android:id="@+id/separator_top"
-        android:layout_width="wrap_content"
-        android:layout_height="1dp"
-        android:layout_marginTop="2dp"
-        android:background="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnLogo" />
+            <TextView
+                android:id="@+id/textePrenom"
+                android:layout_width="253dp"
+                android:layout_height="39dp"
+                android:layout_marginStart="79dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="79dp"
+                android:text="Votre prénom :"
+                android:textAlignment="textStart"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/titreConnexion" />
 
-    <ImageButton
-        android:id="@+id/btnLogo"
-        android:layout_width="160dp"
-        android:layout_height="50dp"
-        android:scaleType="fitCenter"
-        android:background="@color/white"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo_findbook" />
+            <EditText
+                android:id="@+id/editTextPrenom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                app:layout_constraintStart_toStartOf="@+id/textePrenom"
+                app:layout_constraintTop_toBottomOf="@+id/textePrenom" />
 
-    <ImageButton
-        android:id="@+id/btnHome"
-        android:layout_width="135dp"
-        android:layout_height="50dp"
-        android:background="@color/white"
-        android:padding="8dp"
-        android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/home" />
+            <EditText
+                android:id="@+id/editTextPasswordInscription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPassword"
+                app:layout_constraintStart_toStartOf="@+id/texteMdp"
+                app:layout_constraintTop_toBottomOf="@+id/texteMdp" />
 
-    <ImageButton
-        android:id="@+id/btnMonCompte"
-        android:layout_width="135dp"
-        android:layout_height="50dp"
-        android:background="@color/white"
-        android:padding="6dp"
-        android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/mon_compte" />
+            <EditText
+                android:id="@+id/editTextPasswordConfirmInscription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPassword"
+                app:layout_constraintStart_toStartOf="@+id/texteMdpConfirm"
+                app:layout_constraintTop_toBottomOf="@+id/texteMdpConfirm" />
 
-    <ImageButton
-        android:id="@+id/btnFavoris"
-        android:layout_width="135dp"
-        android:layout_height="50dp"
-        android:background="@color/white"
-        android:padding="4dp"
-        android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnMonCompte"
-        app:layout_constraintStart_toEndOf="@+id/btnHome"
-        app:srcCompat="@drawable/favoris" />
+            <View
+                android:id="@+id/separator_top"
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_marginTop="2dp"
+                android:background="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnLogo" />
+
+            <EditText
+                android:id="@+id/editTextNom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                app:layout_constraintStart_toStartOf="@+id/texteNom"
+                app:layout_constraintTop_toBottomOf="@+id/texteNom" />
+
+            <EditText
+                android:id="@+id/editTextEmailInscription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textEmailAddress"
+                app:layout_constraintStart_toStartOf="@+id/texteMail"
+                app:layout_constraintTop_toBottomOf="@+id/texteMail" />
+
+            <View
+                android:id="@+id/separator_bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="3dp"
+                android:background="@color/black"
+                app:layout_constraintBottom_toTopOf="@+id/btnFavoris"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textCreerCompte" />
+
+            <ImageButton
+                android:id="@+id/btnParametre"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@color/white"
+                android:scaleType="fitCenter"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/parametre" />
+
+            <TextView
+                android:id="@+id/texteMdpConfirm"
+                android:layout_width="253dp"
+                android:layout_height="39dp"
+                android:layout_marginTop="20dp"
+                android:text="Confirmer mot de passe :"
+                android:textAlignment="textStart"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@+id/editTextPasswordInscription"
+                app:layout_constraintTop_toBottomOf="@+id/editTextPasswordInscription" />
+
+            <ImageButton
+                android:id="@+id/btnFavoris"
+                android:layout_width="135dp"
+                android:layout_height="50dp"
+                android:background="@color/white"
+                android:padding="4dp"
+                android:scaleType="fitCenter"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btnMonCompte"
+                app:layout_constraintStart_toEndOf="@+id/btnHome"
+                app:srcCompat="@drawable/favoris" />
+
+            <Button
+                android:id="@+id/btnCreerCompte"
+                android:layout_width="254dp"
+                android:layout_height="57dp"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="#7F5539"
+                android:text="Créer le compte"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.452"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editTextPasswordConfirmInscription" />
+
+            <ImageButton
+                android:id="@+id/btnLogo"
+                android:layout_width="160dp"
+                android:layout_height="50dp"
+                android:background="@color/white"
+                android:scaleType="fitCenter"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/logo_findbook" />
+
+            <TextView
+                android:id="@+id/textCreerCompte"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:text="J'ai déjà un compte ? Je me "
+                android:textSize="16sp"
+                app:layout_constraintEnd_toStartOf="@+id/textCreerCompteLink"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnCreerCompte" />
+
+            <TextView
+                android:id="@+id/textCreerCompteLink"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:linksClickable="false"
+                android:text="connecte."
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/textCreerCompte"
+                app:layout_constraintTop_toTopOf="@+id/textCreerCompte" />
+
+            <ImageButton
+                android:id="@+id/btnMonCompte"
+                android:layout_width="135dp"
+                android:layout_height="50dp"
+                android:background="@color/white"
+                android:padding="6dp"
+                android:scaleType="fitCenter"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:srcCompat="@drawable/mon_compte" />
+
+            <TextView
+                android:id="@+id/texteMail"
+                android:layout_width="253dp"
+                android:layout_height="39dp"
+                android:layout_marginTop="20dp"
+                android:text="Votre Email :"
+                android:textAlignment="textStart"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@+id/editTextNom"
+                app:layout_constraintTop_toBottomOf="@+id/editTextNom" />
+
+            <TextView
+                android:id="@+id/titreConnexion"
+                android:layout_width="253dp"
+                android:layout_height="39dp"
+                android:layout_marginStart="79dp"
+                android:layout_marginTop="77dp"
+                android:layout_marginEnd="79dp"
+                android:text="Inscription"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/separator_top" />
+
+            <ImageButton
+                android:id="@+id/btnHome"
+                android:layout_width="135dp"
+                android:layout_height="50dp"
+                android:background="@color/white"
+                android:padding="8dp"
+                android:scaleType="fitCenter"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:srcCompat="@drawable/home" />
+
+            <TextView
+                android:id="@+id/texteMdp"
+                android:layout_width="253dp"
+                android:layout_height="39dp"
+                android:layout_marginTop="20dp"
+                android:text="Votre mot de passe :"
+                android:textAlignment="textStart"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@+id/editTextEmailInscription"
+                app:layout_constraintTop_toBottomOf="@+id/editTextEmailInscription" />
+
+            <TextView
+                android:id="@+id/texteNom"
+                android:layout_width="253dp"
+                android:layout_height="39dp"
+                android:layout_marginTop="20dp"
+                android:text="Votre nom :"
+                android:textAlignment="textStart"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@+id/editTextPrenom"
+                app:layout_constraintTop_toBottomOf="@+id/editTextPrenom" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
