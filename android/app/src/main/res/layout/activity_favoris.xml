@@ -4,40 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SearchActivity">
-
-    <TextView
-        android:id="@+id/titreFavoris2"
-        android:layout_width="253dp"
-        android:layout_height="39dp"
-        android:layout_marginTop="30dp"
-        android:text="Recherche"
-        android:textAlignment="center"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/separator_top" />
-
-    <ListView
-        android:id="@+id/list_view"
-        android:layout_width="wrap_content"
-        android:layout_height="467dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnFavoris"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/SearchBar" />
-
-    <ImageButton
-        android:id="@+id/btnParametre"
-        android:layout_width="135dp"
-        android:layout_height="50dp"
-        android:background="@color/white"
-        android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/parametre" />
+    tools:context=".FavorisActivity">
 
     <View
         android:id="@+id/separator_bottom"
@@ -48,6 +15,31 @@
         app:layout_constraintBottom_toTopOf="@+id/btnFavoris"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <SearchView
+        android:id="@+id/SearchBar"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:alwaysDrawnWithCache="true"
+        android:iconifiedByDefault="false"
+        android:queryHint="Rechercher un livre"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titreFavoris">
+
+    </SearchView>
+
+    <ImageButton
+        android:id="@+id/btnHome"
+        android:layout_width="135dp"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        android:padding="8dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/home" />
 
     <View
         android:id="@+id/separator_top"
@@ -61,6 +53,16 @@
         app:layout_constraintTop_toBottomOf="@+id/btnLogo" />
 
     <ImageButton
+        android:id="@+id/btnParametre"
+        android:layout_width="135dp"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/parametre" />
+
+    <ImageButton
         android:id="@+id/btnLogo"
         android:layout_width="160dp"
         android:layout_height="50dp"
@@ -71,16 +73,15 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/logo_findbook" />
 
-    <ImageButton
-        android:id="@+id/btnHome"
-        android:layout_width="135dp"
-        android:layout_height="50dp"
-        android:background="@color/white"
-        android:padding="8dp"
-        android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="467dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnFavoris"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/home" />
+        app:layout_constraintTop_toBottomOf="@+id/SearchBar" />
+
 
     <ImageButton
         android:id="@+id/btnFavoris"
@@ -94,17 +95,16 @@
         app:layout_constraintStart_toEndOf="@+id/btnHome"
         app:srcCompat="@drawable/favoris" />
 
-    <SearchView
-        android:id="@+id/SearchBar"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="20dp"
-        android:alwaysDrawnWithCache="true"
-        android:iconifiedByDefault="false"
-        android:queryHint="Rechercher un livre"
+    <TextView
+        android:id="@+id/titreFavoris"
+        android:layout_width="253dp"
+        android:layout_height="39dp"
+        android:layout_marginTop="30dp"
+        android:text="Favoris"
+        android:textAlignment="center"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titreFavoris2">
+        app:layout_constraintTop_toBottomOf="@+id/separator_top" />
 
-    </SearchView>
 </androidx.constraintlayout.widget.ConstraintLayout>
