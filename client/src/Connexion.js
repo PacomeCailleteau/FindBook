@@ -8,7 +8,9 @@ import {useCookies} from "react-cookie";
 
 
 function Connexion (props) {
+
     const [cookies, setCookie, removeCookie] = useCookies(['token']);
+    //TODO("on dans le cookie le user quand il se connecte --> setCookie("token", tokenvalue)")
 
     return (
         <div className="form_container">

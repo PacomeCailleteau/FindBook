@@ -7,11 +7,13 @@ export class bookModel {
     description
     constructor(book) {
         
-        book.industryIdentifiers.forEach(element => {
-            if (element.type === "ISBN_13") {
-                this.isbn = element.identifier
-            }
-        });
+        if (book.industryIdentifiers) {
+            book.industryIdentifiers.forEach(element => {
+                if (element.type === "ISBN_13") {
+                    this.isbn = element.identifier
+                }
+            });
+        }
 
         this.title = book.title
         if (book.imageLinks) {
