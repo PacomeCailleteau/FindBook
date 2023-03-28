@@ -1,7 +1,10 @@
 package com.example.books_android.models
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class UserModel(
-    private val id: String,
-    private val login: String,
-    private val books: Array<BookModel>
+    val id: String,
+    val login: String,
+    val books: Array<BookModel>
 )
