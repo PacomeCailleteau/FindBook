@@ -19,7 +19,6 @@ class AppContent extends React.Component {
     }
 
     doUpdate(query) {
-        console.log("terme : `" + this.state.query + "`")
         //si la requête existe alors on la stock dans la variable associé
         if (query != undefined)
             this.setState({query: query})

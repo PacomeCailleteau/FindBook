@@ -1,5 +1,6 @@
 
 const baseURL = 'https://www.googleapis.com/books/v1/volumes'
+const moreBooks = "&maxResults=40"
 
 const bookDAO = {
 
@@ -10,7 +11,8 @@ const bookDAO = {
      */
     findMany : async (search) =>
     {
-        const suffix = `?q=${search}`
+        const suffix = `?q=${search+moreBooks}`
+        console.log(suffix)
         const res = await fetch(baseURL + suffix)
         const data = await res.json()
         return data

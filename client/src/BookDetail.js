@@ -40,9 +40,9 @@ function BookDetail (){
         return(
             <div>
                 <div className={"chargement"}>
-                    <h3>
+                    <h2>
                         Chargement du livre...
-                    </h3>
+                    </h2>
                     <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
                 </div>
             </div>

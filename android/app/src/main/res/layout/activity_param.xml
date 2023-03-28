@@ -4,49 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ConnexionActivity">
+    tools:context=".ParamActivity">
 
     <TextView
-        android:id="@+id/titreConnexion"
+        android:id="@+id/titreConnexion2"
         android:layout_width="253dp"
         android:layout_height="39dp"
         android:layout_marginTop="80dp"
-        android:text="Connexion"
+        android:text="@string/param_tre"
         android:textAlignment="center"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnLogo" />
 
-    <TextView
-        android:id="@+id/textePrenom"
-        android:layout_width="253dp"
-        android:layout_height="39dp"
-        android:layout_marginTop="40dp"
-        android:text="Votre adresse mail :"
-        android:textAlignment="textStart"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titreConnexion" />
-
-    <TextView
-        android:id="@+id/texteNom"
-        android:layout_width="253dp"
-        android:layout_height="39dp"
-        android:layout_marginTop="20dp"
-        android:text="Votre mot de passe :"
-        android:textAlignment="textStart"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@+id/editTextEmail"
-        app:layout_constraintTop_toBottomOf="@+id/editTextEmail" />
-
     <ImageButton
         android:id="@+id/btnParametre"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:background="@color/white"
         android:scaleType="fitCenter"
+        android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/parametre" />
@@ -76,8 +53,8 @@
         android:id="@+id/btnLogo"
         android:layout_width="160dp"
         android:layout_height="50dp"
-        android:background="@color/white"
         android:scaleType="fitCenter"
+        android:background="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/logo_findbook" />
@@ -116,59 +93,26 @@
         app:layout_constraintStart_toEndOf="@+id/btnHome"
         app:srcCompat="@drawable/favoris" />
 
-    <Button
-        android:id="@+id/btnCreerCompte"
-        android:layout_width="254dp"
-        android:layout_height="57dp"
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:backgroundTint="#7F5539"
-        android:text="Se connecter"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextPassword" />
+        android:layoutDirection="inherit"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="@+id/titreConnexion2"
+        app:layout_constraintTop_toBottomOf="@+id/titreConnexion2">
 
-    <TextView
-        android:id="@+id/textCreerCompte"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="Je n'ai pas de compte ? Je m'en "
-        android:textSize="16sp"
-        app:layout_constraintEnd_toStartOf="@+id/textCreerCompteLink"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnCreerCompte" />
+        <RadioButton
+            android:id="@+id/radioFrancais"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Français" />
 
-    <TextView
-        android:id="@+id/textCreerCompteLink"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:linksClickable="false"
-        android:text="crée un."
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/textCreerCompte"
-        app:layout_constraintTop_toTopOf="@+id/textCreerCompte" />
-
-    <EditText
-        android:id="@+id/editTextEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textEmailAddress"
-        app:layout_constraintStart_toStartOf="@+id/textePrenom"
-        app:layout_constraintTop_toBottomOf="@+id/textePrenom" />
-
-    <EditText
-        android:id="@+id/editTextPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPassword"
-        app:layout_constraintStart_toStartOf="@+id/texteNom"
-        app:layout_constraintTop_toBottomOf="@+id/texteNom" />
+        <RadioButton
+            android:id="@+id/radioAnglais"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="English" />
+    </RadioGroup>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

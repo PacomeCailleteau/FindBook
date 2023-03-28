@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./Connexion.css"
+import userDAO from "./userDAO"
 
 import {
     Routes,
@@ -18,38 +19,38 @@ class Inscription extends React.Component {
         super(props);
     }
 
+    async createAccount() {
+        const loginInput = document.querySelector('#login');
+        const passInput = document.querySelector('#pass1');
+        const passConfInput = document.querySelector('#pass2');
+        const res = await userDAO.createUser(loginInput.value, passInput.value, passConfInput.value);
+        console.log(res);
+    }
+
     render() {
         return (
-            <div class="form_container">
-                <form name="sign_in" class="PageConnexion" action="?" method="post" id="form">
-                <h1>Inscription</h1>
-                <p>
-                    Votre prénom :<br />
-                    <input type="text" name="prenom" id="firstname" placeholder="First name" required/>
-                </p>
-                <p>
-                    Votre nom :<br />
-                    <input type="text" name="nom" id="lastname" placeholder="Last name" required/>
-                </p>
-                <p>
-                    Votre adresse mail :<br />
-                    <input type="mail" name="mail" id="email" placeholder="Email" required/>
-                </p>
-                <p>
-                    Votre mot de passe :<br />
-                    <input type="password" name="pass" id="password" placeholder="Password" pattern="(?=^.{8,}$)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" required/>
-                </p>
-                <p>
-                    Confirmation mot de passe :<br />
-                    <input type="password" name="pass_confirmation" id="password2" placeholder="Password Confirmation" pattern="(?=^.{8,}$)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" required/>
-                </p>
-                <div>
-                    <button type="submit" class="send">Envoyer</button>
-                </div>
-                <div>
-                    <button type="reset" class="reset">Annuler</button>
-                </div>
-                <p class="inscription">Vous avez déjà un compte? Je me <span><NavLink to="/connexion">connecte.</NavLink></span></p>
+            <div className="form_container">
+                <form name="sign_in" className="PageConnexion" onSubmit={this.createAccount} id="form">
+                    <h1>Inscription</h1>
+                    <p>
+                        Votre identifiant :<br />
+                        <input type="text" name="login" id="login" placeholder="identifiant" required/>
+                    </p>
+                    <p>
+                        Votre mot de passe :<br />
+                        <input type="password" name="pass" id="pass1" placeholder="mot de passe" pattern="(?=^.{8,}$)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" required/>
+                    </p>
+                    <p>
+                        Confirmation mot de passe :<br />
+                        <input type="password" name="pass_confirmation" id="pass2" placeholder="confirmation mot de passe" pattern="(?=^.{8,}$)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" required/>
+                    </p>
+                    <div>
+                        <button type="submit" class="send">S'inscrire</button>
+                    </div>
+                    <div>
+                        <button type="reset" class="send">Annuler les saisies</button>
+                    </div>
+                    <p class="inscription">Vous avez déjà un compte? Je me <span><NavLink to="/connexion">connecte.</NavLink></span></p>
                 </form>
             </div>
         );
