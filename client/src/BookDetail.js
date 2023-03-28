@@ -13,15 +13,12 @@ function BookDetail (props){
 
     /**
      * renvoie l'image associé au livre ou une image indisponible
-     * obj correspond à book.volumeInfo
-     * @param obj
+     * @param book
      * @returns {*|string}
      */
-    function getImage(obj) {
-        if ("imageLinks" in obj){
-            if ("thumbnail" in obj.imageLinks){
-                return obj.imageLinks.thumbnail
-            }
+    function getImage(book) {
+        if ("cover" in book){
+            return book.cover
         }
         //image non disponible
         return "https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Image_non_disponible_portrait.svg/1479px-Image_non_disponible_portrait.svg.png"
@@ -29,7 +26,7 @@ function BookDetail (props){
 
     useEffect(() => {
         bookDAO.findByISBN(isbn).then(result => {
-                const livre = result.items[0]
+                const livre = result
                 console.log(livre)
                 setBook(livre)
                 setPasOk(false)
@@ -43,7 +40,7 @@ function BookDetail (props){
                     <h2>
                         Chargement du livre...
                     </h2>
-                    <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+                    <div className="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
                 </div>
             </div>
         )
@@ -53,12 +50,12 @@ function BookDetail (props){
         <div className="Produit">
             <div className="horizontal">
                 <div className="image-box">
-                    <img src={getImage(book.volumeInfo)} alt="image du livre"/>
+                    <img src={getImage(book)} alt="image du livre"/>
                 </div>
                 <div className="text-box">
                     <div>
                         <h2>Nom:</h2>
-                        <h3>{book.volumeInfo.title}</h3>
+                        <h3>{book.title}</h3>
                     </div>
                     <div>
                         <h2>ISBN:</h2>
@@ -66,15 +63,11 @@ function BookDetail (props){
                     </div>
                     <div>
                         <h2>Date de publication:</h2>
-                        <h3>{book.volumeInfo.publishedDate}</h3>
+                        <h3>{book.publishedDate}</h3>
                     </div>
                     <div>
                         <h2>Auteur(s):</h2>
-                        <h3>{book.volumeInfo.authors}</h3>
-                    </div>
-                    <div>
-                        <h2>Catégorie(s):</h2>
-                        <h3>{book.volumeInfo.categories}</h3>
+                        <h3>{book.authors}</h3>
                     </div>
                     <div className="button-div">
                         <NavLink to={"/favoris"}>
@@ -94,7 +87,7 @@ function BookDetail (props){
             <div className="text-box">
                 <div>
                     <h2>Description:</h2>
-                    <h3>{book.volumeInfo.description}</h3>
+                    <h3>{book.description}</h3>
                 </div>
             </div>
         </div>
