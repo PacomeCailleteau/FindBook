@@ -30,7 +30,16 @@ class AppContent extends React.Component {
         else{
             bookDAO.findMany(this.state.query)
                 .then(data => {
-                    this.setState({books: data})
+                    //avant de mettre le résultat de la requête dans books on vérifie que c'est bien un tableau.
+                    //si ça n'est pas fait alors ça peut poser des problèmes lorsque le serveur renvoie un objet et non un tableau
+                    //example d'objet qu'on peut trouver :
+                    // Object { message: "not found" }
+                    // Object { statusCode: 500, error: "Internal Server Error", message: "An internal server error occurred" }
+                    if (!Array.isArray(data)){
+                        this.setState({books: []})
+                    }else {
+                        this.setState({books: data})
+                    }
                 })
         }
     }

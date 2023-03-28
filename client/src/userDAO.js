@@ -1,33 +1,34 @@
+import {sha256} from "js-sha256";
 
-const baseURL2 = 'http://localhost:3001'
+const baseURL = 'http://localhost:3001/users/'
 
-
+//TODO : chiffrer le mot de passe
+//TODO : mettre token dans userModel dans la partie serveur
+// (voir userModel.mjs et userDAO.mjs ligne 100)
 
 const userDAO = {
-
     /**
      * Création d'un User dans la bd avec les login et pass en param
+     * POST
      * @param login, pass, pass_confirmation
      * @returns {Promise<any>}
      */
     createUser : async (login, pass, pass_confirmation) =>
     {
-        console.log("zizi");
+        //vérification que les passes sont égaux
         if(pass ==  pass_confirmation){
-            const suffix = "/user/create/"+login+"/"+pass
-            console.log(baseURL2 + suffix)
-            console.log("zizi2");
-            await fetch(baseURL2 + suffix, {
+            const suffix = "create/"+login+"/"+pass
+            //ne pas enlever le print sinon ça marche plus
+            console.log(baseURL+suffix)
+            const res = await fetch(baseURL + suffix, {
                 method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                }
             })
-                .then(res => res.json())
-                .then(data => console.log(data))
-                .catch(err => console.log(err))
-
-            /*const data = await res.json()
-            console.log(data)
-            return data*/
-            return ""
+            const data = await res.json()
+            return data
         }else{
             return "Les mots de passe ne correspondent pas"
         }
@@ -35,29 +36,53 @@ const userDAO = {
 
     /**
      * Récupère l'unique user correspondant au login en param
+     * GET
      * @param login
      * @returns {Promise<any>}
      */
-    findByLogin : async (login) =>
+    login : async (login, pass) =>
     {
-        const suffix = `?q=isbn:`
-        const res = await fetch(baseURL2 + suffix)
+        const suffix = `users/login/${login}/${pass}`
+        const res = await fetch(baseURL + suffix)
         const data = await res.json()
         return data
     },
 
     /**
-     * Récupère l'unique livre correspondant à l'isbn en param
+     * ajoute un livre à la liste de livre d'un user
+     * POST
+     * @param token
      * @param isbn
      * @returns {Promise<any>}
      */
-    findByLogin : async (isbn) =>
-    {
-        const suffix = `?q=isbn:${isbn}`
-        const res = await fetch(baseURL2 + suffix)
+    addBook : async (token, isbn) => {
+        const suffix = `users/addBook/${token}/${isbn}`
+        const res = await fetch(baseURL + suffix, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            }
+        })
         const data = await res.json()
         return data
     },
+
+    /**
+     * Récupère l'unique user correspondant au token en param
+     * GET
+     * @param token
+     * @returns {Promise<any>}
+     */
+    async getUserByToken (token) {
+        const suffix = `users/token/${token}`
+        const res = await fetch(baseURL + suffix)
+        const data = await res.json()
+        return data
+    },
+
+
+
 }
 
 export default userDAO

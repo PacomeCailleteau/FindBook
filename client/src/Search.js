@@ -18,7 +18,7 @@ class Search extends React.Component{
                     type="text"
                     placeholder=" Rechercher  ..."
                     name="search"
-                    onKeyDown={(e) => this.update(e.target.value)}
+                    onKeyUp={(e) => this.update(e.target.value)}
                     id={"search"}
                 />
             </div>
