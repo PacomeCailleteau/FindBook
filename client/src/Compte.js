@@ -26,7 +26,7 @@ function Compte (props){
                     <p>Informations Personelles</p>
                     <p>
                         Pseudo :<br />
-                        <input type="text" name="prenom" id="firstname" value={user.login} required/>
+                        <input type="text" name="prenom" id="firstname" placeholder={user.login} required/>
                     </p>
                     <div>
                         <button type="submit" class="send">Changer mon pseudo</button>

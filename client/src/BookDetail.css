@@ -16,6 +16,7 @@
 	text-align: center;
     object-fit: contain;
 }
+
 .image-box{
     border-radius: 0px;
     display: flex;
@@ -50,6 +51,10 @@
 .text-box > div > a > button > h2{
     color: var(--border-color);
     margin: 0%;
+}
+
+.text-box > div > div > button > .blanc{
+  color: var(--couleur-fond);
 }
 
 .text-box > div > a > button > img{
