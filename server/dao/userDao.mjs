@@ -97,6 +97,12 @@ export const userDao = {
             return null;
         }
 
+        // Check if login already exist
+        const userWithLogin = await this.getUserByLogin(login);
+        if (userWithLogin !== null) {
+            return null;
+        }
+
         // update user's login
         const updatedUser = await prisma.user.update({
             where: {
