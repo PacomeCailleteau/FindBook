@@ -2,7 +2,7 @@ import React from "react";
 import "./Connexion.css"
 
 import {
-    NavLink,
+    NavLink, useNavigate,
 } from "react-router-dom"
 import {useCookies} from "react-cookie";
 import userDAO from "./userDAO";
@@ -11,6 +11,7 @@ import userDAO from "./userDAO";
 function Connexion (props) {
 
     const [cookies, setCookie, removeCookie] = useCookies(['token']);
+    const nav = useNavigate()
 
     async function login(event){
         //!!!!important!!!!
@@ -19,17 +20,12 @@ function Connexion (props) {
         const loginInput = document.querySelector('#login');
         const passInput = document.querySelector('#pass');
         const res = await userDAO.login(loginInput.value, passInput.value)
-        console.log(res)
-        if ("message" in res){
-            if (res.message==="Utilisateur inconnu"){
-                alert(res.message)
-            }
-            else if (res.message ==="Mot de passe incorrect"){
-                alert(res.message)
-            }
-        }else{
-            const tok = res.token
-            setCookie("token", tok, {sameSite: "lax"})
+        const tok = res.token
+        setCookie("token", tok, {sameSite: "lax"})
+        if (tok=== undefined) {
+            removeCookie("token", {sameSite: "lax"})
+        }else {
+            nav("/")
         }
     }
 

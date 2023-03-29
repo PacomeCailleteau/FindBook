@@ -3,6 +3,7 @@ import React from "react";
 import bookDAO from "./bookDAO"
 import Books from "./Books"
 import Search from "./Search";
+import "./AppContent.css"
 
 class AppContent extends React.Component {
     constructor(props) {
@@ -69,8 +70,8 @@ class AppContent extends React.Component {
         return (
             <div>
                 <div className={"bienvenue"}>
-                    <h2>Bienvenue sur Findbook</h2>
-                    <p>Pour accéder au catalogue, veuillez effectuer une recherche</p>
+                    <h1>Bienvenue sur Findbook</h1>
+                    <h2>Pour accéder au catalogue, veuillez effectuer une recherche</h2>
                 </div>
                 <Search update={this.doUpdate}/>
                 <div className={"bookCard"}>

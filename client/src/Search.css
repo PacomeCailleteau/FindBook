@@ -1,8 +1,13 @@
 .search{
     display: flex;
     justify-content: center;
+    align-items: center;
+    width: 20%;
+    margin: auto;
     margin-top: 5%;
     transition: 0.3s;
+    border-radius:25px;
+    border: 1px solid var(--line-color);
 }
 .search:hover{
     scale: 1.05;
@@ -10,15 +15,20 @@
 }
 
 .search input[type=text]{
-    width:300px;
-    height:30px;
-    border-radius:25px;
-    border: 1px solid var(--line-color);
+    width:400px;
+    height:40px;
+    border: none;
+    background-color: unset;
     outline: none;
 }
 
+.search button{
+    border: none;
+    background-color: unset;
+}
+
 .search img{
-    height: 40px;
+    height: 20px;
     margin: 10px 10px;
     font-size: 12px;
     cursor: pointer;
