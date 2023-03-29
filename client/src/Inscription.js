@@ -13,13 +13,20 @@ function Inscription (props) {
 
     const [cookies, setCookie, removeCookie] = useCookies(['token']);
 
-    async function createAccount() {
+    async function createAccount(event) {
+        //!!!!important!!!!
+        event.preventDefault();
+        //on récupère les infos du form
         const loginInput = document.querySelector('#login');
         const passInput = document.querySelector('#pass1');
         const passConfInput = document.querySelector('#pass2');
+        //on appelle de dao pour créer le user et on récupére la valeur de retour pour mettre le token dans le cookie
         const res = await userDAO.createUser(loginInput.value, passInput.value, passConfInput.value);
-        console.log(res);
-        //TODO("si le user est bien ajouter alors on l'ajoute dans le cookie --> setCookie("token", tokenvalue)")
+        const tok = res.token
+        setCookie("token", tok, {sameSite: "lax"})
+        if (tok=== undefined) {
+            removeCookie("token", {sameSite: "lax"})
+        }
     }
 
     return (

@@ -7,8 +7,7 @@ const bookDAO = {
      * @param search
      * @returns {Promise<any>}
      */
-    findMany : async (search) =>
-    {
+    async findMany (search) {
         const suffix = `search/${search}`
         console.log(suffix)
         const res = await fetch(baseURL + suffix)
@@ -21,8 +20,7 @@ const bookDAO = {
      * @param isbn
      * @returns {Promise<any>}
      */
-    findByISBN : async (isbn) =>
-    {
+    async findByISBN (isbn) {
         const suffix = `isbn/${isbn}`
         const res = await fetch(baseURL + suffix)
         const data = await res.json()

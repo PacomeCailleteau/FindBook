@@ -12,6 +12,7 @@ class BookActivity : AppCompatActivity() {
         var btnHome = findViewById<ImageButton>(R.id.btnHome)
         var btnFavoris = findViewById<ImageButton>(R.id.btnFavoris)
         var btnLogo = findViewById<ImageButton>(R.id.btnLogo)
+        var btnParam = findViewById<ImageButton>(R.id.btnParametre)
 
         btnLogo.setOnClickListener {
             val logo = Intent(this@BookActivity,MainActivity::class.java)
@@ -28,6 +29,12 @@ class BookActivity : AppCompatActivity() {
         btnFavoris.setOnClickListener {
             val favoris = Intent(this@BookActivity,FavorisActivity::class.java)
             startActivity(favoris)
+            finish()
+        }
+
+        btnParam.setOnClickListener {
+            val parametre = Intent(this@BookActivity,FavorisActivity::class.java)
+            startActivity(parametre)
             finish()
         }
 
