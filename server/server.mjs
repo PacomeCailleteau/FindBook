@@ -102,7 +102,7 @@ const routes = [
         method: "POST",
         path: "/users/create/{login}/{password}",
         handler: async (request, h) => {
-            try {
+            // try {
                 const [token, user] = await userController.createUser(request.params.login, request.params.password)
 
                 if (user === null) {
@@ -110,14 +110,15 @@ const routes = [
                         message: "user already exists"
                     }).code(409);
                 }
+
                 return h.response({
                     token: token,
                     user: user
                 }).code(200);
 
-            } catch(e) {
-                return h.response(e).code(400)
-            }
+            // } catch(e) {
+            //     return h.response(e).code(400)
+            // }
         },
         options: {
             description: "Create a new user",
@@ -134,7 +135,8 @@ const routes = [
                     200: Joi.object({
                         token: Joi.string().required().description("A user's token"),
                         user: joiUser
-                    })
+                    }),
+                    409: joiErreur
                 }
             }
         }
@@ -149,7 +151,7 @@ const routes = [
                 if (user === null) {
                     return h.response({
                         message: message
-                    }).code(404);
+                    }).code(403);
                 }
 
                 return h.response({
@@ -176,7 +178,8 @@ const routes = [
                         token: Joi.string().required().description("A user's token"),
                         user: joiUser,
                         message: Joi.string().description("A information message")
-                    })
+                    }),
+                    403: joiErreur
                 }
             }
         }
