@@ -16,6 +16,12 @@ class SearchActivity : AppCompatActivity() {
         val btnParam = findViewById<ImageButton>(R.id.btnParametre)
         val searchBar = findViewById<SearchView>(R.id.SearchBar)
 
+        val recherche = intent.getStringExtra("textBar")
+        println("aa " + recherche)
+        searchBar.setQuery(intent.getStringExtra("textBar"),true)
+        println(searchBar.queryHint)
+
+
         btnHome.setOnClickListener {
             finish()
             val home = Intent(this@SearchActivity,MainActivity::class.java)

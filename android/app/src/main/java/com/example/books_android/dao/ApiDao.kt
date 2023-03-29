@@ -75,7 +75,7 @@ class ApiDao(context: Activity) {
      * @param callbackError (ErrorMessageModel) -> Unit
      * @return UserModel
      */
-    fun createUser(login: String, password: String, callbackSuccess: (String) -> Unit, callbackError: (ErrorMessageModel) -> Unit) {
+    fun createAccount(login: String, password: String, callbackSuccess: (String) -> Unit, callbackError: (ErrorMessageModel) -> Unit) {
 
         // hash password with sha256
         val msgDigest = MessageDigest.getInstance("SHA-256")
