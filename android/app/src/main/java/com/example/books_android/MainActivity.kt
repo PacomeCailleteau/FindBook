@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageButton
 import android.widget.SearchView
-import androidx.appcompat.app.AppCompatActivity
 import com.example.books_android.dao.ApiDao
 
 class MainActivity : AppCompatActivity() {
@@ -48,15 +47,5 @@ class MainActivity : AppCompatActivity() {
             }
 
         searchBar.setOnQueryTextListener(queryTextListener)
-
-        val apiDao = ApiDao.getInstance(this)
-        apiDao.connectWithLoginPassword("berd", "chauved",
-            { response ->
-                println("success ! $response")
-            },
-            { error ->
-                println(error.message)
-            }
-        )
     }
 }

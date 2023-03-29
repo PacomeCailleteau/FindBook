@@ -29,11 +29,11 @@ describe("default route", () => {
     beforeEach(async () => {
         server = await init();
     });
-    
+
     afterEach(async () => {
         await server.stop();
     });
-    
+
     it("expected default route ", async () => {
         const res = await server.inject({
             method: "get",
