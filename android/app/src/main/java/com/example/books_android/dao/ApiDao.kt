@@ -149,6 +149,13 @@ class ApiDao(context: Activity) {
     }
 
 
+    /**
+     * Change password
+     * @param token String
+     * @param newPassword String
+     * @param callbackSuccess (String) -> Unit
+     * @param callbackError (ErrorMessageModel) -> Unit
+     */
     fun changePassword(token: String, newPassword: String, callbackSuccess: (String) -> Unit, callbackError: (ErrorMessageModel) -> Unit) {
 
         val hasedPassword = this.hashPassword(newPassword)
@@ -156,6 +163,18 @@ class ApiDao(context: Activity) {
         this.request(Request.Method.PUT, url, callbackSuccess, callbackError)
     }
 
+
+    /**
+     * Change login
+     * @param token String
+     * @param newLogin String
+     * @param callbackSuccess (String) -> Unit
+     * @param callbackError (ErrorMessageModel) -> Unit
+     */
+    fun changeLogin(token: String, newLogin: String, callbackSuccess: (String) -> Unit, callbackError: (ErrorMessageModel) -> Unit) {
+        val url = "$apiUrl/users/update/login/$token/$newLogin"
+        this.request(Request.Method.PUT, url, callbackSuccess, callbackError)
+    }
 
     companion object {
         private var instance: ApiDao? = null
