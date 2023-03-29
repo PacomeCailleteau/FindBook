@@ -166,6 +166,42 @@ export const userDao = {
 
 
     /**
+     * Update user password
+     * @param {string} token
+     * @param {string} newPassword 
+     */
+    async updateUserPassword(token, newPassword) {
+        try {
+            // change the password
+            const updatedUser = await prisma.user.update({
+                where: {
+                    token: token
+                },
+                data: {
+                    password: newPassword
+                }
+            });
+
+            // change automatically the token
+            const newToken = await this.generateNewToken();
+            await prisma.user.update({
+                where: {
+                    token: token
+                },
+                data: {
+                    token: newToken
+                }
+            });
+            
+
+            return [newToken, new userModel(updatedUser)];
+        } catch(e) {
+            return [null, null]
+        }
+    },
+
+
+    /**
      * Add a new book to user
      * @param {string} token
      * @param {string} ibsn

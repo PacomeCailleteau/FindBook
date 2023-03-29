@@ -247,6 +247,48 @@ const routes = [
         }
     },
     {
+        method: "PUT",
+        path: "/users/update/password/{token}/{newPassword}",
+        handler: async (request, h) => {
+            try {
+                const [token, user] = await userController.updateUserPassword(request.params.token, request.params.newPassword);
+                
+                if (user === null) {
+                    return h.response({
+                        message: "user not found"
+                    }).code(404);
+                }
+
+                return h.response({
+                    token: token,
+                    user: user
+                }).code(200);
+            } catch(e) {
+                return h.response(e).code(400)
+            }
+        },
+        options: {
+            description: "Update the password of a user",
+            notes: "Update the password of a user, change the token too",
+            tags: ["api", "users"],
+            validate: {
+                params: Joi.object({
+                    token: Joi.string().required().description("A user's token"),
+                    newPassword: Joi.string().required().description("A user's new password")
+                })
+            },
+            response: {
+                status: {
+                    200: Joi.object({
+                        token: Joi.string().required().description("New user's token"),
+                        user: joiUser
+                    }),
+                    404: joiError
+                }
+            }
+        }
+    },
+    {
         method: "GET",
         path: "/books/search/{searchTerm}",
         handler: async (request, h) => {
@@ -373,7 +415,7 @@ const routes = [
         handler: async (request, h) => {
             try {
                 return h.response({
-                    message: "not found"
+                    message: "route not found"
                 }).code(404);
             } catch(e) {
                 return h.response(e).code(400)
