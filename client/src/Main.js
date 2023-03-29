@@ -15,7 +15,6 @@ import {useCookies} from "react-cookie";
 function Main (props) {
 
     const [cookies, setCookie, removeCookie] = useCookies(['token']);
-    setCookie("token", "'salut à tous je suis le token cool'", {sameSite: "lax"})
 
     return (
         <div>

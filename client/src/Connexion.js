@@ -19,18 +19,9 @@ function Connexion (props) {
         const loginInput = document.querySelector('#login');
         const passInput = document.querySelector('#pass');
         const res = await userDAO.login(loginInput.value, passInput.value)
-        console.log(res)
-        if ("message" in res){
-            if (res.message==="Utilisateur inconnu"){
-                alert(res.message)
-            }
-            else if (res.message ==="Mot de passe incorrect"){
-                alert(res.message)
-            }
-        }else{
-            const tok = res.token
-            setCookie("token", tok, {sameSite: "lax"})
-        }
+        //s'il n'y a pas d'attribut token alors on le met à undifined
+        const tok = res.token
+        setCookie("token", tok, {sameSite: "lax"})
     }
 
     return (

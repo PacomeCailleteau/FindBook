@@ -22,13 +22,9 @@ function Inscription (props) {
         const passConfInput = document.querySelector('#pass2');
         //on appelle de dao pour créer le user et on récupére la valeur de retour pour mettre le token dans le cookie
         const res = await userDAO.createUser(loginInput.value, passInput.value, passConfInput.value);
-        console.log(res)
-        if ("message" in res && res.message=="user already exits"){
-            alert(res.message)
-        }else{
-            const tok = res.token
-            setCookie("token", tok, {sameSite: "lax"})
-        }
+        //s'il n'y a pas d'attribut token alors on le met à undifined
+        const tok = res.token
+        setCookie("token", tok, {sameSite: "lax"})
     }
 
     return (

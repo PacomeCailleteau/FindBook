@@ -9,8 +9,7 @@ const userDAO = {
      * @param login, pass, pass_confirmation
      * @returns {Promise<any>}
      */
-    createUser : async (login, pass, pass_confirmation) =>
-    {
+    async createUser(login, pass, pass_confirmation) {
         //vérification que les passes sont égaux
         if(pass ===  pass_confirmation){
             const cryptedPass = sha256(pass)
@@ -50,7 +49,7 @@ const userDAO = {
      * @param isbn
      * @returns {Promise<any>}
      */
-    addBook : async (token, isbn) => {
+    async addBook (token, isbn) {
         const suffix = `addBook/${token}/${isbn}`
         const res = await fetch(baseURL + suffix, {
             method: 'POST',

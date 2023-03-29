@@ -24,7 +24,9 @@ function BookDetail (props){
         return "https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Image_non_disponible_portrait.svg/1479px-Image_non_disponible_portrait.svg.png"
     }
 
+    //est appelé quand le composant est créé
     useEffect(() => {
+        props.setAuthenticated(true);
         bookDAO.findByISBN(isbn).then(result => {
                 const livre = result
                 console.log(livre)
@@ -33,6 +35,7 @@ function BookDetail (props){
             });
     }, []);
 
+    //si le livre n'est pas chargé alors on affiche un message de chargement
     if (pasOk){
         return(
             <div>
