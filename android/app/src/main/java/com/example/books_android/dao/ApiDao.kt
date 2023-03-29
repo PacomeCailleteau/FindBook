@@ -41,7 +41,7 @@ class ApiDao(context: Activity) {
      * @param login
      * @param password
      * @param callbackSuccess (String) -> Unit
-     * @param callbackError (String) -> Unit
+     * @param callbackError (ErrorMessageModel) -> Unit
      */
     fun connectWithLoginPassword(login: String, password: String, callbackSuccess: (String) -> Unit, callbackError: (ErrorMessageModel) -> Unit) {
 
@@ -57,7 +57,7 @@ class ApiDao(context: Activity) {
      * Connect with token
      * @param token
      * @param callbackSuccess (String) -> Unit
-     * @param callbackError (String) -> Unit
+     * @param callbackError (ErrorMessageModel) -> Unit
      * @return UserModel
      */
     fun connectWithToken(token: String, callbackSuccess: (String) -> Unit, callbackError: (ErrorMessageModel) -> Unit) {
@@ -72,16 +72,16 @@ class ApiDao(context: Activity) {
      * @param login (String)
      * @param password (String)
      * @param callbackSuccess (String) -> Unit
-     * @param callbackError (String) -> Unit
+     * @param callbackError (ErrorMessageModel) -> Unit
      * @return UserModel
      */
-    fun createUser(login: String, password: String, callbackSuccess: (String) -> Unit, callbackError: (ErrorMessageModel) -> Unit) {
+    fun createAccount(login: String, password: String, callbackSuccess: (String) -> Unit, callbackError: (ErrorMessageModel) -> Unit) {
 
         // hash password with sha256
         val msgDigest = MessageDigest.getInstance("SHA-256")
-        val hash = msgDigest.digest(password.toByteArray()).joinToString("") { "%02x".format(it) }
+        val hashedPassword = msgDigest.digest(password.toByteArray()).joinToString("") { "%02x".format(it) }
 
-        val url = "$apiUrl/users/create/$login/$hash"
+        val url = "$apiUrl/users/create/$login/$hashedPassword"
         this.request(Request.Method.POST, url, callbackSuccess, callbackError)
     }
 
@@ -90,11 +90,61 @@ class ApiDao(context: Activity) {
      * Get all books
      * @param isbn String
      * @param callbackSuccess (String) -> Unit
-     * @param callbackError (String) -> Unit
+     * @param callbackError (ErrorMessageModel) -> Unit
      */
     fun findBookByIsbn(isbn: String, callbackSuccess: (String) -> Unit, callbackError: (ErrorMessageModel) -> Unit) {
         val url = "$apiUrl/books/isbn/$isbn"
         this.request(Request.Method.GET, url, callbackSuccess, callbackError)
+    }
+
+
+    /**
+     * Get all books
+     * @param searchTerm String
+     * @param callbackSuccess (String) -> Unit
+     * @param callbackError (ErrorMessageModel) -> Unit
+     */
+    fun findBooksBySearchTerm(searchTerm: String, callbackSuccess: (String) -> Unit, callbackError: (ErrorMessageModel) -> Unit) {
+        val url = "$apiUrl/books/search/$searchTerm"
+        this.request(Request.Method.GET, url, callbackSuccess, callbackError)
+    }
+
+
+    /**
+     * Add book to user
+     * @param token String
+     * @param isbn String
+     * @param callbackSuccess (String) -> Unit
+     * @param callbackError (ErrorMessageModel) -> Unit
+     */
+    fun addBookToUser(token: String, isbn: String, callbackSuccess: (String) -> Unit, callbackError: (ErrorMessageModel) -> Unit) {
+        val url = "$apiUrl/users/addBook/$token/$isbn"
+        this.request(Request.Method.POST, url, callbackSuccess, callbackError)
+    }
+
+
+    /**
+     * Remove book from user
+     * @param token String
+     * @param isbn String
+     * @param callbackSuccess (String) -> Unit
+     * @param callbackError (ErrorMessageModel) -> Unit
+     */
+    fun removeBookFromUser(token: String, isbn: String, callbackSuccess: (String) -> Unit, callbackError: (ErrorMessageModel) -> Unit) {
+        val url = "$apiUrl/users/removeBook/$token/$isbn"
+        this.request(Request.Method.DELETE, url, callbackSuccess, callbackError)
+    }
+
+
+    /**
+     * Delete user
+     * @param token String
+     * @param callbackSuccess (String) -> Unit
+     * @param callbackError (ErrorMessageModel) -> Unit
+     */
+    fun deleteAccount(token: String, callbackSuccess: (String) -> Unit, callbackError: (ErrorMessageModel) -> Unit) {
+        val url = "$apiUrl/users/delete/$token"
+        this.request(Request.Method.DELETE, url, callbackSuccess, callbackError)
     }
 
 

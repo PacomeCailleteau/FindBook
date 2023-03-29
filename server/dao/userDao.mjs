@@ -117,17 +117,19 @@ export const userDao = {
      * @param {string} token 
      */
     async deleteUser(token) {
-        const user = this.getUserByToken(token)
-
-        await prisma.user.delete({
-            where: {
-                token: token
-            },
-            include: {
-                books: true
-            }
-        });
-        return user;
+        try {
+            const deletedUser = await prisma.user.delete({
+                where: {
+                    token: token,
+                },
+                include: {
+                    books: false,
+                },
+            });
+            return new userModel(deletedUser);
+        } catch(e) {
+            return null
+        }
     },
 
 

@@ -4,6 +4,7 @@ import {useCookies} from "react-cookie";
 import {NavLink} from "react-router-dom";
 import Books from "./Books";
 import userDAO from "./userDAO";
+import "./Favoris.css"
 
 function Favoris (props){
 
@@ -15,15 +16,13 @@ function Favoris (props){
     const token = cookies.token
 
 
-    //TODO : ajouter la fonction pour récupérer les livres favoris
     //le useEffect est appelé quand le composant est créé
     //il doit être appelé avant le return même si celui ci est dans un if
     useEffect(() => {
         userDAO.getUserByToken(token).then(res => {
-                if (Array.isArray(res)) {
-                    setBooks(res);
+                if (Array.isArray(res.books)) {
+                    setBooks(res.books);
                 }
-                console.log(res)
             }
         );
     }, []);
@@ -45,7 +44,7 @@ function Favoris (props){
      * @returns {*|string}
      */
     function getImage(obj) {
-        if ("cover" in obj){
+        if (obj.cover){
             return obj.cover
         }
         //image non disponible
@@ -57,15 +56,13 @@ function Favoris (props){
             <Books key={i}
             isbn={book.isbn}
             titre={book.title}
-            image={getImage(book)}
+            img={getImage(book)}
             />
         )
     })
 
     return(
         <div className={"mes-favoris"}>
-            SALUT-->
-            {cookies.token}
             {fav}
         </div>
     )
