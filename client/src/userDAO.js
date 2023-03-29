@@ -42,12 +42,11 @@ const userDAO = {
         return data
     },
 
-    async changePass (token, former_pass, pass, pass_confirmation) {
-        //on récupère le user
-        const user = await this.getUserByToken(token)
-
+    async changePass (login, token, former_pass, pass, pass_confirmation) {
+        //on récupère le user en simulant une connexion
+        const user = await this.login(login, former_pass)
         //on vérifie que le mot de passe actuel est le bon
-        if(user.pass === sha256(former_pass)){
+        if(user.token === token){
             //on vérifie que les deux nouveaux passes sont identiques
             if(pass === pass_confirmation){
                 //on chiffre le nouveau pass
@@ -61,10 +60,10 @@ const userDAO = {
                         'Content-Type': 'application/json',
                     }
                 });
-                const data = await res.json()
-                return data
+                return await res.json()
             }
         }
+        return {error: "error"}
     },
 
     /**

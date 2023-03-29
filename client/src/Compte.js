@@ -16,7 +16,6 @@ function Compte (props){
         //récupération des infos de l'utilisateur
         userDAO.getUserByToken(cookies.token).then(data => {
             setUser(data)
-            console.log(data)
         });
     }, []);
 
@@ -37,15 +36,25 @@ function Compte (props){
     //change le mot de passe de l'utilisateur
     function changePass (event) {
         event.preventDefault();
+
         //on récupère les infos du form
+        const loginInput = document.querySelector('#firstname');
         const passInput = document.querySelector('#password');
         const passNewInput = document.querySelector('#password1');
         const passConfInput = document.querySelector('#password2');
-        //on appelle de dao pour créer le user et on récupére la valeur de retour pour mettre le token dans le cookie
-        userDAO.changePass(cookies.token, passInput.value, passNewInput.value, passConfInput.value).then(data => {
-            removeCookie('token')
-            setCookie("token", data.token, {sameSite: "lax"})
-            setUser(data)
+
+        //on appelle le dao pour créer le user et on récupére la valeur de retour pour mettre le token dans le cookie
+        //on prend le placeholder car on est sur qu'il correspond à la valeur actuelle du login
+        userDAO.changePass(loginInput.placeholder, cookies.token, passInput.value, passNewInput.value, passConfInput.value)
+            .then(data => {
+            if (!(data.error)) {
+                removeCookie('token', {sameSite: "lax"})
+                setCookie("token", data.token, {sameSite: "lax"})
+                setUser(data)
+            }
+            passInput.value = ""
+            passNewInput.value = ""
+            passConfInput.value = ""
         });
     }
 
@@ -56,7 +65,11 @@ function Compte (props){
         const loginInput = document.querySelector('#firstname');
         //on appelle de dao pour créer le user et on récupére la valeur de retour pour mettre le token dans le cookie
         userDAO.changeLogin(cookies.token, loginInput.value).then(data => {
-            setUser(data)
+            if (data.login === loginInput.value) {
+                setUser(data)
+                loginInput.placeholder = data.login
+            }
+            loginInput.value = ""
         });
     }
 
@@ -72,7 +85,7 @@ function Compte (props){
                         <input type="text" name="prenom" id="firstname" placeholder={user.login} required/>
                     </p>
                     <div>
-                        <button type="submit" class="send">Changer mon pseudo</button>
+                        <button type="submit" className="send">Changer mon pseudo</button>
                     </div>
                 </form>
 
@@ -92,18 +105,18 @@ function Compte (props){
                     <input type="password" name="pass_confirmation" id="password2" placeholder="confirmation mot de passe" />
                     </p>
                     <div>
-                        <button type="submit" class="send">Changer mon mot de passe</button>
+                        <button type="submit" className="send">Changer mon mot de passe</button>
                     </div>
                 </form>
 
                 {/*bouton de déconnection*/}
                 <div>
-                    <button onClick={deconnection} type="submit" class="send">Se déconnecter</button>
+                    <button onClick={deconnection} type="submit" className="send">Se déconnecter</button>
                 </div>
 
                 {/*bouton de suppression de compte*/}
                 <div>
-                    <button onClick={deleteUser} type="submit" class="send">Supprimer mon compte</button>
+                    <button onClick={deleteUser} type="submit" className="send">Supprimer mon compte</button>
                 </div>
             </div>
         </div>
