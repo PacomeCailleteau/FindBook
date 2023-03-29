@@ -220,6 +220,33 @@ const routes = [
         }
     },
     {
+        method: "PUT",
+        path: "/users/update/login/{token}/{login}",
+        handler: async (request, h) => {
+            try {
+                return h.response(await userController.updateLogin(request.params.token, request.params.login)).code(200)
+            } catch(e) {
+                return h.response(e).code(400)
+            }
+        },
+        options: {
+            description: "update a user's login",
+            notes: "update a user's login :)",
+            tags: ["api", "users"],
+            validate: {
+                params: Joi.object({
+                    token: Joi.string().required().description("A user's token"),
+                    login: Joi.string().required().description("The new login")
+                })
+            },
+            response: {
+                status: {
+                    200: joiUser
+                }
+            }
+        }
+    },
+    {
         method: "GET",
         path: "/books/search/{searchTerm}",
         handler: async (request, h) => {

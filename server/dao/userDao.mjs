@@ -84,6 +84,32 @@ export const userDao = {
         return [token, newUser];
     },
 
+    /**
+     * update user login
+     * @param token
+     * @param login
+     * @returns {Promise<userModel|null>}
+     */
+    async updateLogin(token, login) {
+        // Check if user already exist
+        const user = await this.getUserByToken(token);
+        if (user === null) {
+            return null;
+        }
+
+        // update user's login
+        const updatedUser = await prisma.user.update({
+            where: {
+                token: token
+            },
+            data: {
+                login: login
+            },
+        });
+        // return updated user
+        return new userModel(updatedUser);
+    },
+
 
     async loginUser(login, hahedPassword) {
         let user = await prisma.user.findFirst({

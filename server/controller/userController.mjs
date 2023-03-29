@@ -70,5 +70,13 @@ export const userController = {
         } catch(e) {
             return Promise.reject(e)
         }
+    },
+
+    async updateLogin(token, login) {
+        try {
+            return await userDao.updateLogin(token, login)
+        } catch(e) {
+            return Promise.reject(e)
+        }
     }
 }
