@@ -21,7 +21,7 @@ function AppHeader() {
         }else{
             return (
                 <div className="connexion">
-                    <NavLink to="/moncompte">
+                    <NavLink to="/compte">
                         <img src="https://cdn.discordapp.com/attachments/1081164623044157530/1088854177024843776/PP.png" className="pers" alt=""/>
                         <h2>Mon compte</h2>
                     </NavLink>

@@ -2,7 +2,7 @@
 import React  from "react";
 import {
     Routes,
-    Route,
+    Route, NavLink,
 } from "react-router-dom";
 import AppContent from "./AppContent"
 import BookDetail from "./BookDetail"
@@ -15,8 +15,6 @@ import Compte from "./Compte";
 
 function Main (props) {
 
-    const [cookies, setCookie, removeCookie] = useCookies(['token']);
-
     return (
         <div>
             <div className="content">
@@ -26,7 +24,8 @@ function Main (props) {
                     <Route exact path="/connexion" element={<Connexion />} />
                     <Route exact path="/inscription" element={<Inscription />} />
                     <Route exact path="/favoris" element={<Favoris />}/>
-                    <Route exact path="/moncompte" element={<Compte />}/>
+                    <Route exact path="/compte" element={<Compte />}/>
+                    <Route path="*" element={<div>404: Not Found <span><NavLink to="/">Back to Home</NavLink></span> </div>} />
                 </Routes>
             </div>
         </div>

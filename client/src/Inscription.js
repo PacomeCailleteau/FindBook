@@ -3,7 +3,7 @@ import "./Connexion.css"
 import userDAO from "./userDAO"
 
 import {
-    NavLink,
+    NavLink, useNavigate,
 } from "react-router-dom";
 import {useCookies} from "react-cookie";
 
@@ -12,6 +12,7 @@ import {useCookies} from "react-cookie";
 function Inscription (props) {
 
     const [cookies, setCookie, removeCookie] = useCookies(['token']);
+    const nav = useNavigate()
 
     async function createAccount(event) {
         //!!!!important!!!!
@@ -26,6 +27,8 @@ function Inscription (props) {
         setCookie("token", tok, {sameSite: "lax"})
         if (tok=== undefined) {
             removeCookie("token", {sameSite: "lax"})
+        }else {
+            nav("/")
         }
     }
 
