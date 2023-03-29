@@ -28,7 +28,7 @@ const joiBook = Joi.object({
 
 const joiBooks = Joi.array().items(joiBook).description("An array of books");
 
-const joiErreur = Joi.object({
+const joiError = Joi.object({
     message: Joi.string().required()
 }).description("An error message");
 
@@ -93,7 +93,7 @@ const routes = [
             response: {
                 status: {
                     200: joiUser,
-                    404: joiErreur
+                    404: joiError
                 }
             }
         }
@@ -102,7 +102,7 @@ const routes = [
         method: "POST",
         path: "/users/create/{login}/{password}",
         handler: async (request, h) => {
-            // try {
+            try {
                 const [token, user] = await userController.createUser(request.params.login, request.params.password)
 
                 if (user === null) {
@@ -116,9 +116,9 @@ const routes = [
                     user: user
                 }).code(200);
 
-            // } catch(e) {
-            //     return h.response(e).code(400)
-            // }
+            } catch(e) {
+                return h.response(e).code(400)
+            }
         },
         options: {
             description: "Create a new user",
@@ -136,7 +136,7 @@ const routes = [
                         token: Joi.string().required().description("A user's token"),
                         user: joiUser
                     }),
-                    409: joiErreur
+                    409: joiError
                 }
             }
         }
@@ -179,7 +179,7 @@ const routes = [
                         user: joiUser,
                         message: Joi.string().description("A information message")
                     }),
-                    403: joiErreur
+                    403: joiError
                 }
             }
         }
@@ -189,7 +189,15 @@ const routes = [
         path: "/users/delete/{token}",
         handler: async (request, h) => {
             try {
-                return h.response(await userController.deleteUser(request.params.login, request.params.password)).code(200)
+                const user = await userController.deleteUser(request.params.token);
+                
+                if (user === null) {
+                    return h.response({
+                        message: "user not found"
+                    }).code(404);
+                }
+
+                return h.response(user).code(200)
             } catch(e) {
                 return h.response(e).code(400)
             }
@@ -205,7 +213,8 @@ const routes = [
             },
             response: {
                 status: {
-                    200: joiUser
+                    200: joiUser,
+                    404: joiError
                 }
             }
         }
@@ -273,7 +282,15 @@ const routes = [
         path: "/users/addBook/{token}/{isbn}",
         handler: async (request, h) => {
             try {
-                return h.response(await userController.addBookFromUser(request.params.token, request.params.isbn)).code(200)
+                const user = await userController.addBookFromUser(request.params.token, request.params.isbn)
+
+                if (user === null) {
+                    return h.response({
+                        message: "user not found"
+                    }).code(403);
+                }
+
+                return h.response(user).code(200)
             } catch(e) {
                 return h.response(e).code(400)
             }
@@ -286,11 +303,12 @@ const routes = [
                 params: Joi.object({
                     token: Joi.string().required().description("A user's token"),
                     isbn: Joi.string().required().description("A book's isbn")
-                })
+                }),
             },
             response: {
                 status: {
-                    200: joiUser
+                    200: joiUser,
+                    403: joiError
                 }
             }
         }
