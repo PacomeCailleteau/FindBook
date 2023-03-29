@@ -28,6 +28,45 @@ const userDAO = {
         }
     },
 
+    async changeLogin (token, login) {
+        //on envoie la requête
+        const suffix = `update/login/${token}/${login}`
+        const res = await fetch(baseURL + suffix, {
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            }
+        });
+        const data = await res.json()
+        return data
+    },
+
+    async changePass (token, former_pass, pass, pass_confirmation) {
+        //on récupère le user
+        const user = await this.getUserByToken(token)
+
+        //on vérifie que le mot de passe actuel est le bon
+        if(user.pass === sha256(former_pass)){
+            //on vérifie que les deux nouveaux passes sont identiques
+            if(pass === pass_confirmation){
+                //on chiffre le nouveau pass
+                const cryptedPass = sha256(pass)
+                //on envoie la requête
+                const suffix = `update/password/${token}/${cryptedPass}`
+                const res = await fetch(baseURL + suffix, {
+                    method: 'PUT',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                    }
+                });
+                const data = await res.json()
+                return data
+            }
+        }
+    },
+
     /**
      * Récupère l'unique user correspondant au login en param
      * GET
