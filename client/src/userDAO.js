@@ -100,7 +100,7 @@ const userDAO = {
      * @returns {Promise<any>}
      */
     async deleteBook (token, isbn) {
-        const suffix = `deleteBook/${token}/${isbn}`
+        const suffix = `removeBook/${token}/${isbn}`
         const res = await fetch(baseURL + suffix, {
             method: 'DELETE',
             headers: {

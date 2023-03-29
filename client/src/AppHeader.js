@@ -9,7 +9,7 @@ function AppHeader() {
 
     //récupère le token stoké dans les cookies, s'il est à "undefined" alors on affiche connexion, sinon on affiche mon compte
     function compte(){
-        if(cookies.token === "undefined"){
+        if(cookies.token === undefined){
             return (
                 <div className="connexion">
                     <NavLink to="/connexion">

@@ -57,6 +57,37 @@
     width: 30px;
 }
 
+/**/
+.text-box > div > div{
+    text-decoration: none;
+    margin-left: 7%;
+    margin-right: 7%;
+}
+
+.text-box > div > div > button{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    left: 10%;
+    width: 300px;
+    padding: 5%;
+    cursor: pointer;
+    border: none;
+    background: var(--button-color);
+    transition: 0.5s;
+}
+
+.text-box > div > div > button > h2{
+    color: var(--border-color);
+    margin: 0%;
+}
+
+.text-box > div > div > button > img{
+    height: 30px;
+    width: 30px;
+}
+/**/
+
 .text-box button:hover{
     scale: 1.1;
     transition: 0.3s;

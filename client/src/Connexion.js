@@ -19,9 +19,11 @@ function Connexion (props) {
         const loginInput = document.querySelector('#login');
         const passInput = document.querySelector('#pass');
         const res = await userDAO.login(loginInput.value, passInput.value)
-        //s'il n'y a pas d'attribut token alors on le met à undifined
         const tok = res.token
         setCookie("token", tok, {sameSite: "lax"})
+        if (tok=== undefined) {
+            removeCookie("token", {sameSite: "lax"})
+        }
     }
 
     return (

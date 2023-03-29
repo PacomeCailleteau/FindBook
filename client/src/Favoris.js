@@ -30,8 +30,8 @@ function Favoris (props){
 
 
     //si le token est undefined alors on renvoie vers la page de connexion
-    //attention token est une string donc on compare avec "undefined"
-    if(token == "undefined"){
+    //attention token est une string donc on compare avec undefined
+    if(token == undefined){
         return (
             <div className={"pas-connecte"}>
                 <p>Vous n'êtes pas connecté, pour vous connecter <span><NavLink to="/connexion">cliquer ici.</NavLink></span></p>
