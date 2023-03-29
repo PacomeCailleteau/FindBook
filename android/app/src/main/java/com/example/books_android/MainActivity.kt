@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageButton
 import android.widget.SearchView
-import androidx.appcompat.app.AppCompatActivity
 import com.example.books_android.dao.ApiDao
 
 class MainActivity : AppCompatActivity() {
@@ -41,6 +40,7 @@ class MainActivity : AppCompatActivity() {
 
                 override fun onQueryTextSubmit(query: String): Boolean {
                     val search = Intent(this@MainActivity,SearchActivity::class.java)
+                        .putExtra("textBar",searchBar.query.toString())
                     startActivity(search)
                     finish()
                     return true
