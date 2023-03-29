@@ -5,27 +5,48 @@ import {
     NavLink,
 } from "react-router-dom"
 import {useCookies} from "react-cookie";
+import userDAO from "./userDAO";
 
 
 function Connexion (props) {
 
     const [cookies, setCookie, removeCookie] = useCookies(['token']);
-    //TODO("on dans le cookie le user quand il se connecte --> setCookie("token", tokenvalue)")
+
+    async function login(event){
+        //!!!!important!!!!
+        event.preventDefault();
+        //on récupère les infos du form
+        const loginInput = document.querySelector('#login');
+        const passInput = document.querySelector('#pass');
+        const res = await userDAO.login(loginInput.value, passInput.value)
+        console.log(res)
+        if ("message" in res){
+            if (res.message==="Utilisateur inconnu"){
+                alert(res.message)
+            }
+            else if (res.message ==="Mot de passe incorrect"){
+                alert(res.message)
+            }
+        }else{
+            const tok = res.token
+            setCookie("token", tok, {sameSite: "lax"})
+        }
+    }
 
     return (
         <div className="form_container">
-            <form className="PageConnexion" action="<?=site_url('Connexion/login')?>" method="post">
+            <form className="PageConnexion" onSubmit={login}>
                 <h1>Se connecter</h1>
 
                 <div className="inputs">
                     <p>
-                    Votre adresse mail :<br />
-                    <input type="email" name="mail" placeholder="Email" required />
+                    Votre login :<br />
+                    <input type="text" name="login" placeholder="Login" id={"login"} required />
                     </p>
 
                     <p>
                     Votre mot de passe :<br />
-                    <input type="password" name="pass" id="password" placeholder="Password" title="Password min 8 characters. At least one UPPERCASE and one lowercase letter" required/>
+                    <input type="password" name="pass" id="pass" placeholder="Password" title="Password min 8 characters. At least one UPPERCASE and one lowercase letter" required/>
                     </p>
                 </div>
 

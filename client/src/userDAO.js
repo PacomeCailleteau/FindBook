@@ -2,10 +2,6 @@ import {sha256} from "js-sha256";
 
 const baseURL = 'http://localhost:3001/users/'
 
-//TODO : chiffrer le mot de passe
-//TODO : mettre token dans userModel dans la partie serveur
-// (voir userModel.mjs et userDAO.mjs ligne 100)
-
 const userDAO = {
     /**
      * Création d'un User dans la bd avec les login et pass en param
@@ -16,10 +12,9 @@ const userDAO = {
     createUser : async (login, pass, pass_confirmation) =>
     {
         //vérification que les passes sont égaux
-        if(pass ==  pass_confirmation){
-            const suffix = "create/"+login+"/"+pass
-            //ne pas enlever le print sinon ça marche plus
-            console.log(baseURL+suffix)
+        if(pass ===  pass_confirmation){
+            const cryptedPass = sha256(pass)
+            const suffix = "create/"+login+"/"+cryptedPass
             const res = await fetch(baseURL + suffix, {
                 method: 'POST',
                 headers: {
@@ -40,9 +35,9 @@ const userDAO = {
      * @param login
      * @returns {Promise<any>}
      */
-    login : async (login, pass) =>
-    {
-        const suffix = `users/login/${login}/${pass}`
+    async login (login, pass) {
+        const cryptedPass = sha256(pass)
+        const suffix = `login/${login}/${cryptedPass}`
         const res = await fetch(baseURL + suffix)
         const data = await res.json()
         return data
@@ -56,7 +51,7 @@ const userDAO = {
      * @returns {Promise<any>}
      */
     addBook : async (token, isbn) => {
-        const suffix = `users/addBook/${token}/${isbn}`
+        const suffix = `addBook/${token}/${isbn}`
         const res = await fetch(baseURL + suffix, {
             method: 'POST',
             headers: {
@@ -75,11 +70,13 @@ const userDAO = {
      * @returns {Promise<any>}
      */
     async getUserByToken (token) {
-        const suffix = `users/token/${token}`
+        const suffix = `token/${token}`
         const res = await fetch(baseURL + suffix)
         const data = await res.json()
         return data
     },
+
+
 
 
 
