@@ -96,8 +96,8 @@ function BookDetail (props){
         if (isFav){
             return(
                 <div>
-                    <button onClick={enleve} type='submit' name='item-1-button' id='item-1-button'><h2>Retirer des Favoris</h2>
-                        <img src="https://cdn.discordapp.com/attachments/1081164623044157530/1088866478176079972/star_2_selected.png" alt='Favoris selected icon'></img>
+                    <button onClick={enleve} type='submit' name='item-1-button' id='item-1-button'><h2 className="blanc">Retirer des Favoris</h2>
+                        <img src="https://cdn.discordapp.com/attachments/1081164623044157530/1088839016478150666/star_2.png" alt='Favoris selected icon'></img>
                     </button>
                 </div>
             )

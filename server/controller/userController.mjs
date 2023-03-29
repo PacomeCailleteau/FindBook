@@ -37,6 +37,15 @@ export const userController = {
     },
 
 
+    async updateUserPassword(token, newPassword) {
+        try {
+            return await userDao.updateUserPassword(token, newPassword);
+        } catch(e) {
+            return Promise.reject(e);
+        }
+    },
+
+
     async getUserByLogin(login) {
         try {
             return await userDao.getUserByLogin(login);
@@ -67,6 +76,14 @@ export const userController = {
     async removeBookFromUser(token, isbn) {
         try {
             return await userDao.removeBookFromUser(token, isbn)
+        } catch(e) {
+            return Promise.reject(e)
+        }
+    },
+
+    async updateLogin(token, login) {
+        try {
+            return await userDao.updateLogin(token, login)
         } catch(e) {
             return Promise.reject(e)
         }

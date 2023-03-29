@@ -12,6 +12,10 @@ class ApiDao(context: Activity) {
     private val apiUrl = "http://10.0.2.2:3001"
     private val requestQueue = Volley.newRequestQueue(context)
 
+    private fun hashPassword(password: String): String {
+        val msgDigest = MessageDigest.getInstance("SHA-256")
+        return msgDigest.digest(password.toByteArray()).joinToString("") { "%02x".format(it) }
+    }
 
     private fun request(method: Int, url: String, callbackSuccess: Response.Listener<String>, callbackError: (ErrorMessageModel) -> Unit) {
         // Request a string response from the provided URL.
@@ -45,8 +49,7 @@ class ApiDao(context: Activity) {
      */
     fun connectWithLoginPassword(login: String, password: String, callbackSuccess: (String) -> Unit, callbackError: (ErrorMessageModel) -> Unit) {
 
-        val msgDigest = MessageDigest.getInstance("SHA-256")
-        val hash = msgDigest.digest(password.toByteArray()).joinToString("") { "%02x".format(it) }
+        val hash = this.hashPassword(password)
         val url = "$apiUrl/users/login/$login/$hash"
 
         this.request(Request.Method.GET, url, callbackSuccess, callbackError)
@@ -77,9 +80,7 @@ class ApiDao(context: Activity) {
      */
     fun createAccount(login: String, password: String, callbackSuccess: (String) -> Unit, callbackError: (ErrorMessageModel) -> Unit) {
 
-        // hash password with sha256
-        val msgDigest = MessageDigest.getInstance("SHA-256")
-        val hashedPassword = msgDigest.digest(password.toByteArray()).joinToString("") { "%02x".format(it) }
+        val hashedPassword = this.hashPassword(password)
 
         val url = "$apiUrl/users/create/$login/$hashedPassword"
         this.request(Request.Method.POST, url, callbackSuccess, callbackError)
@@ -147,6 +148,33 @@ class ApiDao(context: Activity) {
         this.request(Request.Method.DELETE, url, callbackSuccess, callbackError)
     }
 
+
+    /**
+     * Change password
+     * @param token String
+     * @param newPassword String
+     * @param callbackSuccess (String) -> Unit
+     * @param callbackError (ErrorMessageModel) -> Unit
+     */
+    fun changePassword(token: String, newPassword: String, callbackSuccess: (String) -> Unit, callbackError: (ErrorMessageModel) -> Unit) {
+
+        val hasedPassword = this.hashPassword(newPassword)
+        val url = "$apiUrl/users/update/password/$token/$hasedPassword"
+        this.request(Request.Method.PUT, url, callbackSuccess, callbackError)
+    }
+
+
+    /**
+     * Change login
+     * @param token String
+     * @param newLogin String
+     * @param callbackSuccess (String) -> Unit
+     * @param callbackError (ErrorMessageModel) -> Unit
+     */
+    fun changeLogin(token: String, newLogin: String, callbackSuccess: (String) -> Unit, callbackError: (ErrorMessageModel) -> Unit) {
+        val url = "$apiUrl/users/update/login/$token/$newLogin"
+        this.request(Request.Method.PUT, url, callbackSuccess, callbackError)
+    }
 
     companion object {
         private var instance: ApiDao? = null
