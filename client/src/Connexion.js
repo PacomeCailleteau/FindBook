@@ -2,7 +2,7 @@ import React from "react";
 import "./Connexion.css"
 
 import {
-    NavLink,
+    NavLink, useNavigate,
 } from "react-router-dom"
 import {useCookies} from "react-cookie";
 import userDAO from "./userDAO";
@@ -11,6 +11,7 @@ import userDAO from "./userDAO";
 function Connexion (props) {
 
     const [cookies, setCookie, removeCookie] = useCookies(['token']);
+    const nav = useNavigate()
 
     async function login(event){
         //!!!!important!!!!
@@ -23,6 +24,8 @@ function Connexion (props) {
         setCookie("token", tok, {sameSite: "lax"})
         if (tok=== undefined) {
             removeCookie("token", {sameSite: "lax"})
+        }else {
+            nav("/")
         }
     }
 
