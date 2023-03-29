@@ -4,7 +4,7 @@ import {useCookies} from "react-cookie";
 import {NavLink} from "react-router-dom";
 import Books from "./Books";
 import userDAO from "./userDAO";
-import "./Favoris.css"
+import "./Book.css"
 
 function Favoris (props){
 
@@ -62,7 +62,7 @@ function Favoris (props){
     })
 
     return(
-        <div className={"mes-favoris"}>
+        <div className={"bookCard"}>
             {fav}
         </div>
     )

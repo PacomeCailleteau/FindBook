@@ -9,7 +9,7 @@ h3{
     flex-direction: row;
     justify-content: center;
     align-items: baseline;
-    width: 80%;
+    width: 90%;
     margin: auto;
     margin-top: 5%;
     margin-bottom: 10%;
@@ -21,7 +21,8 @@ h3{
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    width: 20%;
+    margin-bottom: 5%;
+    width: 17%;
     text-align: center;
     object-fit: contain;
     text-decoration: none;
@@ -29,9 +30,10 @@ h3{
 }
 
 .book > img{
-    margin: 15%;
+    margin: 10%;
     object-fit: cover;
-    height: 200px;
+    height: 250px;
+    border: solid 1px var(--line-color-light);
 }
 
 .book:hover{
