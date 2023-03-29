@@ -269,7 +269,7 @@ const routes = [
         },
         options: {
             description: "Update the password of a user",
-            notes: "Update the password of a user",
+            notes: "Update the password of a user, change the token too",
             tags: ["api", "users"],
             validate: {
                 params: Joi.object({
