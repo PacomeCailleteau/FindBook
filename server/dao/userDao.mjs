@@ -84,6 +84,32 @@ export const userDao = {
         return [token, newUser];
     },
 
+    /**
+     * update user login
+     * @param token
+     * @param login
+     * @returns {Promise<userModel|null>}
+     */
+    async updateLogin(token, login) {
+        // Check if user already exist
+        const user = await this.getUserByToken(token);
+        if (user === null) {
+            return null;
+        }
+
+        // update user's login
+        const updatedUser = await prisma.user.update({
+            where: {
+                token: token
+            },
+            data: {
+                login: login
+            },
+        });
+        // return updated user
+        return new userModel(updatedUser);
+    },
+
 
     async loginUser(login, hahedPassword) {
         let user = await prisma.user.findFirst({
@@ -129,6 +155,42 @@ export const userDao = {
             return new userModel(deletedUser);
         } catch(e) {
             return null
+        }
+    },
+
+
+    /**
+     * Update user password
+     * @param {string} token
+     * @param {string} newPassword 
+     */
+    async updateUserPassword(token, newPassword) {
+        try {
+            // change the password
+            const updatedUser = await prisma.user.update({
+                where: {
+                    token: token
+                },
+                data: {
+                    password: newPassword
+                }
+            });
+
+            // change automatically the token
+            const newToken = await this.generateNewToken();
+            await prisma.user.update({
+                where: {
+                    token: token
+                },
+                data: {
+                    token: newToken
+                }
+            });
+            
+
+            return [newToken, new userModel(updatedUser)];
+        } catch(e) {
+            return [null, null]
         }
     },
 
