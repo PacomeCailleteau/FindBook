@@ -1,5 +1,5 @@
 
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useCookies} from "react-cookie";
 import {NavLink} from "react-router-dom";
 import Books from "./Books";
@@ -13,6 +13,21 @@ function Favoris (props){
     //cookies pour le token
     const [cookies, setCookie, removeCookie] = useCookies(['token']);
     const token = cookies.token
+
+
+    //TODO : ajouter la fonction pour récupérer les livres favoris
+    //le useEffect est appelé quand le composant est créé
+    //il doit être appelé avant le return même si celui ci est dans un if
+    useEffect(() => {
+        userDAO.getUserByToken(token).then(res => {
+                if (Array.isArray(res)) {
+                    setBooks(res);
+                }
+                console.log(res)
+            }
+        );
+    }, []);
+
 
     //si le token est undefined alors on renvoie vers la page de connexion
     //attention token est une string donc on compare avec "undefined"
@@ -36,13 +51,6 @@ function Favoris (props){
         //image non disponible
         return "https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Image_non_disponible_portrait.svg/1479px-Image_non_disponible_portrait.svg.png"
     }
-
-    userDAO.getUserFavorites(token).then(data => {
-        if (Array.isArray(data)) {
-            setBooks(data);
-        }
-        }
-    );
 
     const fav = books.map((book, i) => {
         return (

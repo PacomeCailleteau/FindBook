@@ -10,6 +10,7 @@ import Connexion from "./Connexion"
 import Inscription from "./Inscription"
 import Favoris from "./Favoris";
 import {useCookies} from "react-cookie";
+import Compte from "./Compte";
 
 
 function Main (props) {
@@ -25,6 +26,7 @@ function Main (props) {
                     <Route exact path="/connexion" element={<Connexion />} />
                     <Route exact path="/inscription" element={<Inscription />} />
                     <Route exact path="/favoris" element={<Favoris />}/>
+                    <Route exact path="/moncompte" element={<Compte />}/>
                 </Routes>
             </div>
         </div>

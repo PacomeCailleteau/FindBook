@@ -69,7 +69,7 @@ const userDAO = {
      * @returns {Promise<any>}
      */
     async getUserByToken (token) {
-        const suffix = `token/${token}`
+        const suffix = `${token}`
         const res = await fetch(baseURL + suffix)
         const data = await res.json()
         return data

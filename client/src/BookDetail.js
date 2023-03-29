@@ -3,6 +3,8 @@ import React, {useEffect, useState} from "react";
 import {NavLink, useLocation} from "react-router-dom";
 import bookDAO from "./bookDAO"
 import "./BookDetail.css"
+import userDAO from "./userDAO";
+import {useCookies} from "react-cookie";
 
 
 function BookDetail (props){
@@ -10,6 +12,7 @@ function BookDetail (props){
     const [pasOk, setPasOk] = useState(true)
     const [book, setBook] = useState()
     const [isbn] = useState(location.state.isbn)
+    const [cookies, setCookie, removeCookie] = useCookies(['token']);
 
     /**
      * renvoie l'image associé au livre ou une image indisponible
@@ -26,11 +29,9 @@ function BookDetail (props){
 
     //est appelé quand le composant est créé
     useEffect(() => {
-        props.setAuthenticated(true);
-        bookDAO.findByISBN(isbn).then(result => {
-                const livre = result
-                console.log(livre)
-                setBook(livre)
+        bookDAO.findByISBN(isbn).then(res => {
+                console.log(res)
+                setBook(res)
                 setPasOk(false)
             });
     }, []);
@@ -47,6 +48,48 @@ function BookDetail (props){
                 </div>
             </div>
         )
+    }
+
+    //TODO : voire si le .then est nécessaire
+    //ajoute le livre aux favoris
+    function ajout(){
+        if (cookies.token !== "undefined"){
+            userDAO.addBook(cookies.token, isbn).then(res => {
+                console.log(res)
+            })
+        }
+    }
+
+    //retire le livre des favoris
+    function enleve(){
+        if (cookies.token !== "undefined"){
+            userDAO.deleteBook(cookies.token, isbn).then(res => {
+                console.log(res)
+            })
+        }
+    }
+
+    //fonction qui affiche le bon bouton avec la bonne fontion associé
+    function favori() {
+        //si le token n'est pas undefined et que le livre est dans les favoris du user alors on affiche le bouton pour retirer le livre des favoris
+        //TODO : if à modifier ( book is undefined : il faut récupérer les livre du user)
+        if (cookies.token !== "undefined" && book.favoris){
+            return(
+                <div>
+                    <button onClick={enleve} type='submit' name='item-1-button' id='item-1-button'><h2>Retirer des Favoris</h2>
+                        <img src="https://cdn.discordapp.com/attachments/1081164623044157530/1088866478176079972/star_2_selected.png" alt='Favoris selected icon'></img>
+                    </button>
+                </div>
+            )
+        }else {
+            return (
+                <div>
+                    <button onClick={ajout} type='submit' name='item-1-button' id='item-1-button'><h2>Ajouter aux Favoris</h2>
+                        <img src="https://cdn.discordapp.com/attachments/1081164623044157530/1088866478176079972/star_2_selected.png" alt='Favoris selected icon'></img>
+                    </button>
+                </div>
+            )
+        }
     }
 
     return(
@@ -73,11 +116,7 @@ function BookDetail (props){
                         <h3>{book.authors}</h3>
                     </div>
                     <div className="button-div">
-                        <NavLink to={"/favoris"}>
-                            <button type='submit' name='item-1-button' id='item-1-button'><h2>Ajouter aux Favoris</h2>
-                            <img src="https://cdn.discordapp.com/attachments/1081164623044157530/1088866478176079972/star_2_selected.png" alt='Favoris selected icon'></img>
-                            </button>
-                        </NavLink>
+                        {favori()}
                         {/*ouvre un nouvel onglet avec la recherche amazon associée*/}
                         <NavLink to={"https://www.amazon.fr/s?k="+isbn} target={"_blank"}>
                             <button type='submit' name='item-1-button' id='item-1-button'><h2>Acheter sur Amazon</h2>
