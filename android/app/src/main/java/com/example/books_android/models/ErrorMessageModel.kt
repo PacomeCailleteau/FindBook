@@ -3,8 +3,7 @@ package com.example.books_android.models
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class TokenUserModel(
-    val token: String,
-    val user: UserModel,
-    val message: String?
+data class ErrorMessageModel(
+    var message: String,
+    val statusCode: Int
 )

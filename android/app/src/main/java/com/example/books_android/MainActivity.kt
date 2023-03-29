@@ -1,6 +1,7 @@
 package com.example.books_android
 
 import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageButton
 import android.widget.SearchView
@@ -49,8 +50,13 @@ class MainActivity : AppCompatActivity() {
         searchBar.setOnQueryTextListener(queryTextListener)
 
         val apiDao = ApiDao.getInstance(this)
-        apiDao.findBookByIsbn("9782266292948") { response ->
-            println("siuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu: $response")
-        }
+        apiDao.connectWithLoginPassword("berd", "chauved",
+            { response ->
+                println("success ! $response")
+            },
+            { error ->
+                println(error.message)
+            }
+        )
     }
 }
