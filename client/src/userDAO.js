@@ -75,6 +75,43 @@ const userDAO = {
         return data
     },
 
+    /**
+     * Supprime un utilisateur de la bd
+     * @param token
+     * @returns {Promise<any>}
+     */
+    async deleteUser (token) {
+        const suffix = `delete/${token}`
+        const res = await fetch(baseURL + suffix, {
+            method: 'DELETE',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            }
+        })
+        const data = await res.json()
+        return data
+    },
+
+    /**
+     * Supprime un livre de la liste de livre d'un user
+     * @param token
+     * @param isbn
+     * @returns {Promise<any>}
+     */
+    async deleteBook (token, isbn) {
+        const suffix = `deleteBook/${token}/${isbn}`
+        const res = await fetch(baseURL + suffix, {
+            method: 'DELETE',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            }
+        })
+        const data = await res.json()
+        return data
+    },
+
 
 
 

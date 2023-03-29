@@ -28,9 +28,13 @@
     width: 300px;
 }
 
+.text-box > div > a{
+  text-decoration: none;
+  margin-left: 7%;
+  margin-right: 7%;
+}
+
 .text-box > div > a > button{
-    margin-left: 7%;
-    margin-right: 7%;
     display: flex;
     align-items: center;
     justify-content: space-evenly;
