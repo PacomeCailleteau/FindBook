@@ -67,7 +67,7 @@ export const userDao = {
         // Check if user already exist
         const user = await this.getUserByLogin(login);
         if (user !== null) {
-            return null;
+            return [null, null];
         }
 
         const token = await this.generateNewToken()
