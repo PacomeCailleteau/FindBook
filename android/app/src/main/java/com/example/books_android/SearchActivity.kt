@@ -13,7 +13,7 @@ class SearchActivity : AppCompatActivity() {
         val btnHome = findViewById<ImageButton>(R.id.btnHome)
         val btnLogo = findViewById<ImageButton>(R.id.btnLogo)
         val btnFavoris = findViewById<ImageButton>(R.id.btnFavoris)
-        val btnParam = findViewById<ImageButton>(R.id.btnParametre)
+        val btnParam = findViewById<ImageButton>(R.id.btnMoncompte)
         val searchBar = findViewById<SearchView>(R.id.SearchBar)
 
         val recherche = intent.getStringExtra("textBar")

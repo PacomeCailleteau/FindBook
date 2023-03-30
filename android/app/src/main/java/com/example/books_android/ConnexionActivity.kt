@@ -15,7 +15,7 @@ class ConnexionActivity : AppCompatActivity() {
         val btnHome = findViewById<ImageButton>(R.id.btnHome)
         val btnLogo = findViewById<ImageButton>(R.id.btnLogo)
         val btnFavoris = findViewById<ImageButton>(R.id.btnFavoris)
-        val btnParam = findViewById<ImageButton>(R.id.btnParametre)
+        val btnParam = findViewById<ImageButton>(R.id.btnMoncompte)
         val btnInscription = findViewById<TextView>(R.id.textCreerCompteLink)
         btnInscription.paintFlags = btnInscription.paintFlags or Paint.UNDERLINE_TEXT_FLAG
 

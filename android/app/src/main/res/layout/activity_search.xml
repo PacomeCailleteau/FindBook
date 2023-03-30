@@ -30,7 +30,7 @@
         app:layout_constraintTop_toBottomOf="@+id/SearchBar" />
 
     <ImageButton
-        android:id="@+id/btnParametre"
+        android:id="@+id/btnMoncompte"
         android:layout_width="135dp"
         android:layout_height="50dp"
         android:background="@color/white"
@@ -91,7 +91,7 @@
         android:padding="4dp"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnParametre"
+        app:layout_constraintEnd_toStartOf="@+id/btnMoncompte"
         app:layout_constraintStart_toEndOf="@+id/btnHome"
         app:srcCompat="@drawable/favoris" />
 

@@ -12,7 +12,7 @@ class BookActivity : AppCompatActivity() {
         var btnHome = findViewById<ImageButton>(R.id.btnHome)
         var btnFavoris = findViewById<ImageButton>(R.id.btnFavoris)
         var btnLogo = findViewById<ImageButton>(R.id.btnLogo)
-        var btnParam = findViewById<ImageButton>(R.id.btnParametre)
+        var btnParam = findViewById<ImageButton>(R.id.btnMoncompte)
 
         btnLogo.setOnClickListener {
             val logo = Intent(this@BookActivity,MainActivity::class.java)

@@ -12,7 +12,7 @@ class FavorisActivity : AppCompatActivity() {
         setContentView(R.layout.activity_favoris)
 
         val btnHome = findViewById<ImageButton>(R.id.btnHome)
-        val btnParam = findViewById<ImageButton>(R.id.btnParametre)
+        val btnParam = findViewById<ImageButton>(R.id.btnMoncompte)
         val btnLogo = findViewById<ImageButton>(R.id.btnLogo)
         val searchBar = findViewById<SearchView>(R.id.SearchBar)
 

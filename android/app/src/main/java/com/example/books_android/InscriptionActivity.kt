@@ -16,7 +16,7 @@ class InscriptionActivity : AppCompatActivity() {
         val btnConnexion = findViewById<TextView>(R.id.textCreerCompteLink)
         val btnLogo = findViewById<ImageButton>(R.id.btnLogo)
         val btnFavoris = findViewById<ImageButton>(R.id.btnFavoris)
-        val btnParam = findViewById<ImageButton>(R.id.btnParametre)
+        val btnParam = findViewById<ImageButton>(R.id.btnMoncompte)
         btnConnexion.paintFlags = btnConnexion.paintFlags or Paint.UNDERLINE_TEXT_FLAG
         btnConnexion.setOnClickListener {
             val connexion = Intent(this@InscriptionActivity,ConnexionActivity::class.java)
