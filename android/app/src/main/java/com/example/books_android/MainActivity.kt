@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageButton
 import android.widget.SearchView
-import com.example.books_android.dao.ApiDao
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,8 +15,9 @@ class MainActivity : AppCompatActivity() {
         val btnFavoris = findViewById<ImageButton>(R.id.btnFavoris)
         val searchBar = findViewById<SearchView>(R.id.SearchBar)
 
+        // -- Redirection vers les autres activités -- //
         btnParam.setOnClickListener {
-            val param = Intent(this@MainActivity,ParamActivity::class.java)
+            val param = Intent(this@MainActivity,AccountActivity::class.java)
             startActivity(param)
         }
 
@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity() {
             val connexion = Intent(this@MainActivity, ConnexionActivity::class.java)
             startActivity(connexion)
         }
+        // -----
 
         val queryTextListener: SearchView.OnQueryTextListener =
             object : SearchView.OnQueryTextListener {

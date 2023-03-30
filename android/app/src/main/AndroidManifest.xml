@@ -24,7 +24,7 @@
             android:name=".FavorisActivity"
             android:exported="false" />
         <activity
-            android:name=".ParamActivity"
+            android:name=".AccountActivity"
             android:exported="false" />
         <activity
             android:name=".InscriptionActivity"

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layoutDirection="inherit"
-    tools:context=".ParamActivity">
+    tools:context=".AccountActivity">
 
     <Button
         android:id="@+id/btnSupprimerCompte"
@@ -39,7 +39,7 @@
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/moncompte" />
+        app:srcCompat="@drawable/moncompte_selected" />
 
     <View
         android:id="@+id/separator_bottom"

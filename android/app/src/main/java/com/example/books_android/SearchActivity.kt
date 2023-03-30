@@ -36,7 +36,7 @@ class SearchActivity : AppCompatActivity() {
 
         btnParam.setOnClickListener {
             finish()
-            val param = Intent(this@SearchActivity,ParamActivity::class.java)
+            val param = Intent(this@SearchActivity,AccountActivity::class.java)
             startActivity(param)
         }
 

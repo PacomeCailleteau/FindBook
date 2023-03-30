@@ -43,7 +43,7 @@ class InscriptionActivity : AppCompatActivity() {
         }
 
         btnParam.setOnClickListener {
-            val parametre = Intent(this@InscriptionActivity,ParamActivity::class.java)
+            val parametre = Intent(this@InscriptionActivity,AccountActivity::class.java)
             startActivity(parametre)
             finish()
         }

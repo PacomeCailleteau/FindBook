@@ -38,7 +38,7 @@ class ConnexionActivity : AppCompatActivity() {
         }
 
         btnParam.setOnClickListener {
-            val parametre = Intent(this@ConnexionActivity,ParamActivity::class.java)
+            val parametre = Intent(this@ConnexionActivity,AccountActivity::class.java)
             startActivity(parametre)
             finish()
         }
