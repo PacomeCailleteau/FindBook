@@ -119,7 +119,7 @@
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/parametre" />
+        app:srcCompat="@drawable/moncompte" />
 
     <ImageButton
         android:id="@+id/btnFavoris"
