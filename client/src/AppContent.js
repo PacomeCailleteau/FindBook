@@ -13,6 +13,18 @@ class AppContent extends React.Component {
             books: [],
         }
         this.doUpdate = this.doUpdate.bind(this)
+        const url = "https://leboncoin1.p.rapidapi.com/v2/leboncoin/search?query=https%3A%2F%2Fwww.leboncoin.fr%2Frecherche%3Fcategory%3D2%26text%3DEVOQUE%26brand%3DLand%2520Rover%26gearbox%3D2"
+        const options = {
+            method: 'GET',
+            headers: {
+                'X-RapidAPI-Key': 'eb26d2c4e5msh4298ada89fc9f6ap161596jsn6d6ad6c847f0',
+                'X-RapidAPI-Host': 'leboncoin1.p.rapidapi.com'
+            }
+        }
+        console.log("test")
+        fetch(url, options).then(response => response.json()).then(data => {
+            console.log(data)
+        })
     }
 
     componentDidMount() {
