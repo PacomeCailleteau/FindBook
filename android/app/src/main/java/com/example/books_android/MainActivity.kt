@@ -11,7 +11,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val btnParam = findViewById<ImageButton>(R.id.btnParametre)
+        val btnParam = findViewById<ImageButton>(R.id.btnMoncompte)
         val btnConnexion = findViewById<ImageButton>(R.id.btnConnexion)
         val btnFavoris = findViewById<ImageButton>(R.id.btnFavoris)
         val searchBar = findViewById<SearchView>(R.id.SearchBar)
