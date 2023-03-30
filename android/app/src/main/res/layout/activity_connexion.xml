@@ -50,7 +50,7 @@
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/moncompte" />
+        app:srcCompat="@drawable/moncompte_selected" />
 
     <View
         android:id="@+id/separator_bottom"

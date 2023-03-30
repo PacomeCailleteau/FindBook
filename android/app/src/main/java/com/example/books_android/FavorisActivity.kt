@@ -24,7 +24,7 @@ class FavorisActivity : AppCompatActivity() {
 
         btnParam.setOnClickListener {
             finish()
-            val param = Intent(this@FavorisActivity,ParamActivity::class.java)
+            val param = Intent(this@FavorisActivity,AccountActivity::class.java)
             startActivity(param)
         }
 

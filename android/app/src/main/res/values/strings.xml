@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">books-android</string>
     <string name="param_tre">Paramètre</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="sharedPref">sharedPref</string>
 </resources>

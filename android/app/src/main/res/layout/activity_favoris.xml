@@ -94,7 +94,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnMoncompte"
         app:layout_constraintStart_toEndOf="@+id/btnHome"
-        app:srcCompat="@drawable/favoris" />
+        app:srcCompat="@drawable/favoris_selected" />
 
     <TextView
         android:id="@+id/titreFavoris"
