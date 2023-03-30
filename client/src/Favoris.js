@@ -5,6 +5,7 @@ import {NavLink} from "react-router-dom";
 import Books from "./Books";
 import userDAO from "./userDAO";
 import "./Book.css"
+import "./Favoris.css"
 
 function Favoris (props){
 

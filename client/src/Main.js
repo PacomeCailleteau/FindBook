@@ -9,9 +9,8 @@ import BookDetail from "./BookDetail"
 import Connexion from "./Connexion"
 import Inscription from "./Inscription"
 import Favoris from "./Favoris";
-import {useCookies} from "react-cookie";
 import Compte from "./Compte";
-
+import "./Main.css"
 
 function Main (props) {
 
@@ -25,7 +24,7 @@ function Main (props) {
                     <Route exact path="/inscription" element={<Inscription />} />
                     <Route exact path="/favoris" element={<Favoris />}/>
                     <Route exact path="/compte" element={<Compte />}/>
-                    <Route path="*" element={<div>404: Not Found <span><NavLink to="/">Back to Home</NavLink></span> </div>} />
+                    <Route path="*" element={<div className={"non"}>404: Not Found <span><NavLink to="/">Back to Home</NavLink></span> </div>} />
                 </Routes>
             </div>
         </div>
