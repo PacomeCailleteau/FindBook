@@ -7,29 +7,6 @@
     android:layoutDirection="inherit"
     tools:context=".AccountActivity">
 
-    <Button
-        android:id="@+id/btnSupprimerCompte"
-        android:layout_width="254dp"
-        android:layout_height="57dp"
-        android:layout_marginTop="20dp"
-        android:backgroundTint="#7F5539"
-        android:text="Supprimer le compte"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
-
-    <TextView
-        android:id="@+id/titreParam"
-        android:layout_width="253dp"
-        android:layout_height="39dp"
-        android:layout_marginTop="80dp"
-        android:text="@string/param_tre"
-        android:textAlignment="center"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnLogo" />
-
     <ImageButton
         android:id="@+id/btnMoncompte"
         android:layout_width="135dp"
@@ -40,6 +17,160 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/moncompte_selected" />
+
+    <ScrollView
+        android:id="@+id/scrollView3"
+        android:layout_width="413dp"
+        android:layout_height="619dp"
+        app:layout_constraintBottom_toTopOf="@+id/separator_bottom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/separator_top">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/titreMonCompte"
+                android:layout_width="361dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="30dp"
+                android:text="Mon compte"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textViewPseudo"
+                android:layout_width="253dp"
+                android:layout_height="39dp"
+                android:layout_marginTop="20dp"
+                android:text="Pseudo :"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/titreMonCompte" />
+
+            <TextView
+                android:id="@+id/textViewMdpActuel"
+                android:layout_width="253dp"
+                android:layout_height="39dp"
+                android:layout_marginTop="40dp"
+                android:text="Mot de passe Actuel :"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@+id/btnChangerPseudo"
+                app:layout_constraintTop_toBottomOf="@+id/btnChangerPseudo" />
+
+            <TextView
+                android:id="@+id/textViewMdpNew"
+                android:layout_width="253dp"
+                android:layout_height="39dp"
+                android:layout_marginTop="20dp"
+                android:text="Nouveau mot de passe :"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@+id/editTextTextMdpActuel"
+                app:layout_constraintTop_toBottomOf="@+id/editTextTextMdpActuel" />
+
+            <TextView
+                android:id="@+id/textViewMdpNewConfirm"
+                android:layout_width="253dp"
+                android:layout_height="39dp"
+                android:layout_marginTop="20dp"
+                android:text="Confirmation :"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@+id/editTextTextMdpNew"
+                app:layout_constraintTop_toBottomOf="@+id/editTextTextMdpNew" />
+
+            <EditText
+                android:id="@+id/editTextTextPersonName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="Name"
+                app:layout_constraintStart_toStartOf="@+id/textViewPseudo"
+                app:layout_constraintTop_toBottomOf="@+id/textViewPseudo" />
+
+            <EditText
+                android:id="@+id/editTextTextMdpActuel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPassword"
+                app:layout_constraintStart_toStartOf="@+id/textViewMdpActuel"
+                app:layout_constraintTop_toBottomOf="@+id/textViewMdpActuel" />
+
+            <EditText
+                android:id="@+id/editTextTextMdpNew"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPassword"
+                app:layout_constraintStart_toStartOf="@+id/textViewMdpNew"
+                app:layout_constraintTop_toBottomOf="@+id/textViewMdpNew" />
+
+            <EditText
+                android:id="@+id/editTextTextMdpNewConfirm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPassword"
+                app:layout_constraintStart_toStartOf="@+id/textViewMdpNewConfirm"
+                app:layout_constraintTop_toBottomOf="@+id/textViewMdpNewConfirm" />
+
+            <Button
+                android:id="@+id/btnSupprimerCompte2"
+                android:layout_width="270dp"
+                android:layout_height="57dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:backgroundTint="#7F5539"
+                android:text="Supprimer le compte"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/btnSeDeconnecter"
+                app:layout_constraintStart_toStartOf="@+id/btnSeDeconnecter"
+                app:layout_constraintTop_toBottomOf="@+id/btnSeDeconnecter" />
+
+            <Button
+                android:id="@+id/btnChangerPseudo"
+                android:layout_width="254dp"
+                android:layout_height="57dp"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="#7F5539"
+                android:text="Changer mon pseudo"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.496"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+
+            <Button
+                android:id="@+id/btnChangerMdp"
+                android:layout_width="270dp"
+                android:layout_height="57dp"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="#7F5539"
+                android:text="Changer mon mot de passe"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editTextTextMdpNewConfirm" />
+
+            <Button
+                android:id="@+id/btnSeDeconnecter"
+                android:layout_width="270dp"
+                android:layout_height="57dp"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="#7F5539"
+                android:text="Se déconnecter"
+                app:layout_constraintEnd_toEndOf="@+id/btnChangerMdp"
+                app:layout_constraintStart_toStartOf="@+id/btnChangerMdp"
+                app:layout_constraintTop_toBottomOf="@+id/btnChangerMdp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
     <View
         android:id="@+id/separator_bottom"
@@ -96,31 +227,5 @@
         app:layout_constraintEnd_toStartOf="@+id/btnMoncompte"
         app:layout_constraintStart_toEndOf="@+id/btnHome"
         app:srcCompat="@drawable/favoris" />
-
-    <RadioGroup
-        android:id="@+id/radioGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="@+id/titreParam"
-        app:layout_constraintStart_toStartOf="@+id/titreParam"
-        app:layout_constraintTop_toBottomOf="@+id/titreParam">
-
-        <RadioButton
-            android:id="@+id/radioFrancais"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            android:paddingRight="60dp"
-            android:text="Français" />
-
-        <RadioButton
-            android:id="@+id/radioAnglais"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingRight="60dp"
-            android:text="English" />
-    </RadioGroup>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
