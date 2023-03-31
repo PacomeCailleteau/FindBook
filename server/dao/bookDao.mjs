@@ -13,7 +13,6 @@ let agent = null
 if (proxy !== undefined) {
     agent =  new HttpsProxyAgent(proxy);
 } else {
-    // pour pouvoir consulter un site avec un certificat invalide
     process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 }
 
@@ -37,6 +36,10 @@ export const bookDao = {
             return []
         }
 
-        return data.items.map((item) => new bookModel(item.volumeInfo))
+        let books = data.items.map((item) => new bookModel(item.volumeInfo))
+
+        // We filter out books without title or isbn
+        books = books.filter(e => e.title && e.isbn)
+        return books
     }
 }

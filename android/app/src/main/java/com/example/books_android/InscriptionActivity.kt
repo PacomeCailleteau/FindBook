@@ -72,6 +72,7 @@ class InscriptionActivity : AppCompatActivity() {
         // -----
 
 
+        // -- Inscription -- //
         btnCreerCompte.setOnClickListener {
             val login = editTextLogin.text.toString()
             val password = editTextPasswordInscription.text.toString()
@@ -88,6 +89,7 @@ class InscriptionActivity : AppCompatActivity() {
                     { response ->
                         val token = JsonPath.parse(response)?.read<String>("$.token")!!
                         this.tokenManager.setToken(token)
+                        println(this.tokenManager.getToken())
 
                         Toast.makeText(this, "Inscription réussie", Toast.LENGTH_SHORT).show()
                         val home = Intent(this@InscriptionActivity, MainActivity::class.java)

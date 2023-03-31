@@ -13,7 +13,7 @@ class AccountActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         this.tokenManager = TokenManager(this)
-        println(">>>>>>>>>>>>>>>>>>>>>>> ici")
+        println("Token: ${tokenManager.getToken()}")
 
         val redirectToConnexion = {
             val connexion = Intent(this, ConnexionActivity::class.java)
@@ -21,11 +21,9 @@ class AccountActivity : AppCompatActivity() {
         }
 
         if (!tokenManager.tokenExists()) {
-            println(">>>>>>>>>>>>>>>>>>>>>>> token inexistant")
             redirectToConnexion()
         } else {
             this.apiDao = ApiDao(this)
-            println(">>>>>>>>>>>>>>>>>>>>>>> ${tokenManager.getToken()}")
             this.apiDao.connectWithToken(tokenManager.getToken(),
                 { response ->
                     // L'utilisateur est connecté

@@ -2,9 +2,10 @@ package com.example.books_android
 
 import android.app.Activity
 import android.content.Context
+import android.provider.Settings.System.getString
 
 class TokenManager(activity: Activity) {
-    private val sharedPref = activity.getPreferences(Context.MODE_PRIVATE)
+    private val sharedPref = activity.getSharedPreferences("token", Context.MODE_PRIVATE)
 
     fun setToken(token: String) {
         with(sharedPref.edit()) {
