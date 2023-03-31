@@ -19,7 +19,6 @@ class ApiDao(context: Activity) {
 
     private fun request(method: Int, url: String, callbackSuccess: Response.Listener<String>, callbackError: (ErrorMessageModel) -> Unit) {
         // Request a string response from the provided URL.
-        println(url)
         val stringRequest = StringRequest(
             method, url,
             callbackSuccess

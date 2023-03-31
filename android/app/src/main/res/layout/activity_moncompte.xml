@@ -50,30 +50,24 @@
                 android:layout_height="39dp"
                 android:layout_marginTop="20dp"
                 android:text="Pseudo :"
+                android:textAlignment="center"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/titreMonCompte" />
 
             <TextView
-                android:id="@+id/textViewMdpActuel"
-                android:layout_width="253dp"
-                android:layout_height="39dp"
-                android:layout_marginTop="40dp"
-                android:text="Mot de passe Actuel :"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="@+id/btnChangerPseudo"
-                app:layout_constraintTop_toBottomOf="@+id/btnChangerPseudo" />
-
-            <TextView
                 android:id="@+id/textViewMdpNew"
                 android:layout_width="253dp"
                 android:layout_height="39dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="56dp"
                 android:text="Nouveau mot de passe :"
+                android:textAlignment="center"
                 android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="@+id/editTextTextMdpActuel"
-                app:layout_constraintTop_toBottomOf="@+id/editTextTextMdpActuel" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.493"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnChangerPseudo" />
 
             <TextView
                 android:id="@+id/textViewMdpNewConfirm"
@@ -81,28 +75,21 @@
                 android:layout_height="39dp"
                 android:layout_marginTop="20dp"
                 android:text="Confirmation :"
+                android:textAlignment="center"
                 android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="@+id/editTextTextMdpNew"
+                app:layout_constraintEnd_toEndOf="@+id/textViewMdpNew"
+                app:layout_constraintStart_toStartOf="@+id/textViewMdpNew"
                 app:layout_constraintTop_toBottomOf="@+id/editTextTextMdpNew" />
 
             <EditText
-                android:id="@+id/editTextTextPersonName"
+                android:id="@+id/editTextLogin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:text="Name"
+                app:layout_constraintEnd_toEndOf="@+id/textViewPseudo"
                 app:layout_constraintStart_toStartOf="@+id/textViewPseudo"
                 app:layout_constraintTop_toBottomOf="@+id/textViewPseudo" />
-
-            <EditText
-                android:id="@+id/editTextTextMdpActuel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPassword"
-                app:layout_constraintStart_toStartOf="@+id/textViewMdpActuel"
-                app:layout_constraintTop_toBottomOf="@+id/textViewMdpActuel" />
 
             <EditText
                 android:id="@+id/editTextTextMdpNew"
@@ -110,6 +97,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textPassword"
+                app:layout_constraintEnd_toEndOf="@+id/textViewMdpNew"
                 app:layout_constraintStart_toStartOf="@+id/textViewMdpNew"
                 app:layout_constraintTop_toBottomOf="@+id/textViewMdpNew" />
 
@@ -119,11 +107,12 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textPassword"
+                app:layout_constraintEnd_toEndOf="@+id/textViewMdpNewConfirm"
                 app:layout_constraintStart_toStartOf="@+id/textViewMdpNewConfirm"
                 app:layout_constraintTop_toBottomOf="@+id/textViewMdpNewConfirm" />
 
             <Button
-                android:id="@+id/btnSupprimerCompte2"
+                android:id="@+id/btnSupprimerCompte"
                 android:layout_width="270dp"
                 android:layout_height="57dp"
                 android:layout_marginTop="20dp"
@@ -145,7 +134,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.496"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+                app:layout_constraintTop_toBottomOf="@+id/editTextLogin" />
 
             <Button
                 android:id="@+id/btnChangerMdp"

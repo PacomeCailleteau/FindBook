@@ -36,7 +36,7 @@ class InscriptionActivity : AppCompatActivity() {
         val editTextLogin = findViewById<TextView>(R.id.editTextPrenom)
         val editTextPasswordInscription = findViewById<TextView>(R.id.editTextPasswordInscription)
         val editTextPasswordConfirmInscription = findViewById<TextView>(R.id.editTextPasswordConfirmInscription)
-        val btnCreerCompte = findViewById<TextView>(R.id.btnCreerCompte)
+        val btnCreerCompte = findViewById<TextView>(R.id.btnLogin)
         // -----
 
         // -- Redirection vers les autres activités -- //
