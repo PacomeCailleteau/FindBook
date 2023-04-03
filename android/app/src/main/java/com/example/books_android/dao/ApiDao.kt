@@ -6,6 +6,8 @@ import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.books_android.models.ErrorMessageModel
+import com.nfeld.jsonpathkt.JsonPath
+import com.nfeld.jsonpathkt.extension.read
 import java.security.MessageDigest
 
 class ApiDao(context: Activity) {
@@ -28,7 +30,8 @@ class ApiDao(context: Activity) {
             val errorMessage = ErrorMessageModel("error", statusCode)
 
             if (networkResponse?.data != null) {
-                errorMessage.message = String(networkResponse.data)
+                val message = JsonPath.parse(String(networkResponse.data))?.read<String>("$.message")!!
+                errorMessage.message = message
             }
 
             callbackError(errorMessage)

@@ -1,7 +1,7 @@
 **/node_modules
 **/books-sae.db
 .idea
-
+.vscode
 
 # android
 
