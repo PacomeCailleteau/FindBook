@@ -13,13 +13,17 @@ const userDAO = {
         //vérification que les passes sont égaux
         if(pass ===  pass_confirmation){
             const cryptedPass = sha256(pass)
-            const suffix = "create/"+login+"/"+cryptedPass
+            const suffix = "create"
             const res = await fetch(baseURL + suffix, {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
-                }
+                },
+                body: JSON.stringify({
+                    login: login,
+                    password: cryptedPass
+                })
             })
             const data = await res.json()
             return data
@@ -30,13 +34,16 @@ const userDAO = {
 
     async changeLogin (token, login) {
         //on envoie la requête
-        const suffix = `update/login/${token}/${login}`
+        const suffix = `update/login/${token}`
         const res = await fetch(baseURL + suffix, {
             method: 'PUT',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-            }
+            },
+            body: JSON.stringify({
+                login: login
+            })
         });
         const data = await res.json()
         return data
@@ -52,13 +59,16 @@ const userDAO = {
                 //on chiffre le nouveau pass
                 const cryptedPass = sha256(pass)
                 //on envoie la requête
-                const suffix = `update/password/${token}/${cryptedPass}`
+                const suffix = `update/password/${token}`
                 const res = await fetch(baseURL + suffix, {
                     method: 'PUT',
                     headers: {
                         'Accept': 'application/json',
                         'Content-Type': 'application/json',
-                    }
+                    },
+                    body: JSON.stringify({
+                        password: cryptedPass
+                    })
                 });
                 return await res.json()
             }
@@ -88,13 +98,16 @@ const userDAO = {
      * @returns {Promise<any>}
      */
     async addBook (token, isbn) {
-        const suffix = `addBook/${token}/${isbn}`
+        const suffix = `addBook/${token}`
         const res = await fetch(baseURL + suffix, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-            }
+            },
+            body: JSON.stringify({
+                isbn: isbn
+            })
         })
         const data = await res.json()
         return data

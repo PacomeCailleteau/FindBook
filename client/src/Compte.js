@@ -47,15 +47,15 @@ function Compte (props){
         //on prend le placeholder car on est sur qu'il correspond à la valeur actuelle du login
         userDAO.changePass(loginInput.placeholder, cookies.token, passInput.value, passNewInput.value, passConfInput.value)
             .then(data => {
-            if (!(data.error)) {
-                removeCookie('token', {sameSite: "lax"})
-                setCookie("token", data.token, {sameSite: "lax"})
-                setUser(data)
-            }
-            passInput.value = ""
-            passNewInput.value = ""
-            passConfInput.value = ""
-        });
+                if (!(data.error)) {
+                    removeCookie('token', {sameSite: "lax"})
+                    setCookie("token", data.token, {sameSite: "lax"})
+                    setUser(data)
+                }
+                passInput.value = ""
+                passNewInput.value = ""
+                passConfInput.value = ""
+            });
     }
 
     //change le pseudo de l'utilisateur
@@ -64,13 +64,14 @@ function Compte (props){
         //on récupère les infos du form
         const loginInput = document.querySelector('#firstname');
         //on appelle de dao pour créer le user et on récupére la valeur de retour pour mettre le token dans le cookie
-        userDAO.changeLogin(cookies.token, loginInput.value).then(data => {
-            if (data.login === loginInput.value) {
-                setUser(data)
-                loginInput.placeholder = data.login
-            }
-            loginInput.value = ""
-        });
+        userDAO.changeLogin(cookies.token, loginInput.value)
+            .then(data => {
+                if (data.login === loginInput.value) {
+                    setUser(data)
+                    loginInput.placeholder = data.login
+                }
+                loginInput.value = ""
+            });
     }
 
     return(
