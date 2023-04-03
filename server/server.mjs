@@ -43,6 +43,7 @@ const swaggerOptions = {
 
 // --- Routes --- //
 const routes = [
+    //testé
     {
         method: "GET",
         path: "/users",
@@ -65,6 +66,7 @@ const routes = [
         },
     },
 
+    //testé
     {
         method: "GET",
         path: "/users/{token}",
@@ -100,6 +102,7 @@ const routes = [
         }
     },
 
+    //testé
     {
         method: "POST",
         path: "/users/create",
@@ -146,6 +149,7 @@ const routes = [
         }
     },
 
+    //testé
     {
         method: "GET",
         path: "/users/login/{login}/{password}",
@@ -190,6 +194,7 @@ const routes = [
         }
     },
 
+    //testé
     {
         method: "DELETE",
         path: "/users/delete/{token}",
@@ -226,13 +231,22 @@ const routes = [
         }
     },
 
+    //testé
     {
         method: "PUT",
         path: "/users/update/login/{token}",
         handler: async (request, h) => {
             try {
-                const login = request.payload;
-                return h.response(await userController.updateLogin(request.params.token, login)).code(200)
+                const login = request.payload.login;
+                const user = await userController.updateLogin(request.params.token, login)
+
+                if (user === null) {
+                    return h.response({
+                        message: "user not found"
+                    }).code(404);
+                }
+
+                return h.response(user).code(200)
             } catch(e) {
                 return h.response(e).code(400)
             }
@@ -243,7 +257,10 @@ const routes = [
             tags: ["api", "users"],
             validate: {
                 params: Joi.object({
-                    login: Joi.string().required().description("The new login")
+                    token: Joi.string().required().description("The new login")
+                }),
+                payload: Joi.object({
+                    login: Joi.string().required().description("A user's token")
                 })
             },
             response: {
@@ -254,12 +271,13 @@ const routes = [
         }
     },
 
+    //testé
     {
         method: "PUT",
         path: "/users/update/password/{token}",
         handler: async (request, h) => {
             try {
-                const pass = request.payload;
+                const pass = request.payload.password;
                 const [token, user] = await userController.updateUserPassword(request.params.token, pass);
                 
                 if (user === null) {
@@ -282,7 +300,10 @@ const routes = [
             tags: ["api", "users"],
             validate: {
                 params: Joi.object({
-                    pass: Joi.string().required().description("A user's new password")
+                    token: Joi.string().required().description("A user's token")
+                }),
+                payload: Joi.object({
+                    password: Joi.string().required().description("A user's token")
                 })
             },
             response: {
@@ -297,6 +318,7 @@ const routes = [
         }
     },
 
+    //testé
     {
         method: "GET",
         path: "/books/search/{searchTerm}",
@@ -324,6 +346,7 @@ const routes = [
         }
     },
 
+    //testé
     {
         method: "GET",
         path: "/books/isbn/{isbn}",
@@ -357,12 +380,13 @@ const routes = [
         }
     },
 
+    //testé
     {
         method: "POST",
         path: "/users/addBook/{token}",
         handler: async (request, h) => {
             try {
-                const isbn = request.payload;
+                const isbn = request.payload.isbn;
                 const user = await userController.addBookFromUser(request.params.token, isbn)
 
                 if (user === null) {
@@ -382,8 +406,11 @@ const routes = [
             tags: ["api", "users", "books"],
             validate: {
                 params: Joi.object({
-                    isbn: Joi.string().required().description("A book's isbn")
+                    token: Joi.string().required().description("A user's token")
                 }),
+                payload: Joi.object({
+                    isbn: Joi.string().required().description("A book's isbn")
+                })
             },
             response: {
                 status: {
@@ -394,6 +421,7 @@ const routes = [
         }
     },
 
+    //testé
     {
         method: "DELETE",
         path: "/users/removeBook/{token}/{isbn}",
@@ -422,6 +450,7 @@ const routes = [
         }
     },
 
+    //testé
     {
         method: "*",
         path: "/{any*}",

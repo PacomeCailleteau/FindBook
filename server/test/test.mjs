@@ -21,8 +21,7 @@ describe("user", () => {
         await server.stop();
     });
 
-    //test comportement normal
-
+    //tests comportement normal
     it("créé un nouvel utilisateur", async () => {
         const res = await server.inject({
             method: "post",
@@ -33,11 +32,9 @@ describe("user", () => {
             }
         })
         chai.expect(res.statusCode).to.equal(200)
-        //res.result.user = {id: ..., login: ..., books: ...}
         chai.expect(res.result.user.login).to.eql('test')
         chai.expect(Array.isArray(res.result.user.books)).to.eql(true)
         chai.expect(res.result.user.books.length).to.eql(0)
-        //TODO : vérifier que le token est bien un str et qu'il existe
         //on ne peut pas vérifier autre chose car il est fait aléatoirement
         chai.expect(typeof res.result.token).to.eql("string")
         tok = res.result.token
@@ -46,7 +43,7 @@ describe("user", () => {
     it('affiche tous les utilisateurs', async () => {
         const res = await server.inject({
             method: 'get',
-            url: 'localhost:3000/users',
+            url: 'localhost:3001/users',
         })
         chai.expect(res.statusCode).to.equal(200);
         //vérifie que le résultat est bien un tableau
@@ -57,7 +54,7 @@ describe("user", () => {
     it('affiche un utilisateur grâce à son token', async () => {
         const res = await server.inject({
             method: 'get',
-            url: 'localhost:3000/users/'+tok,
+            url: 'localhost:3001/users/'+tok,
         })
     chai.expect(res.statusCode).to.equal(200);
     chai.expect(res.result.login).to.equal('test');
@@ -66,7 +63,7 @@ describe("user", () => {
     it('modifie le login du user', async () => {
         const res = await server.inject({
             method: "put",
-            url: 'localhost:3000/users/update/login/'+tok,
+            url: 'localhost:3001/users/update/login/'+tok,
             payload: {
                 login: "change"
             }
@@ -75,7 +72,195 @@ describe("user", () => {
         chai.expect(res.result.login).to.equal("change")
     })
 
-    
+    it("modifie le mot de passe du user", async () => {
+        const res = await server.inject({
+            method: "put",
+            url: 'localhost:3001/users/update/password/'+tok,
+            payload: {
+                password: "pass2"
+            }
+        })
+        chai.expect(res.statusCode).to.eql(200)
+        chai.expect(res.result.user.login).to.equal("change")
+        chai.expect(res.result.token).to.not.equal(null)
+        tok = res.result.token
+    })
+
+    it("affiche l'utilisateur et son token après modification grâce à son pass et son login", async () => {
+        const res = await server.inject({
+            method: "get",
+            url: 'localhost:3001/users/login/change/pass2',
+        })
+        chai.expect(res.statusCode).to.eql(200)
+        chai.expect(res.result.user.login).to.equal("change")
+        chai.expect(res.result.token).to.equal(tok)
+    })
+
+    it("affiche les livres liés à la recherche", async () => {
+        const res = await server.inject({
+            method: "get",
+            url: 'localhost:3001/books/search/hunter%20x%20hunter',
+        })
+        chai.expect(res.statusCode).to.eql(200)
+        //le résultat est un tableau
+        chai.expect(Array.isArray(res.result)).to.equal(true);
+    })
+
+    it("affiche le livre lié à l'id", async () => {
+        const res = await server.inject({
+            method: "get",
+            url: 'localhost:3001/books/isbn/9782505014706',
+        })
+        chai.expect(res.statusCode).to.eql(200)
+        //le résultat est un book
+        chai.expect(res.result.isbn).to.equal("9782505014706")
+        chai.expect(res.result.title).to.eql("Hunter X Hunter")
+        chai.expect(res.result.cover).to.eql(undefined)
+        chai.expect(res.result.authors).to.eql(["Yoshihiro Togashi"])
+        chai.expect(res.result.publishedDate).to.eql("2012-06-01")
+        chai.expect(res.result.description).to.eql("La bataille entre les Kimeras Ants et les humains s'intensifie. Loin du palais royal, le roi et Netero mènent un combat acharné à l'issue des plus inattendues !! Pendant ce temps, Kirua retrouve Pâmu qui s'inquiétait pour Gon. Cependant, l'attitude de Pâmu reste encore partiellement incompréhensible...")
+    })
+
+    it("ajoute un livre à la liste des livres de l'utilisateur", async () => {
+        const res = await server.inject({
+            method: "post",
+            url: 'localhost:3001/users/addBook/'+tok,
+            payload: {
+                isbn: "9782505014706"
+            }
+        })
+        chai.expect(res.statusCode).to.eql(200)
+        chai.expect(res.result.login).to.equal("change")
+        chai.expect(res.result.books[0].isbn).to.equal("9782505014706")
+        chai.expect(res.result.books[0].title).to.eql("Hunter X Hunter")
+        chai.expect(res.result.books[0].cover).to.eql("")
+    })
+
+    it("supprime un livre de la liste des livres de l'utilisateur", async () => {
+        const res = await server.inject({
+            method: "delete",
+            url: 'localhost:3001/users/removeBook/'+tok+'/9782505014706',
+        })
+        chai.expect(res.statusCode).to.eql(200)
+        chai.expect(res.result.login).to.equal("change")
+        chai.expect(res.result.books.length).to.equal(0)
+    })
+
+    it("supprime un utilisateur", async () => {
+        const res = await server.inject({
+            method: "delete",
+            url: 'localhost:3001/users/delete/'+tok,
+        })
+        chai.expect(res.statusCode).to.eql(200)
+        chai.expect(res.result.login).to.equal("change")
+        chai.expect(res.result.books).to.equal(undefined)
+    })
+
+    /*==============================================================*/
+    //tests comportement inattendu
+    it("erreur isbn non trouvé get", async () => {
+        const res = await server.inject({
+            method: "get",
+            url: 'localhost:3001/books/isbn/666',
+        })
+        chai.expect(res.statusCode).to.eql(404)
+        chai.expect(res.result).to.eql({message: "book not found"})
+    })
+
+    it("erreur token non associé à un user get", async () => {
+        const res = await server.inject({
+            method: "get",
+            url: 'localhost:3001/users/666',
+        })
+        chai.expect(res.statusCode).to.eql(404)
+        chai.expect(res.result).to.eql({message: "user not found"})
+    })
+
+    it("erreur login déjà utilisé create", async () => {
+        //création d'un user
+        await server.inject({
+            method: "post",
+            url: 'localhost:3001/users/create',
+            payload: {
+                login: "change",
+                password: "cc"
+            }
+        })
+        //test de création d'un user avec le même login
+        const res = await server.inject({
+            method: "post",
+            url: 'localhost:3001/users/create',
+            payload: {
+                login: "change",
+                password: "pass"
+            }
+        })
+        chai.expect(res.statusCode).to.eql(409)
+        chai.expect(res.result).to.eql({message: "user already exists"})
+    })
+
+    it("erreur pass incorrect get", async () => {
+        const res = await server.inject({
+            method: "get",
+            url: 'localhost:3001/users/login/change/666',
+        })
+        chai.expect(res.statusCode).to.eql(403)
+        chai.expect(res.result).to.eql({message: "Mot de passe incorrect"})
+    })
+
+    it("erreur login incorrect get", async () => {
+        const res = await server.inject({
+            method: "get",
+            url: 'localhost:3001/users/login/changee/pass',
+        })
+        chai.expect(res.statusCode).to.eql(403)
+        chai.expect(res.result).to.eql({message: "Utilisateur inconnu"})
+    })
+
+    it("erreur user not found delete", async () => {
+        const res = await server.inject({
+            method: "delete",
+            url: 'localhost:3001/users/delete/666',
+            })
+        chai.expect(res.statusCode).to.eql(404)
+        chai.expect(res.result).to.eql({message: "user not found"})
+    })
+
+    it("erreur user not found update login ", async () => {
+        const res = await server.inject({
+            method: "put",
+            url: 'localhost:3001/users/update/login/cc',
+            payload: {
+                login: "change"
+            }
+        })
+        chai.expect(res.statusCode).to.eql(404)
+        chai.expect(res.result).to.eql({message: "user not found"})
+    })
+
+    it("erreur user not found update password ", async () => {
+        const res = await server.inject({
+            method: "put",
+            url: 'localhost:3001/users/update/password/cc',
+            payload: {
+                password: "prout"
+            }
+        })
+        chai.expect(res.statusCode).to.eql(404)
+        chai.expect(res.result).to.eql({message: "user not found"})
+    })
+
+    it("erreur user not found add book ", async () => {
+        const res = await server.inject({
+            method: "post",
+            url: 'localhost:3001/users/addBook/666',
+            payload: {
+                isbn: "9782505014706"
+            }
+        })
+        chai.expect(res.statusCode).to.eql(403)
+        chai.expect(res.result).to.eql({message: "user not found"})
+    })
 
 
 })
