@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon startServer.mjs",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "rm ./prisma/books-sae-test.db; prisma generate --schema ./prisma/schema-test.prisma; prisma db push --schema ./prisma/schema-test.prisma; c8 nyc  mocha --timeout 10000 --cahe off",
     "prisma": "./node_modules/.bin/prisma generate & ./node_modules/.bin/prisma db push"
   },
   "author": "",

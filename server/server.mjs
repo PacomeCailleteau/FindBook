@@ -64,6 +64,7 @@ const routes = [
             }
         },
     },
+
     {
         method: "GET",
         path: "/users/{token}",
@@ -98,12 +99,15 @@ const routes = [
             }
         }
     },
+
     {
         method: "POST",
-        path: "/users/create/{login}/{password}",
+        path: "/users/create",
         handler: async (request, h) => {
             try {
-                const [token, user] = await userController.createUser(request.params.login, request.params.password)
+                const login = request.payload.login;
+                const password = request.payload.password;
+                const [token, user] = await userController.createUser(login, password)
 
                 if (user === null) {
                     return h.response({
@@ -125,7 +129,7 @@ const routes = [
             notes: "Create a new user from a login and a password",
             tags: ["api", "users"],
             validate: {
-                params: Joi.object({
+                payload: Joi.object({
                     login: Joi.string().required().description("A user's login"),
                     password: Joi.string().required().description("A user's password")
                 })
@@ -141,6 +145,7 @@ const routes = [
             }
         }
     },
+
     {
         method: "GET",
         path: "/users/login/{login}/{password}",
@@ -184,6 +189,7 @@ const routes = [
             }
         }
     },
+
     {
         method: "DELETE",
         path: "/users/delete/{token}",
@@ -219,12 +225,14 @@ const routes = [
             }
         }
     },
+
     {
         method: "PUT",
-        path: "/users/update/login/{token}/{login}",
+        path: "/users/update/login/{token}",
         handler: async (request, h) => {
             try {
-                return h.response(await userController.updateLogin(request.params.token, request.params.login)).code(200)
+                const login = request.payload;
+                return h.response(await userController.updateLogin(request.params.token, login)).code(200)
             } catch(e) {
                 return h.response(e).code(400)
             }
@@ -235,7 +243,6 @@ const routes = [
             tags: ["api", "users"],
             validate: {
                 params: Joi.object({
-                    token: Joi.string().required().description("A user's token"),
                     login: Joi.string().required().description("The new login")
                 })
             },
@@ -246,12 +253,14 @@ const routes = [
             }
         }
     },
+
     {
         method: "PUT",
-        path: "/users/update/password/{token}/{newPassword}",
+        path: "/users/update/password/{token}",
         handler: async (request, h) => {
             try {
-                const [token, user] = await userController.updateUserPassword(request.params.token, request.params.newPassword);
+                const pass = request.payload;
+                const [token, user] = await userController.updateUserPassword(request.params.token, pass);
                 
                 if (user === null) {
                     return h.response({
@@ -273,8 +282,7 @@ const routes = [
             tags: ["api", "users"],
             validate: {
                 params: Joi.object({
-                    token: Joi.string().required().description("A user's token"),
-                    newPassword: Joi.string().required().description("A user's new password")
+                    pass: Joi.string().required().description("A user's new password")
                 })
             },
             response: {
@@ -288,6 +296,7 @@ const routes = [
             }
         }
     },
+
     {
         method: "GET",
         path: "/books/search/{searchTerm}",
@@ -314,6 +323,7 @@ const routes = [
             }
         }
     },
+
     {
         method: "GET",
         path: "/books/isbn/{isbn}",
@@ -346,12 +356,14 @@ const routes = [
             }
         }
     },
+
     {
         method: "POST",
-        path: "/users/addBook/{token}/{isbn}",
+        path: "/users/addBook/{token}",
         handler: async (request, h) => {
             try {
-                const user = await userController.addBookFromUser(request.params.token, request.params.isbn)
+                const isbn = request.payload;
+                const user = await userController.addBookFromUser(request.params.token, isbn)
 
                 if (user === null) {
                     return h.response({
@@ -370,7 +382,6 @@ const routes = [
             tags: ["api", "users", "books"],
             validate: {
                 params: Joi.object({
-                    token: Joi.string().required().description("A user's token"),
                     isbn: Joi.string().required().description("A book's isbn")
                 }),
             },
@@ -382,6 +393,7 @@ const routes = [
             }
         }
     },
+
     {
         method: "DELETE",
         path: "/users/removeBook/{token}/{isbn}",
@@ -409,6 +421,7 @@ const routes = [
             }
         }
     },
+
     {
         method: "*",
         path: "/{any*}",
@@ -442,6 +455,11 @@ const server = Hapi.server({
 });
 
 server.route(routes);
+
+export const init = async () => {
+    await server.initialize();
+    return server;
+};
 
 export const start = async () => {
     await server.register([
