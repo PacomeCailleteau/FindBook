@@ -79,6 +79,7 @@ const routes = [
                         message: "user not found"
                     }).code(404);
                 }
+
                 return h.response(user).code(200);
             } catch(e) {
                 return h.response(e).code(400)
@@ -201,12 +202,13 @@ const routes = [
         handler: async (request, h) => {
             try {
                 const user = await userController.deleteUser(request.params.token);
-                
+
                 if (user === null) {
                     return h.response({
                         message: "user not found"
                     }).code(404);
                 }
+
                 return h.response(user).code(200)
             } catch(e) {
                 return h.response(e).code(400)
@@ -237,12 +239,12 @@ const routes = [
         handler: async (request, h) => {
             try {
                 const login = request.payload.login;
-                const user = await userController.updateLogin(request.params.token, login)
+                const [user, message] = await userController.updateLogin(request.params.token, login)
 
                 if (user === null) {
                     return h.response({
-                        message: "user not found"
-                    }).code(404);
+                        message: message
+                    }).code(403);
                 }
 
                 return h.response(user).code(200)
@@ -252,7 +254,7 @@ const routes = [
         },
         options: {
             description: "update a user's login",
-            notes: "update a user's login :)",
+            notes: "update a user's login",
             tags: ["api", "users"],
             validate: {
                 params: Joi.object({
@@ -352,11 +354,13 @@ const routes = [
         handler: async (request, h) => {
             try {
                 const book = await bookController.getBookInformation(request.params.isbn)
+
                 if (book === null) {
                     return h.response({
                         message: "book not found"
                     }).code(404);
                 }
+
                 return h.response(book).code(200);
             } catch(e) {
                 return h.response(e).code(400)
@@ -386,11 +390,11 @@ const routes = [
         handler: async (request, h) => {
             try {
                 const isbn = request.payload.isbn;
-                const user = await userController.addBookFromUser(request.params.token, isbn)
+                const [user, message] = await userController.addBookFromUser(request.params.token, isbn)
 
                 if (user === null) {
                     return h.response({
-                        message: "user not found"
+                        message: message
                     }).code(403);
                 }
 
@@ -426,7 +430,15 @@ const routes = [
         path: "/users/removeBook/{token}/{isbn}",
         handler: async (request, h) => {
             try {
-                return h.response(await userController.removeBookFromUser(request.params.token, request.params.isbn)).code(200)
+                const [user, message] = await userController.removeBookFromUser(request.params.token, request.params.isbn)
+
+                if (user === null) {
+                    return h.response({
+                        message: message
+                    }).code(403);
+                }
+
+                return h.response(user).code(200)
             } catch(e) {
                 return h.response(e).code(400)
             }

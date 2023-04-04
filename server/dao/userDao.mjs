@@ -94,13 +94,13 @@ export const userDao = {
         // Check if user already exist
         const user = await this.getUserByToken(token);
         if (user === null) {
-            return null;
+            return [null, "utilisateur inconnu"];
         }
 
         // Check if login already exist
         const userWithLogin = await this.getUserByLogin(login);
         if (userWithLogin !== null) {
-            return null;
+            return [null, "login déjà utilisé"];
         }
 
         // update user's login
@@ -113,7 +113,7 @@ export const userDao = {
             },
         });
         // return updated user
-        return new userModel(updatedUser);
+        return [new userModel(updatedUser), ""]
     },
 
 
@@ -126,7 +126,6 @@ export const userDao = {
                 books: true
             }
         });
-        // return [token, user, message]
 
         // Si l'utilisateur existe et que son mot de passe est incorrect
         if (user !== null && user.password !== hahedPassword) {
@@ -211,12 +210,12 @@ export const userDao = {
         // Check if user exist
         const user = await this.getUserByToken(token);
         if (user === null) {
-            return null;
+            return [null, "Utilisateur inconnu"];
         }
 
         // Check if book already exist in user's books
         if (user.books.find(book => book.isbn === ibsn)) {
-            return user;
+            return [user, "Livre déjà ajouté"];
         }
 
         // Check if book exist in db
@@ -229,6 +228,11 @@ export const userDao = {
         // If book doesn't exist, create it
         if (book === null) {
             book = await bookDao.getBookInformation(ibsn);
+
+            if (book === null) {
+                return [null, "Livre introuvable"]
+            }
+
             if (!book.cover) {
                 book.cover = "";
             }
@@ -260,7 +264,7 @@ export const userDao = {
 
 
         // Return user
-        return this.getUserByToken(token);
+        return [await this.getUserByToken(token), ""];
     },
 
 
@@ -274,12 +278,23 @@ export const userDao = {
         // Check if user exist
         const user = await this.getUserByToken(token);
         if (user === null) {
-            return null;
+            return [null, "Utilisateur inconnu"];
         }
 
-        // Check if book already exist in user's books
+        // check if book exist in db
+        const book = await prisma.books.findUnique({
+            where: {
+                isbn: ibsn
+            }
+        });
+
+        // If book doesn't exist, return user
+        if (book === null) {
+            return [null, "Livre introuvable"];
+        }
+
         if (!user.books.find(book => book.isbn === ibsn)) {
-            return user;
+            return [user, "Livre déjà supprimé"];
         }
 
         // Remove book from user
@@ -297,7 +312,7 @@ export const userDao = {
         });
 
         // Return user
-        return this.getUserByToken(token);
+        return [await this.getUserByToken(token), ""]
     },
 
 
