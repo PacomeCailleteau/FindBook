@@ -9,6 +9,7 @@ import android.widget.*
 import com.example.books_android.dao.ApiDao
 import com.example.books_android.models.BookModel
 import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
 class SearchActivity : AppCompatActivity() {
@@ -39,28 +40,35 @@ class SearchActivity : AppCompatActivity() {
 
         searchBooks()
 
+        this.listView.setOnItemClickListener { _, _, index, _ ->
+            val book = this.books[index]
+            val intent = Intent(this, BookActivity::class.java)
+                .putExtra("book", Json.encodeToString<BookModel>(book))
+            startActivity(intent)
+        }
+
 
         btnHome.setOnClickListener {
             finish()
-            val home = Intent(this@SearchActivity,MainActivity::class.java)
+            val home = Intent(this@SearchActivity, MainActivity::class.java)
             startActivity(home)
         }
 
         btnLogo.setOnClickListener {
             finish()
-            val logo = Intent(this@SearchActivity,MainActivity::class.java)
+            val logo = Intent(this@SearchActivity, MainActivity::class.java)
             startActivity(logo)
         }
 
         btnParam.setOnClickListener {
             finish()
-            val param = Intent(this@SearchActivity,AccountActivity::class.java)
+            val param = Intent(this@SearchActivity, AccountActivity::class.java)
             startActivity(param)
         }
 
         btnFavoris.setOnClickListener {
             finish()
-            val favoris = Intent(this@SearchActivity,FavorisActivity::class.java)
+            val favoris = Intent(this@SearchActivity, FavorisActivity::class.java)
             startActivity(favoris)
         }
 
