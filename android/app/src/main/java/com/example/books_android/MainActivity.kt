@@ -19,19 +19,16 @@ class MainActivity : AppCompatActivity() {
         btnParam.setOnClickListener {
             val param = Intent(this@MainActivity,AccountActivity::class.java)
             startActivity(param)
-            finish()
         }
 
         btnFavoris.setOnClickListener {
             val favoris = Intent(this@MainActivity, FavorisActivity::class.java)
             startActivity(favoris)
-            finish()
         }
 
         btnConnexion.setOnClickListener {
             val connexion = Intent(this@MainActivity, ConnexionActivity::class.java)
             startActivity(connexion)
-            finish()
         }
         // -----
 
@@ -43,9 +40,11 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 override fun onQueryTextSubmit(query: String): Boolean {
-                    val search = Intent(this@MainActivity,SearchActivity::class.java)
+                    val search = Intent(this@MainActivity, SearchActivity::class.java)
+                        .putExtra("textBar", query)
                     startActivity(search)
-                    finish()
+
+
                     return true
                 }
             }

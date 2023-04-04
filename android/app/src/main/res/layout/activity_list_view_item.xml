@@ -3,13 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="400dp"
     tools:context=".ListViewItem">
 
     <ImageView
         android:id="@+id/imageLivre"
         android:layout_width="wrap_content"
         android:layout_height="300dp"
+        android:layout_marginStart="11dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -17,12 +18,12 @@
 
     <TextView
         android:id="@+id/titreLivre"
-        android:layout_width="216dp"
-        android:layout_height="59dp"
+        android:layout_width="343dp"
+        android:layout_height="70dp"
         android:layout_marginTop="10dp"
-        android:text="TextView"
+        android:text="salut les petites fleurs"
         android:textAlignment="center"
-        android:textSize="34sp"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageLivre" />
