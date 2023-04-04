@@ -207,7 +207,6 @@ const routes = [
                         message: "user not found"
                     }).code(404);
                 }
-
                 return h.response(user).code(200)
             } catch(e) {
                 return h.response(e).code(400)

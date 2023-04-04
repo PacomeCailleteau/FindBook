@@ -1,14 +1,18 @@
 package com.example.books_android.dao
 
 import android.app.Activity
-import com.android.volley.Request
-import com.android.volley.Response
+import com.android.volley.*
+import com.android.volley.toolbox.HttpHeaderParser
+import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.books_android.models.ErrorMessageModel
 import com.nfeld.jsonpathkt.JsonPath
 import com.nfeld.jsonpathkt.extension.read
+import org.json.JSONObject
+import java.nio.charset.Charset
 import java.security.MessageDigest
+
 
 class ApiDao(context: Activity) {
     private val apiUrl = "http://10.0.2.2:3001"
@@ -19,26 +23,48 @@ class ApiDao(context: Activity) {
         return msgDigest.digest(password.toByteArray()).joinToString("") { "%02x".format(it) }
     }
 
-    private fun request(method: Int, url: String, callbackSuccess: Response.Listener<String>, callbackError: (ErrorMessageModel) -> Unit) {
+    private fun request(
+        method: Int,
+        url: String,
+        payload: JSONObject?,
+        callbackSuccess: Response.Listener<String>,
+        callbackError: (ErrorMessageModel) -> Unit
+    ) {
         // Request a string response from the provided URL.
-        val stringRequest = StringRequest(
-            method, url,
-            callbackSuccess
-        ) { error ->
-            val networkResponse = error.networkResponse
-            val statusCode = networkResponse?.statusCode ?: 0
-            val errorMessage = ErrorMessageModel("error", statusCode)
+        val stringReq: StringRequest =
+            object : StringRequest(method, url,
+                callbackSuccess,
+                { error ->
+                    val networkResponse = error.networkResponse
+                    val statusCode = networkResponse?.statusCode ?: 0
+                    val errorMessage = ErrorMessageModel("error $statusCode", statusCode)
 
-            if (networkResponse?.data != null) {
-                val message = JsonPath.parse(String(networkResponse.data))?.read<String>("$.message")!!
-                errorMessage.message = message
+                    if (networkResponse?.data != null) {
+                        val message = JsonPath.parse(String(networkResponse.data))
+                            ?.read<String>("$.message")!!
+                        errorMessage.message = message
+                    }
+
+                    callbackError(errorMessage)
+                }
+            ) {
+                override fun getHeaders(): MutableMap<String, String> {
+                    val headers = HashMap<String, String>()
+                    headers["Content-Type"] = "application/json"
+                    return headers
+                }
+
+                override fun getBodyContentType(): String {
+                    return "application/json; charset=utf-8"
+                }
+
+                override fun getBody(): ByteArray {
+                    return payload?.toString()?.toByteArray(Charset.forName("utf-8")) ?: super.getBody()
+                }
             }
 
-            callbackError(errorMessage)
-        }
-
         // Add the request to the RequestQueue.
-        this.requestQueue.add(stringRequest)
+        this.requestQueue.add(stringReq)
     }
 
 
@@ -49,12 +75,15 @@ class ApiDao(context: Activity) {
      * @param callbackSuccess (String) -> Unit
      * @param callbackError (ErrorMessageModel) -> Unit
      */
-    fun connectWithLoginPassword(login: String, password: String, callbackSuccess: (String) -> Unit, callbackError: (ErrorMessageModel) -> Unit) {
-
+    fun connectWithLoginPassword(
+        login: String,
+        password: String,
+        callbackSuccess: (String) -> Unit,
+        callbackError: (ErrorMessageModel) -> Unit
+    ) {
         val hash = this.hashPassword(password)
         val url = "$apiUrl/users/login/$login/$hash"
-
-        this.request(Request.Method.GET, url, callbackSuccess, callbackError)
+        this.request(Request.Method.GET, url, null, callbackSuccess, callbackError)
     }
 
 
@@ -65,10 +94,13 @@ class ApiDao(context: Activity) {
      * @param callbackError (ErrorMessageModel) -> Unit
      * @return UserModel
      */
-    fun connectWithToken(token: String, callbackSuccess: (String) -> Unit, callbackError: (ErrorMessageModel) -> Unit) {
+    fun connectWithToken(
+        token: String,
+        callbackSuccess: (String) -> Unit,
+        callbackError: (ErrorMessageModel) -> Unit
+    ) {
         val url = "$apiUrl/users/$token"
-
-        this.request(Request.Method.GET, url, callbackSuccess, callbackError)
+        this.request(Request.Method.GET, url, null, callbackSuccess, callbackError)
     }
 
 
@@ -80,12 +112,21 @@ class ApiDao(context: Activity) {
      * @param callbackError (ErrorMessageModel) -> Unit
      * @return UserModel
      */
-    fun createAccount(login: String, password: String, callbackSuccess: (String) -> Unit, callbackError: (ErrorMessageModel) -> Unit) {
+    fun createAccount(
+        login: String,
+        password: String,
+        callbackSuccess: (String) -> Unit,
+        callbackError: (ErrorMessageModel) -> Unit
+    ) {
 
         val hashedPassword = this.hashPassword(password)
 
-        val url = "$apiUrl/users/create/$login/$hashedPassword"
-        this.request(Request.Method.POST, url, callbackSuccess, callbackError)
+        val url = "$apiUrl/users/create"
+        val payload = JSONObject()
+        payload.put("login", login)
+        payload.put("password", hashedPassword)
+
+        this.request(Request.Method.POST, url, payload, callbackSuccess, callbackError)
     }
 
 
@@ -97,7 +138,7 @@ class ApiDao(context: Activity) {
      */
     fun findBookByIsbn(isbn: String, callbackSuccess: (String) -> Unit, callbackError: (ErrorMessageModel) -> Unit) {
         val url = "$apiUrl/books/isbn/$isbn"
-        this.request(Request.Method.GET, url, callbackSuccess, callbackError)
+        this.request(Request.Method.GET, url, null, callbackSuccess, callbackError)
     }
 
 
@@ -109,7 +150,7 @@ class ApiDao(context: Activity) {
      */
     fun findBooksBySearchTerm(searchTerm: String, callbackSuccess: (String) -> Unit, callbackError: (ErrorMessageModel) -> Unit) {
         val url = "$apiUrl/books/search/$searchTerm"
-        this.request(Request.Method.GET, url, callbackSuccess, callbackError)
+        this.request(Request.Method.GET, url, null, callbackSuccess, callbackError)
     }
 
 
@@ -121,8 +162,11 @@ class ApiDao(context: Activity) {
      * @param callbackError (ErrorMessageModel) -> Unit
      */
     fun addBookToUser(token: String, isbn: String, callbackSuccess: (String) -> Unit, callbackError: (ErrorMessageModel) -> Unit) {
-        val url = "$apiUrl/users/addBook/$token/$isbn"
-        this.request(Request.Method.POST, url, callbackSuccess, callbackError)
+        val url = "$apiUrl/users/addBook/$token"
+        val payload = JSONObject()
+        payload.put("isbn", isbn)
+
+        this.request(Request.Method.POST, url, payload, callbackSuccess, callbackError)
     }
 
 
@@ -135,7 +179,7 @@ class ApiDao(context: Activity) {
      */
     fun removeBookFromUser(token: String, isbn: String, callbackSuccess: (String) -> Unit, callbackError: (ErrorMessageModel) -> Unit) {
         val url = "$apiUrl/users/removeBook/$token/$isbn"
-        this.request(Request.Method.DELETE, url, callbackSuccess, callbackError)
+        this.request(Request.Method.DELETE, url, null, callbackSuccess, callbackError)
     }
 
 
@@ -147,7 +191,7 @@ class ApiDao(context: Activity) {
      */
     fun deleteAccount(token: String, callbackSuccess: (String) -> Unit, callbackError: (ErrorMessageModel) -> Unit) {
         val url = "$apiUrl/users/delete/$token"
-        this.request(Request.Method.DELETE, url, callbackSuccess, callbackError)
+        this.request(Request.Method.DELETE, url, null, callbackSuccess, callbackError)
     }
 
 
@@ -161,8 +205,11 @@ class ApiDao(context: Activity) {
     fun changePassword(token: String, newPassword: String, callbackSuccess: (String) -> Unit, callbackError: (ErrorMessageModel) -> Unit) {
 
         val hasedPassword = this.hashPassword(newPassword)
-        val url = "$apiUrl/users/update/password/$token/$hasedPassword"
-        this.request(Request.Method.PUT, url, callbackSuccess, callbackError)
+        val url = "$apiUrl/users/update/password/$token"
+        val payload = JSONObject()
+        payload.put("password", hasedPassword)
+
+        this.request(Request.Method.PUT, url, payload, callbackSuccess, callbackError)
     }
 
 
@@ -174,8 +221,11 @@ class ApiDao(context: Activity) {
      * @param callbackError (ErrorMessageModel) -> Unit
      */
     fun changeLogin(token: String, newLogin: String, callbackSuccess: (String) -> Unit, callbackError: (ErrorMessageModel) -> Unit) {
-        val url = "$apiUrl/users/update/login/$token/$newLogin"
-        this.request(Request.Method.PUT, url, callbackSuccess, callbackError)
+        val url = "$apiUrl/users/update/login/$token"
+        val payload = JSONObject()
+        payload.put("login", newLogin)
+
+        this.request(Request.Method.PUT, url, payload, callbackSuccess, callbackError)
     }
 
     companion object {
