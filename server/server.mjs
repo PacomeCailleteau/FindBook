@@ -306,10 +306,10 @@ const routes = [
             tags: ["api", "users"],
             validate: {
                 params: Joi.object({
-                    token: Joi.string().required().description("The new login")
+                    token: Joi.string().required().description("A user's token")
                 }),
                 payload: Joi.object({
-                    login: Joi.string().required().description("A user's token")
+                    login: Joi.string().required().description("The new login")
                 })
             },
             response: {
@@ -360,7 +360,7 @@ const routes = [
                     token: Joi.string().required().description("A user's token")
                 }),
                 payload: Joi.object({
-                    password: Joi.string().required().description("A user's token")
+                    password: Joi.string().required().description("The new password")
                 })
             },
             response: {

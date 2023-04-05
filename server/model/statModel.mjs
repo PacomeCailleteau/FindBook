@@ -5,7 +5,11 @@ export class statModel {
     nb_results
     constructor(stat) {
         // On récupère la recherche
-        this.search = stat.search_parameters.q;
+        try {
+            this.search = stat.search_parameters.q;
+        } catch (e) {
+            this.search = ""
+        }
         // On récupère le nombre de résultats
         try {
             const res2 = stat.interest_over_time.timeline_data
