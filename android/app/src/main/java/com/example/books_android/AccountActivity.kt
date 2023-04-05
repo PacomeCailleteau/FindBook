@@ -71,10 +71,13 @@ class AccountActivity : AppCompatActivity() {
         // changer le login
         btnChangerPseudo.setOnClickListener {
             val newLogin = editTextLogin.text.toString()
+
+            // lance la requête pour changer le login
             this.apiDao.changeLogin(this.tokenManager.getToken(), newLogin,
                 { response ->
                     Toast.makeText(this, "Login changé", Toast.LENGTH_SHORT).show()
                 }, { error ->
+                    // en cas d'erreur affiche le message d'erreur du serveur
                     Toast.makeText(this, "Erreur: ${error.message}", Toast.LENGTH_SHORT).show()
                 }
             )
@@ -85,20 +88,25 @@ class AccountActivity : AppCompatActivity() {
             val newPassword = editTextTextMdpNew.text.toString()
             val newPasswordConfirm = editTextTextMdpNewConfirm.text.toString()
 
+            // vérification de la conformité des mots de passe
             if (newPassword != newPasswordConfirm) {
                 Toast.makeText(this, "Les mots de passe ne correspondent pas", Toast.LENGTH_SHORT).show()
             } else if (newPassword.length < 8) {
                 Toast.makeText(this, "Le mot de passe doit contenir au moins 8 caractères", Toast.LENGTH_SHORT).show()
             } else {
+                // lance la requête pour changer le mot de passe
                 this.apiDao.changePassword(this.tokenManager.getToken(), newPassword,
                     { response ->
+                        // récupère le nouveau token et le stocke
                         val token = JsonPath.parse(response)?.read<String>("$.token")!!
                         this.tokenManager.setToken(token)
                         Toast.makeText(this, "Mot de passe changé", Toast.LENGTH_SHORT).show()
 
+                        // réinitialisation des champs
                         editTextTextMdpNew.text = ""
                         editTextTextMdpNewConfirm.text = ""
                     }, { error ->
+                        // en cas d'erreur affiche le message d'erreur du serveur
                         Toast.makeText(this, "Erreur: ${error.message}", Toast.LENGTH_SHORT).show()
                     }
                 )
@@ -107,6 +115,7 @@ class AccountActivity : AppCompatActivity() {
 
         // se déconnecter
         btnSeDeconnecter.setOnClickListener {
+            // pour se déconnecter il suffit de supprimer le token
             this.tokenManager.setToken("")
             val connexion = Intent(this@AccountActivity, ConnexionActivity::class.java)
             startActivity(connexion)
@@ -114,9 +123,11 @@ class AccountActivity : AppCompatActivity() {
 
         // supprimer le compte
         btnSupprimerCompte.setOnClickListener {
+            // lance la requête pour supprimer le compte
             this.apiDao.deleteAccount(this.tokenManager.getToken(),
                 { response ->
                     Toast.makeText(this, "Compte supprimé", Toast.LENGTH_SHORT).show()
+                    // supprime le token pour se déconnecter
                     this.tokenManager.setToken("")
                     val connexion = Intent(this@AccountActivity, ConnexionActivity::class.java)
                     startActivity(connexion)

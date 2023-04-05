@@ -13,13 +13,16 @@ class RedirectAccount {
          * Redirige vers la page mon compte si l'utilisateur est connecté
          */
         fun redirect(activity: Activity) {
+            // - Initialisation des classes -
             val tokenManager = TokenManager(activity)
             val apiDao = ApiDao(activity)
 
+            // si le token n'existe pas, on redirige vers la page de connexion
             if (!tokenManager.tokenExists()) {
                 val connexion = Intent(activity, ConnexionActivity::class.java)
                 activity.startActivity(connexion)
             } else {
+                // si le token existe, on vérifie que le token soit bien associé à un utilisateur
                 // vérification de la connexion
                 apiDao.connectWithToken(tokenManager.getToken(),
                     { response ->
@@ -33,6 +36,8 @@ class RedirectAccount {
 
                     }, { error ->
                         // L'utilisateur n'est pas connecté
+
+                        // on supprime le token invalide
                         tokenManager.setToken("")
                         val connexion = Intent(activity, ConnexionActivity::class.java)
                         activity.startActivity(connexion)

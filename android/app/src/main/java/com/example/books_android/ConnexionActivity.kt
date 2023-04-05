@@ -20,6 +20,7 @@ class ConnexionActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_connexion)
 
+        // -- Initialisation des classes -- //
         this.apiDao = ApiDao(this)
         this.tokenManager = TokenManager(this)
 
@@ -34,6 +35,7 @@ class ConnexionActivity : AppCompatActivity() {
         val editTextEmail = findViewById<EditText>(R.id.editTextEmail)
         val editTextPassword = findViewById<EditText>(R.id.editTextPassword)
         val btnLogin = findViewById<TextView>(R.id.btnLogin)
+        // ---
 
         // -- Bouton de navigation -- //
         btnLogo.setOnClickListener {
@@ -72,15 +74,17 @@ class ConnexionActivity : AppCompatActivity() {
             val login = editTextEmail.text.toString()
             val password = editTextPassword.text.toString()
 
+            // Vérification des champs
             if (login.isEmpty() || password.isEmpty()) {
                 Toast.makeText(this, "Veuillez remplir tous les champs", Toast.LENGTH_LONG).show()
                 return@setOnClickListener
             }
 
+            // lance la requête pour ce connecter
             this.apiDao.connectWithLoginPassword(login, password,
                 { response ->
+                    // récupère le token et le stocke
                     val token = JsonPath.parse(response)?.read<String>("$.token")!!
-                    println(">>>>>>>> $token")
                     this.tokenManager.setToken(token)
 
                     val home = Intent(this@ConnexionActivity, MainActivity::class.java)
