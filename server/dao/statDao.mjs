@@ -4,7 +4,7 @@ import {statModel} from "../model/statModel.mjs";
 
 // on crée une constante qui contient l'url de l'api
 const url = "https://serpapi.com/search.json?engine=google_trends&data_type=TIMESERIES&cat=22&date=today%201-m&tz=60"
-const apiKey = "&api_key=02b61f20be26255add258343e5d727745d6f0bcbac012c6e46b858f6f4406be4"
+const apiKey = "&api_key=32" // b38f44324e616859286793b81a886039c76186119d3c93c2ab86690a90388b87
 const apiUrl = url + apiKey + "&q="
 
 
