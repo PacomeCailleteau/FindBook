@@ -2,7 +2,7 @@
 **/books-sae.db
 **/books-sae-test.db
 **/coverage
-.idea
+**/.idea
 .vscode
 
 # android
