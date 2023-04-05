@@ -12,6 +12,9 @@ export const bookController = {
 
     async searchBookInformation(search) {
         try {
+            // We don't want to search for empty strings
+            if (search.trim().length === 0)
+                return []
             return await bookDao.searchBookInformation(search)
         } catch(e) {
             return Promise.reject(e)
