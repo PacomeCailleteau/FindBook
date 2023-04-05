@@ -29,6 +29,11 @@ const joiBook = Joi.object({
 
 const joiBooks = Joi.array().items(joiBook).description("An array of books");
 
+const joiStat = Joi.object({
+    search: Joi.string().required().description("The search parameters"),
+    nb_results: Joi.number().required().description("The number of results for the search parameters"),
+}).description("A stat with all his information")
+
 const joiError = Joi.object({
     message: Joi.string().required()
 }).description("An error message");
@@ -462,9 +467,7 @@ const routes = [
         }
     },
 
-    //TODO : ajouter les tests
-    //TODO : ajouter les options
-    //TODO : créer les Joi
+    //testé
     {
         method: "GET",
         path: "/stat/{searchTerm}",
@@ -476,6 +479,21 @@ const routes = [
                 return h.response(e).code(400)
             }
         },
+        options: {
+            description: "Get a stat by search term",
+            notes: "Get a stat by search term (the number of research in google.com since one month)",
+            tags: ["api", "search"],
+            validate: {
+                params: Joi.object({
+                    searchTerm : Joi.string().required().description("A research term")
+                })
+            },
+            response: {
+                status: {
+                    200: joiStat
+                }
+            }
+        }
     },
 
     //testé

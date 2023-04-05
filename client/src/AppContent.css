@@ -7,3 +7,11 @@
     margin-top: 5%;
     width: 50%;
 }
+
+/* centre le composant au milieu de la page*/
+.nbSearch{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}

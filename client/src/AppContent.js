@@ -4,6 +4,8 @@ import bookDAO from "./bookDAO"
 import Books from "./Books"
 import Search from "./Search";
 import "./AppContent.css"
+import statDAO from "./statDAO";
+
 
 class AppContent extends React.Component {
     constructor(props) {
@@ -11,6 +13,7 @@ class AppContent extends React.Component {
         this.state = {
             query: "",
             books: [],
+            nbSearch: 0
         }
         this.doUpdate = this.doUpdate.bind(this)
     }
@@ -24,9 +27,11 @@ class AppContent extends React.Component {
         if (query != undefined)
             this.setState({query: query})
         //si la recherche est vide alors on affiche la page d'accueil sans aucun livre
-        //.trim permet de retirer les espaces au début et à la fin de la string
-        if (this.state.query.trim().length == 0)
+        //.trim permet de retirer les espaces au début et à la fin du string
+        if (this.state.query.trim().length == 0) {
             console.log("recherche invalide car pas de termes de recherche")
+            this.state.nbSearch = 0
+        }
         //sinon on appelle l'api google pour récupéré les livres correspondant à la recherche
         else{
             bookDAO.findMany(this.state.query)
@@ -41,6 +46,12 @@ class AppContent extends React.Component {
                     }else {
                         this.setState({books: data})
                     }
+                })
+
+            //on appelle l'api google pour récupéré le nombre de recherche effectué sur google trends
+            statDAO.getStatInformation(this.state.query)
+                .then(data => {
+                    this.setState({nbSearch: data.nb_results})
                 })
         }
     }
@@ -69,11 +80,21 @@ class AppContent extends React.Component {
 
         return (
             <div>
+                {/*blabla du début*/}
                 <div className={"bienvenue"}>
                     <h1>Bienvenue sur Findbook</h1>
                     <h2>Pour accéder au catalogue, veuillez effectuer une recherche</h2>
                 </div>
+
+                {/*barre de recherche*/}
                 <Search update={this.doUpdate}/>
+
+                {/*nombre de recherche*/}
+                <div className="nbSearch">
+                    <p>Cette recherche a été effectuer {this.state.nbSearch} fois en France depuis un mois</p>
+                </div>
+
+                {/*affichage des livres*/}
                 <div className={"bookCard"}>
                     {books}
                 </div>

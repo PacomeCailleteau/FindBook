@@ -2,7 +2,10 @@ import fetch from "node-fetch";
 import HttpsProxyAgent from "https-proxy-agent";
 import {statModel} from "../model/statModel.mjs";
 
-const apiUrl = "https://serpapi.com/search.json?engine=google_trends&data_type=TIMESERIES&cat=22&date=today%201-m&tz=60&api_key=02b61f20be26255add258343e5d727745d6f0bcbac012c6e46b858f6f4406be4&q="
+const url = "https://serpapi.com/search.json?engine=google_trends&data_type=TIMESERIES&cat=22&date=today%201-m&tz=60"
+const apiKey = "&api_key=02b61f20be26255add258343e5d727745d6f0bcbac012c6e46b858f6f4406be4"
+const apiUrl = url + apiKey + "&q="
+
 
 const proxy = process.env.https_proxy
 

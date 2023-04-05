@@ -157,6 +157,16 @@ describe("user", () => {
         chai.expect(res.result.books).to.equal(undefined)
     })
 
+    it("le nombre de recherche", async () => {
+        const res = await server.inject({
+            method: "get",
+            url: "localhost:3001/stat/hunter%20x%20hunter",
+        })
+        chai.expect(res.statusCode).to.eql(200)
+        chai.expect(res.result.search).to.equal("hunter x hunter")
+        chai.expect(typeof res.result.nb_results).to.equal("number")
+    })
+
     /*==============================================================*/
     //tests comportement inattendu
     it("erreur isbn non trouvé get", async () => {
@@ -235,8 +245,8 @@ describe("user", () => {
                 login: "change"
             }
         })
-        chai.expect(res.statusCode).to.eql(404)
-        chai.expect(res.result).to.eql({message: "user not found"})
+        chai.expect(res.statusCode).to.eql(403)
+        chai.expect(res.result).to.eql({message: "utilisateur inconnu"})
     })
 
     it("erreur user not found update password ", async () => {
@@ -260,7 +270,7 @@ describe("user", () => {
             }
         })
         chai.expect(res.statusCode).to.eql(403)
-        chai.expect(res.result).to.eql({message: "user not found"})
+        chai.expect(res.result).to.eql({message: "Utilisateur inconnu"})
     })
 
 
