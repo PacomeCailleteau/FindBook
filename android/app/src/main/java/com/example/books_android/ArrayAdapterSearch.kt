@@ -21,11 +21,12 @@ class ArrayAdapterSearch(context: Context, collection: List<BookModel>): ArrayAd
         if (book != null) {
             val image = row.findViewById<ImageView>(R.id.imageLivre)
 
-            // change l'url de l'image du livre en fonction de l'api
+            // change l'url de l'image du livre si il y en a une
             if (book.cover != null) {
                 val uri = Uri.parse(book.cover)
                 image.setImageURI(uri)
             } else {
+                // sinon on met une image par défaut
                 image.setImageResource(R.drawable.not_found)
             }
 

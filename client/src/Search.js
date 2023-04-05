@@ -7,6 +7,10 @@ class Search extends React.Component{
         super(props);
     }
 
+    /**
+     * Appelle la fonction update du composant parent
+     * @param val
+     */
     update(val){
         this.props.update(val)
     }
@@ -14,6 +18,8 @@ class Search extends React.Component{
     render() {
         return (
             <div className="search">
+
+                {/* la barre de recherche */}
                 <input
                     type="text"
                     placeholder=" Rechercher  ..."
@@ -22,6 +28,8 @@ class Search extends React.Component{
                     id={"search"}
                 >
                 </input>
+
+                {/* le bouton de recherche (petite loupe) */}
                 <button type="submit" id={"searchButton"} onClick={() => this.update(document.getElementById("search").value)}>
                         <img src="https://cdn.discordapp.com/attachments/1081164623044157530/1090553420714348624/search.png"></img>
                 </button>

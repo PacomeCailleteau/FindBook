@@ -1,7 +1,8 @@
 **/node_modules
 **/books-sae.db
 **/books-sae-test.db
-.idea
+**/coverage
+**/.idea
 .vscode
 
 # android

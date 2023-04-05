@@ -2,8 +2,6 @@ package com.example.books_android.dao
 
 import android.app.Activity
 import com.android.volley.*
-import com.android.volley.toolbox.HttpHeaderParser
-import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.books_android.models.ErrorMessageModel
@@ -14,7 +12,7 @@ import java.nio.charset.Charset
 import java.security.MessageDigest
 
 
-class ApiDao(context: Activity) {
+class ApiDao private constructor(private val context: Activity) {
     private val apiUrl = "http://10.0.2.2:3001"
     private val requestQueue = Volley.newRequestQueue(context)
 
@@ -226,6 +224,11 @@ class ApiDao(context: Activity) {
         payload.put("login", newLogin)
 
         this.request(Request.Method.PUT, url, payload, callbackSuccess, callbackError)
+    }
+
+    fun stat(searchTerm: String, callbackSuccess: (String) -> Unit, callbackError: (ErrorMessageModel) -> Unit) {
+        val url = "$apiUrl/stat/$searchTerm"
+        this.request(Request.Method.GET, url, null, callbackSuccess, callbackError)
     }
 
     companion object {

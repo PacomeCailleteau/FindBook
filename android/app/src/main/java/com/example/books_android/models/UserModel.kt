@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class UserModel(
-    val id: String,
+    val id: Int,
     val login: String,
-    val books: Array<BookModel>
+    val books: List<BookModel>
 )

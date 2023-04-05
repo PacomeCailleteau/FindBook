@@ -4,7 +4,7 @@ import {useCookies} from "react-cookie";
 import {NavLink} from "react-router-dom";
 import Books from "./Books";
 import userDAO from "./userDAO";
-import "./Book.css"
+import "./Books.css"
 import "./Favoris.css"
 
 function Favoris (props){
@@ -13,7 +13,7 @@ function Favoris (props){
     const [books, setBooks] = useState([]);
 
     //cookies pour le token
-    const [cookies, setCookie, removeCookie] = useCookies(['token']);
+    const [cookies, setCookie, removeCookie] = useCookies(['token', {sameSite: "lax"}]);
     const token = cookies.token
 
 
@@ -29,7 +29,7 @@ function Favoris (props){
     }, []);
 
 
-    //si le token est undefined alors on renvoie vers la page de connexion
+    //si le token est undefined alors on affiche un message pour dire que l'utilisateur n'est pas connecté et un lien pour aller sur la page de connexion
     if(token == undefined){
         return (
             <div className={"pas-connecte"}>
@@ -51,6 +51,7 @@ function Favoris (props){
         return "https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Image_non_disponible_portrait.svg/1479px-Image_non_disponible_portrait.svg.png"
     }
 
+    //on map les livres favoris pour les afficher
     const fav = books.map((book, i) => {
         return (
             <Books key={i}

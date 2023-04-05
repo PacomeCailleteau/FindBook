@@ -19,41 +19,12 @@ class AccountActivity : AppCompatActivity() {
     private lateinit var apiDao: ApiDao
     private lateinit var tokenManager: TokenManager
 
-    private lateinit var userLogin: String
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_moncompte)
 
+        this.apiDao = ApiDao.getInstance(this)
         this.tokenManager = TokenManager(this)
-
-        val redirectToConnexion = {
-            val connexion = Intent(this, ConnexionActivity::class.java)
-            startActivity(connexion)
-        }
-
-        if (!tokenManager.tokenExists()) {
-            redirectToConnexion()
-        } else {
-            this.apiDao = ApiDao(this)
-            this.apiDao.connectWithToken(tokenManager.getToken(),
-                { response ->
-                    // L'utilisateur est connecté
-                    // On affiche la page mon compte
-                    setContentView(R.layout.activity_moncompte)
-                    println(response)
-                    this.userLogin = JsonPath.parse(response)?.read<String>("$.login")!!
-                    println("User: ${this.userLogin}")
-                    this.init()
-                }, { error ->
-                    // L'utilisateur n'est pas connecté
-                    this.tokenManager.setToken("")
-                    redirectToConnexion()
-                }
-            )
-        }
-    }
-
-    fun init() {
 
         // -- éléments de la page -- //
         // navigation
@@ -76,25 +47,23 @@ class AccountActivity : AppCompatActivity() {
         // -----
 
         // Remplissage du champ login
-        editTextLogin.hint = this.userLogin
+        val userLogin = intent.getStringExtra("userLogin")
+        editTextLogin.hint = userLogin
 
 
         // -- Redirection vers les autres activités -- //
         btnLogo.setOnClickListener {
             val logo = Intent(this@AccountActivity,MainActivity::class.java)
-            finish()
             startActivity(logo)
         }
 
         btnHome.setOnClickListener {
             val home = Intent(this@AccountActivity,MainActivity::class.java)
-            finish()
             startActivity(home)
         }
 
         btnFavoris.setOnClickListener {
             val favoris = Intent(this@AccountActivity,FavorisActivity::class.java)
-            finish()
             startActivity(favoris)
         }
         // -----
@@ -103,10 +72,13 @@ class AccountActivity : AppCompatActivity() {
         // changer le login
         btnChangerPseudo.setOnClickListener {
             val newLogin = editTextLogin.text.toString()
+
+            // lance la requête pour changer le login
             this.apiDao.changeLogin(this.tokenManager.getToken(), newLogin,
-                { response ->
+                {
                     Toast.makeText(this, "Login changé", Toast.LENGTH_SHORT).show()
                 }, { error ->
+                    // en cas d'erreur affiche le message d'erreur du serveur
                     Toast.makeText(this, "Erreur: ${error.message}", Toast.LENGTH_SHORT).show()
                 }
             )
@@ -117,20 +89,25 @@ class AccountActivity : AppCompatActivity() {
             val newPassword = editTextTextMdpNew.text.toString()
             val newPasswordConfirm = editTextTextMdpNewConfirm.text.toString()
 
+            // vérification de la conformité des mots de passe
             if (newPassword != newPasswordConfirm) {
                 Toast.makeText(this, "Les mots de passe ne correspondent pas", Toast.LENGTH_SHORT).show()
             } else if (newPassword.length < 8) {
                 Toast.makeText(this, "Le mot de passe doit contenir au moins 8 caractères", Toast.LENGTH_SHORT).show()
             } else {
+                // lance la requête pour changer le mot de passe
                 this.apiDao.changePassword(this.tokenManager.getToken(), newPassword,
                     { response ->
+                        // récupère le nouveau token et le stocke
                         val token = JsonPath.parse(response)?.read<String>("$.token")!!
                         this.tokenManager.setToken(token)
                         Toast.makeText(this, "Mot de passe changé", Toast.LENGTH_SHORT).show()
 
+                        // réinitialisation des champs
                         editTextTextMdpNew.text = ""
                         editTextTextMdpNewConfirm.text = ""
                     }, { error ->
+                        // en cas d'erreur affiche le message d'erreur du serveur
                         Toast.makeText(this, "Erreur: ${error.message}", Toast.LENGTH_SHORT).show()
                     }
                 )
@@ -139,20 +116,23 @@ class AccountActivity : AppCompatActivity() {
 
         // se déconnecter
         btnSeDeconnecter.setOnClickListener {
+            // pour se déconnecter il suffit de supprimer le token
             this.tokenManager.setToken("")
             val connexion = Intent(this@AccountActivity, ConnexionActivity::class.java)
-            finish()
+            finishAffinity()
             startActivity(connexion)
         }
 
         // supprimer le compte
         btnSupprimerCompte.setOnClickListener {
+            // lance la requête pour supprimer le compte
             this.apiDao.deleteAccount(this.tokenManager.getToken(),
-                { response ->
+                {
                     Toast.makeText(this, "Compte supprimé", Toast.LENGTH_SHORT).show()
+                    // supprime le token pour se déconnecter
                     this.tokenManager.setToken("")
                     val connexion = Intent(this@AccountActivity, ConnexionActivity::class.java)
-                    finish()
+                    finishAffinity()
                     startActivity(connexion)
                 }, { error ->
                     Toast.makeText(this, "Erreur: ${error.message}", Toast.LENGTH_SHORT).show()
