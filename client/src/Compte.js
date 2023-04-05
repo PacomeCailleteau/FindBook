@@ -7,7 +7,8 @@ import {useNavigate} from "react-router-dom";
 function Compte (props){
 
     //initialisation des cookies et de l'utilisateur dans le state
-    const [cookies, setCookie, removeCookie] = useCookies(['token']);
+    // on ne stocke que le token dans le cookie user
+    const [cookies, setCookie, removeCookie] = useCookies(['token', {sameSite: "lax"}]);
     const [user, setUser] = useState({});
     const nav = useNavigate()
 
@@ -19,7 +20,9 @@ function Compte (props){
         });
     }, []);
 
-    //supprime le compte de l'utilisateur et le redirige vers la page d'accueil
+    /**
+     * supprime le compte de l'utilisateur et le redirige vers la page d'accueil
+     */
     function deleteUser () {
         userDAO.deleteUser(cookies.token).then(data => {
             removeCookie('token')
@@ -27,13 +30,18 @@ function Compte (props){
         });
     }
 
-    //déconnecte l'utilisateur et le redirige vers la page d'accueil
+    /**
+     * déconnecte l'utilisateur et le redirige vers la page d'accueil
+     */
     function deconnection () {
         removeCookie('token')
         nav('/')
     }
 
-    //change le mot de passe de l'utilisateur
+    /**
+     * change le mot de passe de l'utilisateur
+     * @param event
+     */
     function changePass (event) {
         event.preventDefault();
 
@@ -47,18 +55,23 @@ function Compte (props){
         //on prend le placeholder car on est sur qu'il correspond à la valeur actuelle du login
         userDAO.changePass(loginInput.placeholder, cookies.token, passInput.value, passNewInput.value, passConfInput.value)
             .then(data => {
+                // s'il n'y a pas d'erreur on met à jour le cookie
                 if (!(data.error)) {
                     removeCookie('token', {sameSite: "lax"})
                     setCookie("token", data.token, {sameSite: "lax"})
                     setUser(data)
                 }
+                // on vide les champs du form
                 passInput.value = ""
                 passNewInput.value = ""
                 passConfInput.value = ""
             });
     }
 
-    //change le pseudo de l'utilisateur
+    /**
+     * permet de changer le login de l'utilisateur
+     * @param event
+     */
     function changeLogin (event) {
         event.preventDefault();
         //on récupère les infos du form

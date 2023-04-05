@@ -68,7 +68,7 @@ export const userDao = {
         if (user !== null) {
             return [null, null];
         }
-
+        // create a token
         const token = await this.generateNewToken()
         await prisma.user.create({
             data: {
@@ -180,7 +180,7 @@ export const userDao = {
                 }
             });
 
-            // change automatically the token
+            // change automatically the token for more security
             const newToken = await this.generateNewToken();
             await prisma.user.update({
                 where: {

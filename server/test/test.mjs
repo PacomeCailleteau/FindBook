@@ -13,10 +13,12 @@ chai.use(chaiHttp)
 describe("user", () => {
     let server;
 
+    // avant chaque test, on lance le serveur
     beforeEach(async () => {
         server = await init();
     });
-    
+
+    // après chaque test, on arrête le serveur
     afterEach(async () => {
         await server.stop();
     });
@@ -32,13 +34,18 @@ describe("user", () => {
                 password: "pass"
             }
         })
+        // vérifie que le status code est 200
         chai.expect(res.statusCode).to.equal(200)
+        // vérifie que le login est bien test
         chai.expect(res.result.user.login).to.eql('test')
+        // vérifie que les books est bien un tableau
         chai.expect(Array.isArray(res.result.user.books)).to.eql(true)
+        // vérifie que le tableau est vide
         chai.expect(res.result.user.books.length).to.eql(0)
-        //on ne peut pas vérifier autre chose car il est fait aléatoirement
+        //on ne peut pas vérifier autre chose pour le token car il est fait aléatoirement
         chai.expect(typeof res.result.token).to.eql("string")
         tok = res.result.token
+        // le mot de passe n'est pas renvoyé
     });
 
     it('affiche tous les utilisateurs', async () => {
@@ -46,9 +53,11 @@ describe("user", () => {
             method: 'get',
             url: 'localhost:3001/users',
         })
+        //vérifie que le status code est 200
         chai.expect(res.statusCode).to.equal(200);
         //vérifie que le résultat est bien un tableau
         chai.expect(Array.isArray(res.result)).to.equal(true);
+        //vérifie que le login premier élément du tableau est bien test
         chai.expect(res.result[0].login).to.equal('test');
     });
     
@@ -57,8 +66,10 @@ describe("user", () => {
             method: 'get',
             url: 'localhost:3001/users/'+tok,
         })
-    chai.expect(res.statusCode).to.equal(200);
-    chai.expect(res.result.login).to.equal('test');
+        //vérifie que le status code est 200
+        chai.expect(res.statusCode).to.equal(200);
+        //vérifie que le login est bien test
+        chai.expect(res.result.login).to.equal('test');
     });
 
     it('modifie le login du user', async () => {
@@ -69,7 +80,9 @@ describe("user", () => {
                 login: "change"
             }
         })
+        // vérifie que le status code est 200
         chai.expect(res.statusCode).to.eql(200)
+        // vérifie que le login est bien change
         chai.expect(res.result.login).to.equal("change")
     })
 
@@ -81,8 +94,11 @@ describe("user", () => {
                 password: "pass2"
             }
         })
+        // vérifie que le status code est 200
         chai.expect(res.statusCode).to.eql(200)
+        // vérifie que le login est bien change
         chai.expect(res.result.user.login).to.equal("change")
+        // vérifie que le token n'est pas null
         chai.expect(res.result.token).to.not.equal(null)
         tok = res.result.token
     })
@@ -92,8 +108,11 @@ describe("user", () => {
             method: "get",
             url: 'localhost:3001/users/login/change/pass2',
         })
+        // vérifie que le status code est 200
         chai.expect(res.statusCode).to.eql(200)
+        // vérifie que le login est bien change
         chai.expect(res.result.user.login).to.equal("change")
+        // vérifie que le token est bien le même
         chai.expect(res.result.token).to.equal(tok)
     })
 
@@ -102,6 +121,7 @@ describe("user", () => {
             method: "get",
             url: 'localhost:3001/books/search/hunter%20x%20hunter',
         })
+        // vérifie que le status code est 200
         chai.expect(res.statusCode).to.eql(200)
         //le résultat est un tableau
         chai.expect(Array.isArray(res.result)).to.equal(true);
@@ -112,8 +132,9 @@ describe("user", () => {
             method: "get",
             url: 'localhost:3001/books/isbn/9782505014706',
         })
+        // vérifie que le status code est 200
         chai.expect(res.statusCode).to.eql(200)
-        //le résultat est un book
+        //le résultat est un book avec toutes les infos
         chai.expect(res.result.isbn).to.equal("9782505014706")
         chai.expect(res.result.title).to.eql("Hunter X Hunter")
         chai.expect(res.result.cover).to.eql(undefined)
@@ -130,8 +151,11 @@ describe("user", () => {
                 isbn: "9782505014706"
             }
         })
+        // vérifie que le status code est 200
         chai.expect(res.statusCode).to.eql(200)
+        // vérifie que le login est bien change
         chai.expect(res.result.login).to.equal("change")
+        // vérifie que le livre est bien ajouté avec toutes les infos
         chai.expect(res.result.books[0].isbn).to.equal("9782505014706")
         chai.expect(res.result.books[0].title).to.eql("Hunter X Hunter")
         chai.expect(res.result.books[0].cover).to.eql("")
@@ -142,6 +166,7 @@ describe("user", () => {
             method: "delete",
             url: 'localhost:3001/users/removeBook/'+tok+'/9782505014706',
         })
+        // vérifie que le status code est 200
         chai.expect(res.statusCode).to.eql(200)
         chai.expect(res.result.login).to.equal("change")
         chai.expect(res.result.books.length).to.equal(0)
