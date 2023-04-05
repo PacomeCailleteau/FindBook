@@ -103,7 +103,6 @@ class SearchActivity : AppCompatActivity() {
 
                 this.apiDao.stat(searchTerm,
                     { stat ->
-                        println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> $stat")
                         val nb_recherche = JsonPath.parse(stat)?.read<Int>("$.nb_results")
                         tv_nb_recherche.text = nb_recherche.toString()
                     }, { error ->
