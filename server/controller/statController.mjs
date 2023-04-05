@@ -4,11 +4,11 @@ import { statDao } from '../dao/statDao.mjs'
 export const statController = {
 
     async getStatInformation(search) {
-        try {
+        // try {
             return await statDao.getStatInformation(search)
-        } catch(e) {
-            return Promise.reject(e)
-        }
+        // } catch(e) {
+        //     return Promise.reject(e)
+        // }
     }
 
 }

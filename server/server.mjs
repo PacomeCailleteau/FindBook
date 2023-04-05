@@ -472,12 +472,12 @@ const routes = [
         method: "GET",
         path: "/stat/{searchTerm}",
         handler: async (request, h) => {
-            try {
+            // try {
                 const res = await statController.getStatInformation(request.params.searchTerm)
                 return h.response(res).code(200)
-            } catch(e) {
-                return h.response(e).code(400)
-            }
+            // } catch(e) {
+            //     return h.response(e).code(400)
+            // }
         },
         options: {
             description: "Get a stat by search term",

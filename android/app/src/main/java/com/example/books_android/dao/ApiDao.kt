@@ -228,6 +228,11 @@ class ApiDao(context: Activity) {
         this.request(Request.Method.PUT, url, payload, callbackSuccess, callbackError)
     }
 
+    fun stat(searchTerm: String, callbackSuccess: (String) -> Unit, callbackError: (ErrorMessageModel) -> Unit) {
+        val url = "$apiUrl/stat/$searchTerm"
+        this.request(Request.Method.GET, url, null, callbackSuccess, callbackError)
+    }
+
     companion object {
         private var instance: ApiDao? = null
 

@@ -20,8 +20,8 @@
 
     <ListView
         android:id="@+id/list_view"
-        android:layout_width="match_parent"
-        android:layout_height="467dp"
+        android:layout_width="410dp"
+        android:layout_height="434dp"
         android:layout_marginTop="20dp"
         app:layout_constraintBottom_toTopOf="@+id/btnFavoris"
         app:layout_constraintEnd_toEndOf="parent"
@@ -108,4 +108,36 @@
         app:layout_constraintTop_toBottomOf="@+id/titreFavoris2">
 
     </SearchView>
+
+    <TextView
+        android:id="@+id/tv_recherche"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Recherche effectuée "
+        app:layout_constraintEnd_toStartOf="@+id/tv_nb_recherche"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/SearchBar" />
+
+    <TextView
+        android:id="@+id/tv_nb_recherche"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        app:layout_constraintEnd_toStartOf="@+id/tv_recherche3"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tv_recherche"
+        app:layout_constraintTop_toTopOf="@+id/tv_recherche" />
+
+    <TextView
+        android:id="@+id/tv_recherche3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" fois"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tv_nb_recherche"
+        app:layout_constraintTop_toTopOf="@+id/tv_recherche" />
 </androidx.constraintlayout.widget.ConstraintLayout>

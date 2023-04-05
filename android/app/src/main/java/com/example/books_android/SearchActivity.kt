@@ -8,6 +8,8 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import com.example.books_android.dao.ApiDao
 import com.example.books_android.models.BookModel
+import com.nfeld.jsonpathkt.JsonPath
+import com.nfeld.jsonpathkt.extension.read
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
@@ -15,6 +17,7 @@ import kotlinx.serialization.json.Json
 class SearchActivity : AppCompatActivity() {
     private lateinit var searchBar: SearchView
     private lateinit var listView: ListView
+    private lateinit var tv_nb_recherche: TextView
 
     private lateinit var apiDao: ApiDao
     private lateinit var books: List<BookModel>
@@ -28,6 +31,7 @@ class SearchActivity : AppCompatActivity() {
         val btnMonCompte = findViewById<ImageButton>(R.id.btnMoncompte)
         this.searchBar = findViewById<SearchView>(R.id.SearchBar)
         this.listView = findViewById<ListView>(R.id.list_view)
+        tv_nb_recherche = findViewById<TextView>(R.id.tv_nb_recherche)
 
         this.books = mutableListOf()
 
@@ -97,8 +101,15 @@ class SearchActivity : AppCompatActivity() {
                 val inputMethodManager = this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 inputMethodManager.hideSoftInputFromWindow(this.currentFocus?.windowToken, 0)
 
-            }, { error ->
-                Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
-            })
+                this.apiDao.stat(searchTerm,
+                    { stat ->
+                        println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> $stat")
+                        val nb_recherche = JsonPath.parse(stat)?.read<Int>("$.nb_results")
+                        tv_nb_recherche.text = nb_recherche.toString()
+                    }, { error ->
+                        Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
+                    })
+
+            }, {})
     }
 }
