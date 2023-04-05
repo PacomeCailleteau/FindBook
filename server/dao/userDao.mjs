@@ -6,7 +6,6 @@ const prisma = new PrismaClient();
 import { bookDao } from "./bookDao.mjs"
 
 export const userDao = {
-
     /**
      * Get all users
      * @returns Array of users

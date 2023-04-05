@@ -6,6 +6,7 @@ import Joi from "joi";
 
 import { userController } from "./controller/userController.mjs";
 import { bookController } from "./controller/bookController.mjs";
+import {statController} from "./controller/statController.mjs";
 
 
 // --- patterns --- //
@@ -459,6 +460,22 @@ const routes = [
                 }
             }
         }
+    },
+
+    //TODO : ajouter les tests
+    //TODO : ajouter les options
+    //TODO : créer les Joi
+    {
+        method: "GET",
+        path: "/stat/{searchTerm}",
+        handler: async (request, h) => {
+            try {
+                const res = await statController.getStatInformation(request.params.searchTerm)
+                return h.response(res).code(200)
+            } catch(e) {
+                return h.response(e).code(400)
+            }
+        },
     },
 
     //testé

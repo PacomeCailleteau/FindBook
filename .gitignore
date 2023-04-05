@@ -1,5 +1,6 @@
 **/node_modules
 **/books-sae.db
+**/books-sae-test.db
 .idea
 .vscode
 

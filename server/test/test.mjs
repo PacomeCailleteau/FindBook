@@ -21,6 +21,7 @@ describe("user", () => {
         await server.stop();
     });
 
+    /*==============================================================*/
     //tests comportement normal
     it("créé un nouvel utilisateur", async () => {
         const res = await server.inject({
