@@ -71,4 +71,4 @@ Lancer le client web :
   npm start
 ```
 
-Le site s'ouvre dans votre [navigateur](http://localhost:3001).
+Le site s'ouvre dans votre [navigateur](http://localhost:3000).
