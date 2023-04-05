@@ -10,6 +10,7 @@ import statDAO from "./statDAO";
 class AppContent extends React.Component {
     constructor(props) {
         super(props);
+        // création de l'état de l'application
         this.state = {
             query: "",
             books: [],
@@ -18,10 +19,17 @@ class AppContent extends React.Component {
         this.doUpdate = this.doUpdate.bind(this)
     }
 
+    // se lance lorsque le composant est monté
     componentDidMount() {
         this.doUpdate()
     }
 
+    /**
+     * permet de mettre à jour les books et nbSearch du state
+     * books correspond à la liste des livres récupérés depuis l'api google
+     * nbSearch correspond au nombre de recherche effectué sur google trends
+     * @param query
+     */
     doUpdate(query) {
         //si la requête existe alors on la stock dans la variable associé
         if (query != undefined)
@@ -40,7 +48,6 @@ class AppContent extends React.Component {
                     //si ça n'est pas fait alors ça peut poser des problèmes lorsque le serveur renvoie un objet et non un tableau
                     //example d'objet qu'on peut trouver :
                     // Object { message: "not found" }
-                    // Object { statusCode: 500, error: "Internal Server Error", message: "An internal server error occurred" }
                     if (!Array.isArray(data)){
                         this.setState({books: []})
                     }else {
@@ -70,6 +77,7 @@ class AppContent extends React.Component {
     }
 
     render() {
+        // on crée une variable books qui contient plein de composants Books
         const books = this.state.books.map((book, i) =>
             <Books key={i}
             isbn={book.isbn}

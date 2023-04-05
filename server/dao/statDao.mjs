@@ -2,6 +2,7 @@ import fetch from "node-fetch";
 import HttpsProxyAgent from "https-proxy-agent";
 import {statModel} from "../model/statModel.mjs";
 
+// on crée une constante qui contient l'url de l'api
 const url = "https://serpapi.com/search.json?engine=google_trends&data_type=TIMESERIES&cat=22&date=today%201-m&tz=60"
 const apiKey = "&api_key=32" // b38f44324e616859286793b81a886039c76186119d3c93c2ab86690a90388b87
 const apiUrl = url + apiKey + "&q="
@@ -17,6 +18,12 @@ if (proxy !== undefined) {
 }
 
 export const statDao = {
+
+    /**
+     * Récupère les informations de l'api
+     * @param search
+     * @returns {Promise<statModel>}
+     */
     async getStatInformation(search) {
         const response = agent != null ? await fetch(apiUrl + search, {agent: agent}): await fetch(apiUrl + search)
         const data = await response.json()

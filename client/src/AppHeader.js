@@ -5,9 +5,13 @@ import {useCookies} from "react-cookie";
 
 function AppHeader() {
 
-    const [cookies, setCookie, removeCookie] = useCookies(['token']);
+    const [cookies, setCookie, removeCookie] = useCookies(['token', {sameSite: "lax"}]);
 
-    //récupère le token stoké dans les cookies, s'il est à "undefined" alors on affiche connexion, sinon on affiche mon compte
+    /**
+     * récupère le token stocké dans les cookies, s'il est à "undefined" ça veut dire qu'on est pas conencté alors on affiche connexion, sinon on affiche mon compte
+     * la différence des deux return est dans le lien de redirection et le texte affiché. La structure et l'image sont les mêmes
+     * @returns {JSX.Element}
+     */
     function compte(){
         if(cookies.token === undefined){
             return (
@@ -34,7 +38,6 @@ function AppHeader() {
         <header className="header">
             <nav className="header-navbar">
 
-
                 {/*Favoris*/}
                 <div className="favoris">
                     <NavLink to="/favoris">
@@ -48,7 +51,8 @@ function AppHeader() {
                     <img src="https://cdn.discordapp.com/attachments/1081164623044157530/1088854052768579644/Logo_Findbook.png" alt={"LOGO"}/>
                 </NavLink>
 
-                {/*Connexion | Mon compte*/}
+                {/*Connexion | Mon compte
+                ça dépend de si on est connecté ou pas (cf fonction compte() du dessus)*/}
                 {compte()}
             </nav>
         </header>

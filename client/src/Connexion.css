@@ -101,6 +101,11 @@ form p.inscription{
     transition: 0.5s;
 }
 
+#error{
+    color: #ff0000;
+    background-color: #FFFFFF;
+}
+
 
 
 
