@@ -15,7 +15,7 @@ class RedirectAccount {
         fun redirect(activity: Activity) {
             // - Initialisation des classes -
             val tokenManager = TokenManager(activity)
-            val apiDao = ApiDao(activity)
+            val apiDao = ApiDao.getInstance(activity)
 
             // si le token n'existe pas, on redirige vers la page de connexion
             if (!tokenManager.tokenExists()) {
@@ -34,9 +34,8 @@ class RedirectAccount {
                             .putExtra("userLogin", userLogin)
                         activity.startActivity(account)
 
-                    }, { error ->
+                    }, {
                         // L'utilisateur n'est pas connecté
-
                         // on supprime le token invalide
                         tokenManager.setToken("")
                         val connexion = Intent(activity, ConnexionActivity::class.java)

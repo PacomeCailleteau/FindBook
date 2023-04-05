@@ -48,10 +48,11 @@ class BookActivity : AppCompatActivity() {
             apiDao.connectWithToken(token,
                 { response ->
                     // Récupération de la liste des favoris de l'utilisateur
-                    val favoris = JsonPath.parse(response)?.read<List<String>>("$.books")
+                    val favoris = JsonPath.parse(response)?.read<List<BookModel>>("$.books")
 
+                    // vérification si le livre est dans la liste des favoris
                     if (favoris != null) {
-                        this.bookIsFav = favoris.contains(book.isbn)
+                        this.bookIsFav = favoris.contains(book)
                     }
 
                     // Mise à jour du bouton
@@ -63,22 +64,22 @@ class BookActivity : AppCompatActivity() {
                         if (this.bookIsFav) {
                             apiDao.removeBookFromUser(token,
                                 book.isbn,
-                                { response ->
+                                {
                                     this.bookIsFav = false
                                     this.updateFavButton()
                                 },
-                                { error ->
+                                {
                                     Toast.makeText(this, "Erreur lors de la suppression du favoris", Toast.LENGTH_SHORT).show()
                                 })
                         } else {
                             // Sinon on l'ajoute
                             apiDao.addBookToUser(token,
                                 book.isbn,
-                                { response ->
+                                {
                                     this.bookIsFav = true
                                     this.updateFavButton()
                                 },
-                                { error ->
+                                {
                                     Toast.makeText(this, "Erreur lors de l'ajout du favoris", Toast.LENGTH_SHORT).show()
                                 })
                         }

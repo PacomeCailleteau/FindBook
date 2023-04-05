@@ -23,6 +23,7 @@ class AccountActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_moncompte)
 
+        this.apiDao = ApiDao.getInstance(this)
         this.tokenManager = TokenManager(this)
 
         // -- éléments de la page -- //
@@ -74,7 +75,7 @@ class AccountActivity : AppCompatActivity() {
 
             // lance la requête pour changer le login
             this.apiDao.changeLogin(this.tokenManager.getToken(), newLogin,
-                { response ->
+                {
                     Toast.makeText(this, "Login changé", Toast.LENGTH_SHORT).show()
                 }, { error ->
                     // en cas d'erreur affiche le message d'erreur du serveur
@@ -118,6 +119,7 @@ class AccountActivity : AppCompatActivity() {
             // pour se déconnecter il suffit de supprimer le token
             this.tokenManager.setToken("")
             val connexion = Intent(this@AccountActivity, ConnexionActivity::class.java)
+            finishAffinity()
             startActivity(connexion)
         }
 
@@ -125,11 +127,12 @@ class AccountActivity : AppCompatActivity() {
         btnSupprimerCompte.setOnClickListener {
             // lance la requête pour supprimer le compte
             this.apiDao.deleteAccount(this.tokenManager.getToken(),
-                { response ->
+                {
                     Toast.makeText(this, "Compte supprimé", Toast.LENGTH_SHORT).show()
                     // supprime le token pour se déconnecter
                     this.tokenManager.setToken("")
                     val connexion = Intent(this@AccountActivity, ConnexionActivity::class.java)
+                    finishAffinity()
                     startActivity(connexion)
                 }, { error ->
                     Toast.makeText(this, "Erreur: ${error.message}", Toast.LENGTH_SHORT).show()

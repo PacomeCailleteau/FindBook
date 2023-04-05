@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageButton
 import android.widget.ListView
-import android.widget.SearchView
 import android.widget.Toast
 import com.example.books_android.dao.ApiDao
 import com.example.books_android.models.BookModel
@@ -51,9 +50,9 @@ class FavorisActivity : AppCompatActivity() {
 
                         // permet de récupérer les infos du livre
                         apiDao.findBookByIsbn(book.isbn, { response ->
-                            val book = Json.decodeFromString<BookModel>(response)
+                            val bookModel = Json.decodeFromString<BookModel>(response)
                             val intent = Intent(this, BookActivity::class.java)
-                                .putExtra("book", Json.encodeToString<BookModel>(book))
+                                .putExtra("book", Json.encodeToString<BookModel>(bookModel))
                             startActivity(intent)
                         }, {
                             Toast.makeText(this, "Erreur lors de la connexion", Toast.LENGTH_LONG)

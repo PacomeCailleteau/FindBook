@@ -21,7 +21,7 @@ class ConnexionActivity : AppCompatActivity() {
         setContentView(R.layout.activity_connexion)
 
         // -- Initialisation des classes -- //
-        this.apiDao = ApiDao(this)
+        this.apiDao = ApiDao.getInstance(this)
         this.tokenManager = TokenManager(this)
 
         // -- éléments de la page -- //
