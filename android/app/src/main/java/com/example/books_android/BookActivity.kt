@@ -18,7 +18,7 @@ class BookActivity : AppCompatActivity() {
         val btnHome = findViewById<ImageButton>(R.id.btnHome)
         val btnFavoris = findViewById<ImageButton>(R.id.btnFavoris)
         val btnLogo = findViewById<ImageButton>(R.id.btnLogo)
-        val btnParam = findViewById<ImageButton>(R.id.btnMoncompte)
+        val btnMonCompte = findViewById<ImageButton>(R.id.btnMoncompte)
 
         val titreBookBook = findViewById<TextView>(R.id.titreBookBook)
         val auteurBookBook = findViewById<TextView>(R.id.auteurBookBook)
@@ -36,7 +36,6 @@ class BookActivity : AppCompatActivity() {
             auteurBookBook.text = authorsString
         }
         val dateString = book.publishedDate
-        println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> $dateString")
         dateBookBook.text = dateString
         isbnBookBook.text = book.isbn
         descriptionBookBook.text = book.description
@@ -53,25 +52,20 @@ class BookActivity : AppCompatActivity() {
         btnLogo.setOnClickListener {
             val logo = Intent(this@BookActivity,MainActivity::class.java)
             startActivity(logo)
-            finish()
         }
 
         btnHome.setOnClickListener {
             val home = Intent(this@BookActivity,MainActivity::class.java)
             startActivity(home)
-            finish()
         }
 
         btnFavoris.setOnClickListener {
             val favoris = Intent(this@BookActivity,FavorisActivity::class.java)
             startActivity(favoris)
-            finish()
         }
 
-        btnParam.setOnClickListener {
-            val parametre = Intent(this@BookActivity,FavorisActivity::class.java)
-            startActivity(parametre)
-            finish()
+        btnMonCompte.setOnClickListener {
+            RedirectAccount.redirect(this@BookActivity)
         }
         // -----
 

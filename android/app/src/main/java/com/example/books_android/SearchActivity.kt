@@ -25,7 +25,7 @@ class SearchActivity : AppCompatActivity() {
         val btnHome = findViewById<ImageButton>(R.id.btnHome)
         val btnLogo = findViewById<ImageButton>(R.id.btnLogo)
         val btnFavoris = findViewById<ImageButton>(R.id.btnFavoris)
-        val btnParam = findViewById<ImageButton>(R.id.btnMoncompte)
+        val btnMonCompte = findViewById<ImageButton>(R.id.btnMoncompte)
         this.searchBar = findViewById<SearchView>(R.id.SearchBar)
         this.listView = findViewById<ListView>(R.id.list_view)
 
@@ -49,25 +49,20 @@ class SearchActivity : AppCompatActivity() {
 
 
         btnHome.setOnClickListener {
-            finish()
             val home = Intent(this@SearchActivity, MainActivity::class.java)
             startActivity(home)
         }
 
         btnLogo.setOnClickListener {
-            finish()
             val logo = Intent(this@SearchActivity, MainActivity::class.java)
             startActivity(logo)
         }
 
-        btnParam.setOnClickListener {
-            finish()
-            val param = Intent(this@SearchActivity, AccountActivity::class.java)
-            startActivity(param)
+        btnMonCompte.setOnClickListener {
+            RedirectAccount.redirect(this@SearchActivity)
         }
 
         btnFavoris.setOnClickListener {
-            finish()
             val favoris = Intent(this@SearchActivity, FavorisActivity::class.java)
             startActivity(favoris)
         }

@@ -28,7 +28,7 @@ class InscriptionActivity : AppCompatActivity() {
         val btnConnexion = findViewById<TextView>(R.id.textCreerCompteLink)
         val btnLogo = findViewById<ImageButton>(R.id.btnLogo)
         val btnFavoris = findViewById<ImageButton>(R.id.btnFavoris)
-        val btnParam = findViewById<ImageButton>(R.id.btnMoncompte)
+        val btnMonCompte = findViewById<ImageButton>(R.id.btnMoncompte)
         btnConnexion.paintFlags = btnConnexion.paintFlags or Paint.UNDERLINE_TEXT_FLAG
 
 
@@ -43,31 +43,25 @@ class InscriptionActivity : AppCompatActivity() {
         btnConnexion.setOnClickListener {
             val connexion = Intent(this@InscriptionActivity,ConnexionActivity::class.java)
             startActivity(connexion)
-            finish()
         }
 
         btnLogo.setOnClickListener {
             val logo = Intent(this@InscriptionActivity,MainActivity::class.java)
             startActivity(logo)
-            finish()
         }
 
         btnHome.setOnClickListener {
             val home = Intent(this@InscriptionActivity,MainActivity::class.java)
             startActivity(home)
-            finish()
         }
 
         btnFavoris.setOnClickListener {
             val favoris = Intent(this@InscriptionActivity,FavorisActivity::class.java)
             startActivity(favoris)
-            finish()
         }
 
-        btnParam.setOnClickListener {
-            val parametre = Intent(this@InscriptionActivity,AccountActivity::class.java)
-            startActivity(parametre)
-            finish()
+        btnMonCompte.setOnClickListener {
+            RedirectAccount.redirect(this@InscriptionActivity)
         }
         // -----
 
