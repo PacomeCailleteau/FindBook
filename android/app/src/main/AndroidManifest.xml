@@ -30,9 +30,6 @@
             android:name=".ConnexionActivity"
             android:exported="false" />
         <activity
-            android:name=".ListViewItem"
-            android:exported="false" />
-        <activity
             android:name=".BookActivity"
             android:exported="false" />
         <activity

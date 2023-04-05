@@ -19,41 +19,11 @@ class AccountActivity : AppCompatActivity() {
     private lateinit var apiDao: ApiDao
     private lateinit var tokenManager: TokenManager
 
-    private lateinit var userLogin: String
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_moncompte)
 
         this.tokenManager = TokenManager(this)
-
-        val redirectToConnexion = {
-            val connexion = Intent(this, ConnexionActivity::class.java)
-            startActivity(connexion)
-        }
-
-        if (!tokenManager.tokenExists()) {
-            redirectToConnexion()
-        } else {
-            this.apiDao = ApiDao(this)
-            this.apiDao.connectWithToken(tokenManager.getToken(),
-                { response ->
-                    // L'utilisateur est connecté
-                    // On affiche la page mon compte
-                    setContentView(R.layout.activity_moncompte)
-                    println(response)
-                    this.userLogin = JsonPath.parse(response)?.read<String>("$.login")!!
-                    println("User: ${this.userLogin}")
-                    this.init()
-                }, { error ->
-                    // L'utilisateur n'est pas connecté
-                    this.tokenManager.setToken("")
-                    redirectToConnexion()
-                }
-            )
-        }
-    }
-
-    fun init() {
 
         // -- éléments de la page -- //
         // navigation
@@ -76,25 +46,23 @@ class AccountActivity : AppCompatActivity() {
         // -----
 
         // Remplissage du champ login
-        editTextLogin.hint = this.userLogin
+        val userLogin = intent.getStringExtra("userLogin")
+        editTextLogin.hint = userLogin
 
 
         // -- Redirection vers les autres activités -- //
         btnLogo.setOnClickListener {
             val logo = Intent(this@AccountActivity,MainActivity::class.java)
-            finish()
             startActivity(logo)
         }
 
         btnHome.setOnClickListener {
             val home = Intent(this@AccountActivity,MainActivity::class.java)
-            finish()
             startActivity(home)
         }
 
         btnFavoris.setOnClickListener {
             val favoris = Intent(this@AccountActivity,FavorisActivity::class.java)
-            finish()
             startActivity(favoris)
         }
         // -----
@@ -141,7 +109,6 @@ class AccountActivity : AppCompatActivity() {
         btnSeDeconnecter.setOnClickListener {
             this.tokenManager.setToken("")
             val connexion = Intent(this@AccountActivity, ConnexionActivity::class.java)
-            finish()
             startActivity(connexion)
         }
 
@@ -152,7 +119,6 @@ class AccountActivity : AppCompatActivity() {
                     Toast.makeText(this, "Compte supprimé", Toast.LENGTH_SHORT).show()
                     this.tokenManager.setToken("")
                     val connexion = Intent(this@AccountActivity, ConnexionActivity::class.java)
-                    finish()
                     startActivity(connexion)
                 }, { error ->
                     Toast.makeText(this, "Erreur: ${error.message}", Toast.LENGTH_SHORT).show()

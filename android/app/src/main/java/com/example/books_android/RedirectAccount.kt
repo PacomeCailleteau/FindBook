@@ -1,0 +1,44 @@
+package com.example.books_android
+
+import android.app.Activity
+import android.content.Intent
+import com.example.books_android.dao.ApiDao
+import com.nfeld.jsonpathkt.JsonPath
+import com.nfeld.jsonpathkt.extension.read
+
+class RedirectAccount {
+    companion object {
+        /**
+         * Redirige vers la page de connexion si l'utilisateur n'est pas connecté
+         * Redirige vers la page mon compte si l'utilisateur est connecté
+         */
+        fun redirect(activity: Activity) {
+            val tokenManager = TokenManager(activity)
+            val apiDao = ApiDao(activity)
+
+            if (!tokenManager.tokenExists()) {
+                val connexion = Intent(activity, ConnexionActivity::class.java)
+                activity.startActivity(connexion)
+            } else {
+                // vérification de la connexion
+                apiDao.connectWithToken(tokenManager.getToken(),
+                    { response ->
+                        // L'utilisateur est connecté
+                        // On affiche la page mon compte
+                        val userLogin = JsonPath.parse(response)?.read<String>("$.login")!!
+
+                        val account = Intent(activity, AccountActivity::class.java)
+                            .putExtra("userLogin", userLogin)
+                        activity.startActivity(account)
+
+                    }, { error ->
+                        // L'utilisateur n'est pas connecté
+                        tokenManager.setToken("")
+                        val connexion = Intent(activity, ConnexionActivity::class.java)
+                        activity.startActivity(connexion)
+                    }
+                )
+            }
+        }
+    }
+}

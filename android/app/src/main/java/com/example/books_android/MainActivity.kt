@@ -12,6 +12,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val btnParam = findViewById<ImageButton>(R.id.btnMoncompte)
         val btnConnexion = findViewById<ImageButton>(R.id.btnConnexion)
+        val btnMonCompte = findViewById<ImageButton>(R.id.btnMoncompte)
         val btnFavoris = findViewById<ImageButton>(R.id.btnFavoris)
         val searchBar = findViewById<SearchView>(R.id.SearchBar)
 
@@ -27,8 +28,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         btnConnexion.setOnClickListener {
-            val connexion = Intent(this@MainActivity, ConnexionActivity::class.java)
-            startActivity(connexion)
+            RedirectAccount.redirect(this@MainActivity)
+        }
+
+        btnMonCompte.setOnClickListener {
+            RedirectAccount.redirect(this@MainActivity)
         }
         // -----
 
@@ -43,8 +47,6 @@ class MainActivity : AppCompatActivity() {
                     val search = Intent(this@MainActivity, SearchActivity::class.java)
                         .putExtra("textBar", query)
                     startActivity(search)
-
-
                     return true
                 }
             }

@@ -12,24 +12,20 @@ class FavorisActivity : AppCompatActivity() {
         setContentView(R.layout.activity_favoris)
 
         val btnHome = findViewById<ImageButton>(R.id.btnHome)
-        val btnParam = findViewById<ImageButton>(R.id.btnMoncompte)
+        val btnMonCompte = findViewById<ImageButton>(R.id.btnMoncompte)
         val btnLogo = findViewById<ImageButton>(R.id.btnLogo)
         val searchBar = findViewById<SearchView>(R.id.SearchBar)
 
         btnHome.setOnClickListener {
-            finish()
             val home = Intent(this@FavorisActivity,MainActivity::class.java)
             startActivity(home)
         }
 
-        btnParam.setOnClickListener {
-            finish()
-            val param = Intent(this@FavorisActivity,AccountActivity::class.java)
-            startActivity(param)
+        btnMonCompte.setOnClickListener {
+            RedirectAccount.redirect(this@FavorisActivity)
         }
 
         btnLogo.setOnClickListener {
-            finish()
             val logo = Intent(this@FavorisActivity,MainActivity::class.java)
             startActivity(logo)
         }
