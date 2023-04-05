@@ -11,7 +11,7 @@
         android:layout_width="253dp"
         android:layout_height="39dp"
         android:layout_marginTop="30dp"
-        android:text="Recherche"
+        android:text="@string/search_Search"
         android:textAlignment="center"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -102,19 +102,18 @@
         android:layout_marginTop="20dp"
         android:alwaysDrawnWithCache="true"
         android:iconifiedByDefault="false"
-        android:queryHint="Rechercher un livre"
+        android:queryHint="@string/search_SearchHint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titreFavoris2">
+        app:layout_constraintTop_toBottomOf="@+id/titreFavoris2"/>
 
-    </SearchView>
 
     <TextView
         android:id="@+id/tv_recherche"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="Recherche effectuée "
+        android:text="@string/search_TextNbSearch1"
         app:layout_constraintEnd_toStartOf="@+id/tv_nb_recherche"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="packed"
@@ -135,7 +134,7 @@
         android:id="@+id/tv_recherche3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=" fois"
+        android:text="@string/search_TextNbSearch2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/tv_nb_recherche"
