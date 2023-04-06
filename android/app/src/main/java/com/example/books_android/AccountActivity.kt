@@ -72,6 +72,8 @@ class AccountActivity : AppCompatActivity() {
         // changer le login
         btnChangerPseudo.setOnClickListener {
             val newLogin = editTextLogin.text.toString()
+            editTextLogin.hint = newLogin
+            editTextLogin.text = ""
 
             // lance la requête pour changer le login
             this.apiDao.changeLogin(this.tokenManager.getToken(), newLogin,

@@ -2,6 +2,7 @@
 **/books-sae.db
 **/books-sae-test.db
 **/coverage
+**/.nyc_output
 **/.idea
 .vscode
 
