@@ -60,6 +60,9 @@ function Compte (props){
                     removeCookie('token', {sameSite: "lax"})
                     setCookie("token", data.token, {sameSite: "lax"})
                     setUser(data)
+                    loginInput.placeholder = data.login
+                    // on affiche dans la div msg un message disant que le pass a été changé
+                    document.getElementById("msg").innerHTML = "Votre mot de passe a été changé"
                 }
                 // on vide les champs du form
                 passInput.value = ""
@@ -106,6 +109,7 @@ function Compte (props){
                 {/*formulaire de changement de mot de passe*/}
                 <form className="vertical" onSubmit={changePass}>
                     <p>Vous désirez changer votre mot de passe?</p>
+                    <div id={"error"}/>
                     <p>
                         Mot de passe actuel:<br />
                     <input type="password" name="pass" id="password" placeholder="mot de passe actuel" />
