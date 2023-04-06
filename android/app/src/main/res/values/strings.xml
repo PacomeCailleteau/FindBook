@@ -1,6 +1,47 @@
 <resources>
-    <string name="app_name">books-android</string>
-    <string name="param_tre">Paramètre</string>
-    <string name="sharedPref">sharedPref</string>
-    <string name="preference_file_key">preference_file_key</string>
+    <string name="app_name" translatable="false">books-android</string>
+
+    <string name="book_title">Titre</string>
+    <string name="book_author">Auteur(s)</string>
+    <string name="book_date">Date</string>
+    <string name="book_isbn" translatable="false">ISBN</string>
+    <string name="book_addBook">Ajouter aux favoris</string>
+    <string name="book_removeBook">Retirer des favoris</string>
+    <string name="book_description">Description</string>
+
+    <string name="connection_connexion">Connexion</string>
+    <string name="connection_TextLogin">Votre login :</string>
+    <string name="connection_TextPassword">Votre mot de passe :</string>
+    <string name="connection_TextConnect">Se connecter</string>
+    <string name="connection_NoAccount">Je n\'ai pas de compte ? Je m\'en</string>
+    <string name="connection_CreateAccount">crée un.</string>
+
+    <string name="favorite_title">Favoris</string>
+
+    <string name="register_TextConfirmRegister">Confirmer mot de passe :</string>
+    <string name="register_Create">Créer le compte</string>
+    <string name="register_Connect">connecte.</string>
+    <string name="register_AlreadyAccount">J\'ai déjà un compte ? Je me</string>
+    <string name="register_TextPass">Votre mot de passe :</string>
+    <string name="register_TextLogin">Votre login :</string>
+    <string name="register_TextRegister">Inscription</string>
+
+    <string name="main_Title">Bienvenue sur Findbook !</string>
+    <string name="main_UseSearchBar">Pour accéder au catalogue, veuillez effectuer une recherche</string>
+    <string name="main_Connect">Si vous n\'avez pas de compte, vous pouvez vous inscrire juste ici :</string>
+
+    <string name="account_MyAccount">Mon compte</string>
+    <string name="account_Login">Login :</string>
+    <string name="account_TextNewPassword">Nouveau mot de passe :</string>
+    <string name="account_TextConfirmNewPassword">Confirmation :</string>
+    <string name="account_DeleteAccount">Supprimer le compte</string>
+    <string name="account_ChangeLogin">Changer mon login</string>
+    <string name="account_TextChangePassword">Changer mon mot de passe</string>
+    <string name="account_TextDisconnect">Se déconnecter</string>
+
+    <string name="search_Search">Recherche</string>
+    <string name="search_SearchHint">Rechercher un livre</string>
+    <string name="search_TextNbSearch1">Recherche effectuée</string>
+    <string name="search_TextNbSearch2">fois</string>
+
 </resources>

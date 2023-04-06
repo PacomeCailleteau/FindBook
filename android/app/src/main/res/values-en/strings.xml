@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="book_title">Title</string>
+    <string name="book_author">Author(s)</string>
+    <string name="book_date">Date</string>
+    <string name="book_addBook">Add to favorites</string>
+    <string name="book_removeBook">Remove from favorites</string>
+    <string name="book_description">Description</string>
+    <string name="connection_connexion">Connection</string>
+    <string name="connection_TextLogin">Your login :</string>
+    <string name="connection_TextPassword">Your password :</string>
+    <string name="connection_TextConnect">Sign in</string>
+    <string name="connection_NoAccount">"No account ? I "</string>
+    <string name="connection_CreateAccount">create one</string>
+    <string name="favorite_title">Favorites</string>
+    <string name="register_TextConfirmRegister">Confirm password</string>
+    <string name="register_Create">Create the account</string>
+    <string name="register_Connect">sign in</string>
+    <string name="register_AlreadyAccount">"I have already an account ? I "</string>
+    <string name="register_TextPass">Your password :</string>
+    <string name="register_TextLogin">Your login :</string>
+    <string name="register_TextRegister">Register</string>
+    <string name="main_Title">Welcome to Findbook !</string>
+    <string name="main_UseSearchBar">"To acces to the catalog, please perfom a search "</string>
+    <string name="main_Connect">If you don\'t have account, you can sign up here :</string>
+    <string name="account_MyAccount">My account</string>
+    <string name="account_Login">Login :</string>
+    <string name="account_TextNewPassword">New password :</string>
+    <string name="account_TextConfirmNewPassword">Confirm :</string>
+    <string name="account_DeleteAccount">Delete the account</string>
+    <string name="account_ChangeLogin">Change my login</string>
+    <string name="account_TextChangePassword">Change my password</string>
+    <string name="account_TextDisconnect">Disconnect</string>
+    <string name="search_Search">Research</string>
+    <string name="search_SearchHint">Research a book</string>
+    <string name="search_TextNbSearch1">Research perfomed</string>
+    <string name="search_TextNbSearch2">times</string>
+</resources>

@@ -89,7 +89,7 @@
         android:layout_width="253dp"
         android:layout_height="39dp"
         android:layout_marginTop="30dp"
-        android:text="Favoris"
+        android:text="@string/favorite_title"
         android:textAlignment="center"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
