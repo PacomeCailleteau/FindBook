@@ -10,7 +10,7 @@ let tok = ""
 chai.use(chaiHttp)
 
 
-describe("user", () => {
+describe("user comportement normal", () => {
     let server;
 
     // avant chaque test, on lance le serveur
@@ -60,11 +60,11 @@ describe("user", () => {
         //vérifie que le login premier élément du tableau est bien test
         chai.expect(res.result[0].login).to.equal('test');
     });
-    
+
     it('affiche un utilisateur grâce à son token', async () => {
         const res = await server.inject({
             method: 'get',
-            url: 'localhost:3001/users/'+tok,
+            url: 'localhost:3001/users/' + tok,
         })
         //vérifie que le status code est 200
         chai.expect(res.statusCode).to.equal(200);
@@ -75,7 +75,7 @@ describe("user", () => {
     it('modifie le login du user', async () => {
         const res = await server.inject({
             method: "put",
-            url: 'localhost:3001/users/update/login/'+tok,
+            url: 'localhost:3001/users/update/login/' + tok,
             payload: {
                 login: "change"
             }
@@ -89,7 +89,7 @@ describe("user", () => {
     it("modifie le mot de passe du user", async () => {
         const res = await server.inject({
             method: "put",
-            url: 'localhost:3001/users/update/password/'+tok,
+            url: 'localhost:3001/users/update/password/' + tok,
             payload: {
                 password: "pass2"
             }
@@ -143,10 +143,29 @@ describe("user", () => {
         chai.expect(res.result.description).to.eql("La bataille entre les Kimeras Ants et les humains s'intensifie. Loin du palais royal, le roi et Netero mènent un combat acharné à l'issue des plus inattendues !! Pendant ce temps, Kirua retrouve Pâmu qui s'inquiétait pour Gon. Cependant, l'attitude de Pâmu reste encore partiellement incompréhensible...")
     })
 
-    it("ajoute un livre à la liste des livres de l'utilisateur", async () => {
+    it("ajoute un livre à la liste des favoris de l'utilisateur", async () => {
         const res = await server.inject({
             method: "post",
-            url: 'localhost:3001/users/addBook/'+tok,
+            url: 'localhost:3001/users/addBook/' + tok,
+            payload: {
+                isbn: "9782505014706"
+            }
+        })
+        // vérifie que le status code est 200
+        chai.expect(res.statusCode).to.eql(200)
+        // vérifie que le login est bien change
+        chai.expect(res.result.login).to.equal("change")
+        // vérifie que le livre est bien ajouté avec toutes les infos
+        chai.expect(res.result.books[0].isbn).to.equal("9782505014706")
+        chai.expect(res.result.books[0].title).to.eql("Hunter X Hunter")
+        chai.expect(res.result.books[0].cover).to.eql("")
+    })
+
+    it("book already in favorites : pas d'erreur", async () => {
+        // test d'ajout d'un livre déjà présent dans les favoris
+        const res = await server.inject({
+            method: "post",
+            url: 'localhost:3001/users/addBook/' + tok,
             payload: {
                 isbn: "9782505014706"
             }
@@ -164,7 +183,7 @@ describe("user", () => {
     it("supprime un livre de la liste des livres de l'utilisateur", async () => {
         const res = await server.inject({
             method: "delete",
-            url: 'localhost:3001/users/removeBook/'+tok+'/9782505014706',
+            url: 'localhost:3001/users/removeBook/' + tok + '/9782505014706',
         })
         // vérifie que le status code est 200
         chai.expect(res.statusCode).to.eql(200)
@@ -175,7 +194,7 @@ describe("user", () => {
     it("supprime un utilisateur", async () => {
         const res = await server.inject({
             method: "delete",
-            url: 'localhost:3001/users/delete/'+tok,
+            url: 'localhost:3001/users/delete/' + tok,
         })
         chai.expect(res.statusCode).to.eql(200)
         chai.expect(res.result.login).to.equal("change")
@@ -191,7 +210,20 @@ describe("user", () => {
         chai.expect(res.result.search).to.equal("hunter x hunter")
         chai.expect(typeof res.result.nb_results).to.equal("number")
     })
+});
 
+describe("user comportement inatendu", () => {
+    let server;
+
+    // avant chaque test, on lance le serveur
+    beforeEach(async () => {
+        server = await init();
+    });
+
+    // après chaque test, on arrête le serveur
+    afterEach(async () => {
+        await server.stop();
+    });
     /*==============================================================*/
     //tests comportement inattendu
     it("erreur isbn non trouvé get", async () => {
@@ -296,6 +328,51 @@ describe("user", () => {
         })
         chai.expect(res.statusCode).to.eql(403)
         chai.expect(res.result).to.eql({message: "Utilisateur inconnu"})
+    })
+
+    it("erreur user put login already exists", async () => {
+        //création d'un user
+        await server.inject({
+            method: "post",
+            url: 'localhost:3001/users/create',
+            payload: {
+                login: "cc",
+                password: "cc"
+            }
+        })
+        // création d'un second user
+        const user = await server.inject({
+            method: "post",
+            url: 'localhost:3001/users/create',
+            payload: {
+                login: "cc2",
+                password: "cc"
+            }
+        })
+        tok = user.result.token
+        // test de changement de login avec un login déjà existant
+        const res = await server.inject({
+            method: "put",
+            url: 'localhost:3001/users/update/login/' + tok,
+            payload: {
+                login: "cc"
+            }
+        })
+        chai.expect(res.statusCode).to.eql(403)
+        chai.expect(res.result).to.eql({message: "login déjà utilisé"})
+    })
+
+    it("erreur ajout d'un live aux favoris avec un isbn incorrect", async () => {
+        // test d'ajout d'un livre avec un isbn incorrect
+        const res = await server.inject({
+            method: "post",
+            url: 'localhost:3001/users/addBook/' + tok,
+            payload: {
+                isbn: "6665558884441"
+            }
+        })
+        chai.expect(res.statusCode).to.eql(403)
+        chai.expect(res.result).to.eql({message: "Livre introuvable"})
     })
 
 
