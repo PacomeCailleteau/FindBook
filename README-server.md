@@ -41,7 +41,7 @@ Pour relancer le serveur après les tests :
 ```
 
 
-
+Il se peut que certains tests ou certaines fonctionnalitées liés au nombre de recherche (google trends) ne fonctionnent plus. C'est lié au fait que notre nombre de requête vers cette api est limité et que nous avons atteint le maximum.
 
 
 
