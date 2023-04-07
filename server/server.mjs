@@ -6,7 +6,7 @@ import Joi from "joi";
 
 import { userController } from "./controller/userController.mjs";
 import { bookController } from "./controller/bookController.mjs";
-import {statController} from "./controller/statController.mjs";
+import { statController } from "./controller/statController.mjs";
 
 
 // --- patterns --- //
