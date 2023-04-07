@@ -41,10 +41,13 @@ Pour relancer le serveur après les tests :
 ```
 
 
-Il se peut que certains tests ou certaines fonctionnalitées liés au nombre de recherche (google trends) ne fonctionnent plus. C'est lié au fait que notre nombre de requête vers cette api est limité et que nous avons atteint le maximum.
+Il se peut que certains tests ou certaines fonctionnalités liés au nombre de recherches (google trends) ne fonctionnent plus. C'est lié au fait que notre nombre de requêtes vers cette api est limité et que nous avons atteint le maximum. Si vous voulez avoir accès à cette api, il faut se [créer un compte](https://serpapi.com/users/sign_in) puis récupérer la clé d'api.
+Ensuite il faut ouvrir le fichier /server/dao/statDao.mjs
+À présent, il faut copier coller votre clé à la ligne 7 après 
+```js 
+&api_key=
+```
 
-
-
-
+Normalement cette clé est valide : 21681526c563e630603f40e72ebdfd98145bf451e73137229482e6bce28b2b7a
 
 
