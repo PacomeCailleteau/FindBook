@@ -28,7 +28,7 @@ Voici les différentes étapes pour déployer le projet :
 
 Se rendre dans le répertoire du serveur:
 ```bash
-  cd serveur
+  cd server
 ```
 
 Installer la bonne version de node :

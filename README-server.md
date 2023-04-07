@@ -11,7 +11,7 @@ Installer le projet :
 ```
 Se rendre dans le répertoire du serveur:
 ```bash
-  cd serveur
+  cd server
 ```
 
 Lancer le serveur la première fois :  
