@@ -13,6 +13,11 @@ function Connexion (props) {
     const [cookies, setCookie, removeCookie] = useCookies(['token', {sameSite: "lax"}]);
     const nav = useNavigate()
 
+    //si le token est définie alors on renvoie l'utilisateur vers son compte
+    if(token !== undefined){
+        nav('/compte')
+    }
+
     /**
      * connecte l'utilisateur et le redirige vers la page d'accueil
      * @param event

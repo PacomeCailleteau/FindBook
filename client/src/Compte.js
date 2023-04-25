@@ -20,6 +20,15 @@ function Compte (props){
         });
     }, []);
 
+    //si le token est undefined alors on affiche un message pour dire que l'utilisateur n'est pas connecté et un lien pour aller sur la page de connexion
+    if(token == undefined){
+        return (
+            <div className={"pas-connecte"}>
+                <p>Vous n'êtes pas connecté, pour vous connecter <span><NavLink to="/connexion">cliquer ici.</NavLink></span></p>
+            </div>
+        )
+    }
+
     /**
      * supprime le compte de l'utilisateur et le redirige vers la page d'accueil
      */
