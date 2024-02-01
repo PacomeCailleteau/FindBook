@@ -7,7 +7,7 @@
 Installer le projet :
 
 ```bash
-  git clone [https://gitlab.univ-nantes.fr/pub/but/but2/sae4-real-01/eq_init_02_01_cailleteau-pacome_chusseau-nicolas_marthy-mathieu_tranchet-leo_vandemeulebroucke-bertin-nolan.git](https://github.com/PacomeCailleteau/FindBook.git)
+  git clone https://github.com/PacomeCailleteau/FindBook.git
 ```
     
 ## Déploiement
